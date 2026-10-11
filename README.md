@@ -36,17 +36,17 @@ DAST kiểm tra ứng dụng khi đang hoạt động bằng cách gửi HTTP re
 
 ### 1.1. Thông tin đề tài
 
-| Thuộc tính | Nội dung |
-|---|---|
-| Mã repository | R03 |
-| Kỹ thuật kiểm thử | K08 — DAST |
-| Hệ thống | Snipe-IT |
-| Repository nguồn | `grokability/snipe-it` |
+| Thuộc tính                    | Nội dung                                       |
+| ----------------------------- | ---------------------------------------------- |
+| Mã repository                 | R03                                            |
+| Kỹ thuật kiểm thử             | K08 — DAST                                     |
+| Hệ thống                      | Snipe-IT                                       |
+| Repository nguồn              | `grokability/snipe-it`                         |
 | Công nghệ theo bảng phân công | PHP, Laravel 12, cơ sở dữ liệu quan hệ, Docker |
-| Công cụ chính | OWASP ZAP |
-| Môi trường mục tiêu | Instance local do nhóm triển khai |
-| Commit/tag | `TODO: nhóm chốt` |
-| Commit SHA | `TODO: cập nhật SHA đầy đủ` |
+| Công cụ chính                 | OWASP ZAP                                      |
+| Môi trường mục tiêu           | Instance local do nhóm triển khai              |
+| Commit/tag                    | `TODO: nhóm chốt`                              |
+| Commit SHA                    | `TODO: cập nhật SHA đầy đủ`                    |
 
 Thông tin công nghệ và phiên bản thực tế cần được đối chiếu với tag/commit nhóm chọn; không xem thông tin trong bảng phân công là thay thế cho việc kiểm tra source code.
 
@@ -74,13 +74,13 @@ Thông tin công nghệ và phiên bản thực tế cần được đối chi�
 
 ### 2.1. Danh sách thành viên
 
-| STT | MSSV | Họ tên | Email |
-|---:|---|---|---|
-| 1 | 2300003 | Nguyễn Lê Anh Tuấn | 2300003@dlu.edu.vn |
-| 2 | 2312610 | Nguyễn Trung Hiệp | 2312610@dlu.edu.vn |
-| 3 | 2312565 | Nguyễn Văn An | 2312565@dlu.edu.vn |
-| 4 | 2312588 | Ngô Văn Chương | 2312588@dlu.edu.vn |
-| 5 | 2312584 | Đỗ Duy Biên | 2312584@dlu.edu.vn |
+| STT | MSSV    | Họ tên             | Email              |
+| --: | ------- | ------------------ | ------------------ |
+|   1 | 2300003 | Nguyễn Lê Anh Tuấn | 2300003@dlu.edu.vn |
+|   2 | 2312610 | Nguyễn Trung Hiệp  | 2312610@dlu.edu.vn |
+|   3 | 2312565 | Nguyễn Văn An      | 2312565@dlu.edu.vn |
+|   4 | 2312588 | Ngô Văn Chương     | 2312588@dlu.edu.vn |
+|   5 | 2312584 | Đỗ Duy Biên        | 2312584@dlu.edu.vn |
 
 ### 2.2. Nguyên tắc phân công
 
@@ -97,6 +97,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 #### Nguyễn Trung Hiệp — Nhóm trưởng, phụ trách kiểm thử xác thực và phân quyền
 
 **Công việc chuyên môn**
+
 - Khảo sát luồng đăng nhập, đăng xuất, session và cơ chế xác thực liên quan.
 - Tìm hiểu vai trò/tài khoản thử nghiệm và chính sách quyền của chức năng được chọn.
 - Xây dựng test case cho truy cập chưa đăng nhập, truy cập vượt quyền và session sau logout.
@@ -105,12 +106,14 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 - Phân tích một số finding authentication/authorization đã được xác minh.
 
 **Công việc nhóm trưởng**
+
 - Lập kế hoạch, chia task, theo dõi tiến độ và các mốc bàn giao.
 - Tổ chức trao đổi để xử lý vướng mắc, thống nhất phạm vi.
 - Review tài liệu, test case và cấu hình trước khi tích hợp.
 - Tổng hợp báo cáo, chuẩn bị kịch bản demo và điều phối bảo vệ.
 
 **Sản phẩm bàn giao**
+
 - Tài liệu luồng xác thực/phân quyền trong phạm vi.
 - Bộ test case xác thực và phân quyền do Hiệp trực tiếp xây dựng.
 - Bằng chứng chạy test và bảng kết quả.
@@ -119,6 +122,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 #### Nguyễn Lê Anh Tuấn — Phụ trách phân tích hệ thống
 
 **Công việc chuyên môn**
+
 - Khảo sát cấu trúc repository tại commit/tag đã chốt.
 - Xác định routes, controllers, middleware, models, views và cấu hình liên quan.
 - Khảo sát 3–5 module/luồng nghiệp vụ thuộc phạm vi.
@@ -127,6 +131,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 - Phối hợp làm rõ luồng xác thực, phân quyền và dữ liệu đầu vào.
 
 **Sản phẩm bàn giao**
+
 - Tài liệu tổng quan cấu trúc source code.
 - Sơ đồ kiến trúc dựa trên triển khai thực tế.
 - Sơ đồ data flow hoặc mô tả luồng request của nghiệp vụ được chọn.
@@ -135,6 +140,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 #### Nguyễn Văn An — Phụ trách môi trường và dữ liệu thử nghiệm
 
 **Công việc chuyên môn**
+
 - Đọc hướng dẫn triển khai đúng phiên bản Snipe-IT.
 - Dựng ứng dụng bằng Docker hoặc phương thức nhóm thống nhất.
 - Cấu hình dịch vụ phụ thuộc, database, biến môi trường và port.
@@ -143,6 +149,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 - Kiểm tra luồng nghiệp vụ cơ bản và hỗ trợ thành viên dựng lại môi trường.
 
 **Sản phẩm bàn giao**
+
 - Hướng dẫn cài đặt/khởi chạy từ môi trường sạch.
 - Thông tin phiên bản công cụ, dịch vụ, port và cấu hình mẫu không chứa secret.
 - Bộ dữ liệu/tài khoản thử nghiệm và cách khởi tạo.
@@ -152,6 +159,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 #### Ngô Văn Chương — Phụ trách thiết kế kiểm thử và xác minh
 
 **Công việc chuyên môn**
+
 - Phân tích rủi ro bảo mật theo chức năng và luồng đã chọn.
 - Xác định mục tiêu, phạm vi, giả định, giới hạn và điều kiện kiểm thử.
 - Thiết kế test model, test scenario và test case.
@@ -161,6 +169,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 - Phối hợp xác minh cảnh báo ZAP, phân loại finding và ghi nhận false positive có căn cứ.
 
 **Sản phẩm bàn giao**
+
 - Tài liệu scope và risk analysis.
 - Bộ test scenario/test case có thể thực hiện lại.
 - Bảng tiêu chí đánh giá kết quả.
@@ -169,6 +178,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 #### Đỗ Duy Biên — Phụ trách OWASP ZAP và tự động hóa DAST
 
 **Công việc chuyên môn**
+
 - Cài đặt, làm quen và cấu hình OWASP ZAP.
 - Thiết lập proxy/context và giới hạn target đúng instance local.
 - Khám phá ứng dụng, thu thập request và thực hiện passive scan.
@@ -178,6 +188,7 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 - Xuất report, lưu log và phối hợp xác minh cảnh báo.
 
 **Sản phẩm bàn giao**
+
 - Cấu hình ZAP/context và hướng dẫn sử dụng.
 - File automation và script chạy scan đã được kiểm tra.
 - Báo cáo scan gốc, log và thông tin lần chạy.
@@ -188,19 +199,19 @@ Mỗi thành viên có một mảng chuyên môn và sản phẩm đầu ra cụ
 
 Ký hiệu: **A** — chịu trách nhiệm chính; **R** — trực tiếp thực hiện; **C** — phối hợp/review.
 
-| Hạng mục | Hiệp | Anh Tuấn | Văn An | Văn Chương | Duy Biên |
-|---|:---:|:---:|:---:|:---:|:---:|
-| Quản lý tiến độ, tích hợp | A/R | C | C | C | C |
-| Phân tích source code/kiến trúc | C | A/R | C | C | C |
-| Dựng Docker và database | C | C | A/R | C | C |
-| Tạo dữ liệu và tài khoản test | C | C | A/R | R | C |
-| Phân tích scope và rủi ro | R | C | C | A/R | C |
-| Test case authentication/authorization | A/R | C | C | R | C |
-| Test case input validation | C | C | C | A/R | R |
-| Cấu hình OWASP ZAP | C | C | C | C | A/R |
-| Automation và chạy scan | C | C | C | R | A/R |
-| Xác minh finding | R | C | C | A/R | R |
-| Tổng hợp báo cáo và demo | A/R | R | R | R | R |
+| Hạng mục                               | Hiệp | Anh Tuấn | Văn An | Văn Chương | Duy Biên |
+| -------------------------------------- | :--: | :------: | :----: | :--------: | :------: |
+| Quản lý tiến độ, tích hợp              | A/R  |    C     |   C    |     C      |    C     |
+| Phân tích source code/kiến trúc        |  C   |   A/R    |   C    |     C      |    C     |
+| Dựng Docker và database                |  C   |    C     |  A/R   |     C      |    C     |
+| Tạo dữ liệu và tài khoản test          |  C   |    C     |  A/R   |     R      |    C     |
+| Phân tích scope và rủi ro              |  R   |    C     |   C    |    A/R     |    C     |
+| Test case authentication/authorization | A/R  |    C     |   C    |     R      |    C     |
+| Test case input validation             |  C   |    C     |   C    |    A/R     |    R     |
+| Cấu hình OWASP ZAP                     |  C   |    C     |   C    |     C      |   A/R    |
+| Automation và chạy scan                |  C   |    C     |   C    |     R      |   A/R    |
+| Xác minh finding                       |  R   |    C     |   C    |    A/R     |    R     |
+| Tổng hợp báo cáo và demo               | A/R  |    R     |   R    |     R      |    R     |
 
 Ma trận là kế hoạch ban đầu; cập nhật nếu công việc thực tế thay đổi.
 
@@ -208,14 +219,14 @@ Ma trận là kế hoạch ban đầu; cập nhật nếu công việc thực t�
 
 ### 3.1. Phạm vi nghiệp vụ dự kiến
 
-| Nhóm chức năng | Luồng khảo sát | Rủi ro cần xem xét |
-|---|---|---|
-| Authentication | Đăng nhập, đăng xuất, trang yêu cầu xác thực | Truy cập chưa xác thực, xử lý session |
-| Authorization | Tài khoản có quyền khác nhau truy cập chức năng | Truy cập/thao tác vượt quyền |
-| Asset management | Xem, tạo, cập nhật, xóa hoặc cấp phát tài sản | Kiểm soát quyền, toàn vẹn dữ liệu |
-| User/Administration | Trang/endpoint quản trị được đưa vào scope | Kiểm soát truy cập theo vai trò |
-| Input/Form | Trường nhập liệu được chọn | Dữ liệu bất thường, dấu hiệu XSS |
-| HTTP security | Header và phản hồi HTTP | Đối chiếu checklist bảo mật |
+| Nhóm chức năng      | Luồng khảo sát                                  | Rủi ro cần xem xét                    |
+| ------------------- | ----------------------------------------------- | ------------------------------------- |
+| Authentication      | Đăng nhập, đăng xuất, trang yêu cầu xác thực    | Truy cập chưa xác thực, xử lý session |
+| Authorization       | Tài khoản có quyền khác nhau truy cập chức năng | Truy cập/thao tác vượt quyền          |
+| Asset management    | Xem, tạo, cập nhật, xóa hoặc cấp phát tài sản   | Kiểm soát quyền, toàn vẹn dữ liệu     |
+| User/Administration | Trang/endpoint quản trị được đưa vào scope      | Kiểm soát truy cập theo vai trò       |
+| Input/Form          | Trường nhập liệu được chọn                      | Dữ liệu bất thường, dấu hiệu XSS      |
+| HTTP security       | Header và phản hồi HTTP                         | Đối chiếu checklist bảo mật           |
 
 Endpoint, vai trò và hành vi thực tế sẽ được xác nhận trên phiên bản đã khóa. Không mặc định mọi tài khoản thường có cùng quyền hoặc mọi chức năng đều quét tự động được.
 
@@ -241,14 +252,14 @@ Nhóm checkout đúng tag/commit đã thống nhất để mọi thành viên l�
 
 ### 4.2. Thành phần cần khảo sát
 
-| Thành phần | Nội dung tìm hiểu | Liên hệ kiểm thử |
-|---|---|---|
-| Routes | Route web/API, middleware, endpoint | Xác định bề mặt kiểm thử |
-| Controllers | Tiếp nhận và xử lý request | Theo dõi luồng xử lý |
-| Middleware/Auth | Xác thực, session, kiểm soát truy cập | Authentication/authorization |
-| Models/Database | Dữ liệu người dùng, tài sản và quan hệ | Toàn vẹn dữ liệu |
-| Views/Forms | Biểu mẫu và nội dung hiển thị | Input/output, dấu hiệu XSS |
-| Config/Deployment | Cấu hình ứng dụng và dịch vụ | Tái lập môi trường, rà soát cấu hình |
+| Thành phần        | Nội dung tìm hiểu                      | Liên hệ kiểm thử                     |
+| ----------------- | -------------------------------------- | ------------------------------------ |
+| Routes            | Route web/API, middleware, endpoint    | Xác định bề mặt kiểm thử             |
+| Controllers       | Tiếp nhận và xử lý request             | Theo dõi luồng xử lý                 |
+| Middleware/Auth   | Xác thực, session, kiểm soát truy cập  | Authentication/authorization         |
+| Models/Database   | Dữ liệu người dùng, tài sản và quan hệ | Toàn vẹn dữ liệu                     |
+| Views/Forms       | Biểu mẫu và nội dung hiển thị          | Input/output, dấu hiệu XSS           |
+| Config/Deployment | Cấu hình ứng dụng và dịch vụ           | Tái lập môi trường, rà soát cấu hình |
 
 Tên thư mục và cách tổ chức phải được kiểm tra trực tiếp trên commit đã chọn.
 
@@ -300,28 +311,28 @@ Với mỗi luồng, ghi actor, điều kiện đầu vào, các bước chính,
 - Ghi dependency và phiên bản liên quan.
 - Liên kết endpoint được chọn với test scenario tương ứng.
 
-| Module/luồng | Thành phần khảo sát | Scenario liên quan | Trạng thái |
-|---|---|---|---|
-| Đăng nhập | Route, middleware/auth, controller | SEC-01, SEC-02 | Chưa khảo sát |
-| Đăng xuất/session | Session, middleware, response | SEC-06 | Chưa khảo sát |
-| Quản lý tài sản | Route/controller/model và quyền | SEC-04 | Chưa khảo sát |
-| Quản trị người dùng | Endpoint và kiểm soát quyền | SEC-03, SEC-05 | Chưa khảo sát |
-| Biểu mẫu | Form, validation, nơi hiển thị dữ liệu | SEC-07, SEC-08 | Chưa khảo sát |
-| HTTP response | Header và cấu hình phản hồi | SEC-09 | Chưa khảo sát |
+| Module/luồng        | Thành phần khảo sát                    | Scenario liên quan | Trạng thái    |
+| ------------------- | -------------------------------------- | ------------------ | ------------- |
+| Đăng nhập           | Route, middleware/auth, controller     | SEC-01, SEC-02     | Chưa khảo sát |
+| Đăng xuất/session   | Session, middleware, response          | SEC-06             | Chưa khảo sát |
+| Quản lý tài sản     | Route/controller/model và quyền        | SEC-04             | Chưa khảo sát |
+| Quản trị người dùng | Endpoint và kiểm soát quyền            | SEC-03, SEC-05     | Chưa khảo sát |
+| Biểu mẫu            | Form, validation, nơi hiển thị dữ liệu | SEC-07, SEC-08     | Chưa khảo sát |
+| HTTP response       | Header và cấu hình phản hồi            | SEC-09             | Chưa khảo sát |
 
 ## 6. Thiết lập môi trường
 
 ### 6.1. Công cụ dự kiến
 
-| Công cụ | Mục đích |
-|---|---|
-| Git | Quản lý mã nguồn và phiên bản |
-| Docker/Docker Compose | Triển khai ứng dụng và dịch vụ nếu cấu hình hỗ trợ |
-| VS Code hoặc IDE tương đương | Khảo sát source và chỉnh sửa script/tài liệu |
-| Trình duyệt | Thực hiện nghiệp vụ và kiểm thử qua proxy |
-| OWASP ZAP | Khám phá, scan và báo cáo |
-| GitHub Projects/Trello | Quản lý task và tiến độ |
-| Công cụ sơ đồ | Vẽ kiến trúc và data flow |
+| Công cụ                      | Mục đích                                           |
+| ---------------------------- | -------------------------------------------------- |
+| Git                          | Quản lý mã nguồn và phiên bản                      |
+| Docker/Docker Compose        | Triển khai ứng dụng và dịch vụ nếu cấu hình hỗ trợ |
+| VS Code hoặc IDE tương đương | Khảo sát source và chỉnh sửa script/tài liệu       |
+| Trình duyệt                  | Thực hiện nghiệp vụ và kiểm thử qua proxy          |
+| OWASP ZAP                    | Khám phá, scan và báo cáo                          |
+| GitHub Projects/Trello       | Quản lý task và tiến độ                            |
+| Công cụ sơ đồ                | Vẽ kiến trúc và data flow                          |
 
 ### 6.2. Quy trình on-boarding
 
@@ -356,13 +367,13 @@ docker compose logs
 
 ### 6.4. Smoke test
 
-| ID | Kiểm tra | Kết quả mong đợi | Bằng chứng |
-|---|---|---|---|
-| SMK-01 | Mở Base URL local | Trang ứng dụng phản hồi | URL và ảnh chụp |
-| SMK-02 | Đăng nhập tài khoản thử nghiệm | Đăng nhập thành công | Ảnh/video, không lộ secret |
-| SMK-03 | Xem danh sách tài sản | Dữ liệu hiển thị theo quyền | Ảnh chụp |
-| SMK-04 | Thực hiện thao tác được phép | Thao tác thành công | Dữ liệu trước/sau |
-| SMK-05 | Logout và truy cập lại trang bảo vệ | Phiên cũ không tiếp tục truy cập | Kết quả quan sát |
+| ID     | Kiểm tra                            | Kết quả mong đợi                 | Bằng chứng                 |
+| ------ | ----------------------------------- | -------------------------------- | -------------------------- |
+| SMK-01 | Mở Base URL local                   | Trang ứng dụng phản hồi          | URL và ảnh chụp            |
+| SMK-02 | Đăng nhập tài khoản thử nghiệm      | Đăng nhập thành công             | Ảnh/video, không lộ secret |
+| SMK-03 | Xem danh sách tài sản               | Dữ liệu hiển thị theo quyền      | Ảnh chụp                   |
+| SMK-04 | Thực hiện thao tác được phép        | Thao tác thành công              | Dữ liệu trước/sau          |
+| SMK-05 | Logout và truy cập lại trang bảo vệ | Phiên cũ không tiếp tục truy cập | Kết quả quan sát           |
 
 Nhóm cần demo thành công ít nhất 03 luồng nghiệp vụ theo yêu cầu đề tài.
 
@@ -383,18 +394,21 @@ Nhóm tập trung vào xác thực, phân quyền và dữ liệu đầu vào v�
 ### 7.3. Nhóm kiểm thử
 
 **Authentication**
+
 - Truy cập tài nguyên yêu cầu đăng nhập khi chưa có session.
 - Thử đăng nhập với thông tin không hợp lệ.
 - Kiểm tra hành vi sau logout.
 - Quan sát phản hồi liên quan đến xác thực.
 
 **Authorization**
+
 - Dùng tài khoản có quyền khác nhau truy cập cùng chức năng.
 - Kiểm tra thao tác xem/sửa/xóa tài nguyên theo quyền.
 - Kiểm tra endpoint quản trị với tài khoản không đủ quyền.
 - Xác minh response và tác động thực tế, không chỉ dựa vào status code.
 
 **Input validation và HTTP security**
+
 - Gửi dữ liệu bất thường vào trường được chọn.
 - Kiểm tra nội dung được phản hồi/hiển thị lại.
 - Đối chiếu HTTP security headers với checklist nhóm thống nhất.
@@ -402,12 +416,12 @@ Nhóm tập trung vào xác thực, phân quyền và dữ liệu đầu vào v�
 
 ### 7.4. Tiêu chí đánh giá
 
-| Trạng thái | Ý nghĩa |
-|---|---|
-| PASS | Hành vi thực tế đáp ứng expected result và chính sách đã xác định |
-| FAIL | Có bằng chứng hành vi vi phạm chính sách hoặc expected result |
-| INCONCLUSIVE | Chưa đủ điều kiện/bằng chứng để kết luận |
-| NOT RUN | Chưa thực hiện |
+| Trạng thái   | Ý nghĩa                                                           |
+| ------------ | ----------------------------------------------------------------- |
+| PASS         | Hành vi thực tế đáp ứng expected result và chính sách đã xác định |
+| FAIL         | Có bằng chứng hành vi vi phạm chính sách hoặc expected result     |
+| INCONCLUSIVE | Chưa đủ điều kiện/bằng chứng để kết luận                          |
+| NOT RUN      | Chưa thực hiện                                                    |
 
 Cảnh báo công cụ chỉ là finding cần xem xét. Nhóm ghi điều kiện, request/response, khả năng tái hiện và tác động trước khi xác nhận.
 
@@ -415,34 +429,34 @@ Cảnh báo công cụ chỉ là finding cần xem xét. Nhóm ghi điều kiệ
 
 Các scenario dưới đây là bộ khởi đầu. Sau khảo sát, bổ sung URL, method, vai trò, dữ liệu, bước thực hiện và expected response cụ thể.
 
-| ID | Scenario | Precondition | Expected result |
-|---|---|---|---|
-| SEC-01 | Truy cập trang cần đăng nhập khi chưa xác thực | Chưa có session | Yêu cầu đăng nhập hoặc từ chối truy cập |
-| SEC-02 | Đăng nhập với thông tin sai | Có tài khoản thử nghiệm | Không tạo phiên xác thực hợp lệ |
-| SEC-03 | Tài khoản quyền thấp truy cập chức năng quản trị | Có tài khoản quyền giới hạn | Bị từ chối theo chính sách quyền |
-| SEC-04 | Thử thao tác tài sản vượt quyền | Có tài khoản và dữ liệu thử nghiệm | Không đọc/ghi trái quyền |
-| SEC-05 | Truy cập endpoint quản lý người dùng bằng tài khoản không đủ quyền | Đã xác định endpoint và quyền | Request bị từ chối theo chính sách |
-| SEC-06 | Truy cập lại tài nguyên sau logout | Đã đăng nhập rồi đăng xuất | Session cũ không truy cập tài nguyên bảo vệ |
-| SEC-07 | Gửi dữ liệu bất thường vào biểu mẫu | Có quyền sử dụng form | Dữ liệu được xử lý an toàn |
-| SEC-08 | Kiểm tra dữ liệu đầu vào được phản hồi/hiển thị | Xác định trường hiển thị input | Không thực thi nội dung không an toàn |
-| SEC-09 | Kiểm tra HTTP security headers | Ứng dụng local hoạt động | Kết quả được đối chiếu checklist |
-| SEC-10 | Khám phá và quét endpoint trong scope | ZAP context đã giới hạn | Có log/report và cảnh báo để xác minh |
+| ID     | Scenario                                                           | Precondition                       | Expected result                             |
+| ------ | ------------------------------------------------------------------ | ---------------------------------- | ------------------------------------------- |
+| SEC-01 | Truy cập trang cần đăng nhập khi chưa xác thực                     | Chưa có session                    | Yêu cầu đăng nhập hoặc từ chối truy cập     |
+| SEC-02 | Đăng nhập với thông tin sai                                        | Có tài khoản thử nghiệm            | Không tạo phiên xác thực hợp lệ             |
+| SEC-03 | Tài khoản quyền thấp truy cập chức năng quản trị                   | Có tài khoản quyền giới hạn        | Bị từ chối theo chính sách quyền            |
+| SEC-04 | Thử thao tác tài sản vượt quyền                                    | Có tài khoản và dữ liệu thử nghiệm | Không đọc/ghi trái quyền                    |
+| SEC-05 | Truy cập endpoint quản lý người dùng bằng tài khoản không đủ quyền | Đã xác định endpoint và quyền      | Request bị từ chối theo chính sách          |
+| SEC-06 | Truy cập lại tài nguyên sau logout                                 | Đã đăng nhập rồi đăng xuất         | Session cũ không truy cập tài nguyên bảo vệ |
+| SEC-07 | Gửi dữ liệu bất thường vào biểu mẫu                                | Có quyền sử dụng form              | Dữ liệu được xử lý an toàn                  |
+| SEC-08 | Kiểm tra dữ liệu đầu vào được phản hồi/hiển thị                    | Xác định trường hiển thị input     | Không thực thi nội dung không an toàn       |
+| SEC-09 | Kiểm tra HTTP security headers                                     | Ứng dụng local hoạt động           | Kết quả được đối chiếu checklist            |
+| SEC-10 | Khám phá và quét endpoint trong scope                              | ZAP context đã giới hạn            | Có log/report và cảnh báo để xác minh       |
 
 ### 8.1. Mẫu test case chi tiết
 
-| Trường | Nội dung cần ghi |
-|---|---|
-| Test Case ID | Mã duy nhất, ví dụ `SEC-01` |
-| Requirement/Risk | Yêu cầu hoặc rủi ro liên quan |
-| Priority | Mức ưu tiên do nhóm thống nhất |
-| Preconditions | Trạng thái ứng dụng, tài khoản, quyền, dữ liệu |
-| Test data | Dữ liệu sử dụng, không ghi secret thật |
-| Steps | Các bước thực hiện tuần tự |
-| Expected result | Hành vi mong đợi có thể quan sát |
-| Actual result | Kết quả thực tế |
-| Status | PASS/FAIL/INCONCLUSIVE/NOT RUN |
-| Evidence | Log, ảnh, request/response hoặc report |
-| Tester/Date | Người thực hiện và ngày chạy |
+| Trường           | Nội dung cần ghi                               |
+| ---------------- | ---------------------------------------------- |
+| Test Case ID     | Mã duy nhất, ví dụ `SEC-01`                    |
+| Requirement/Risk | Yêu cầu hoặc rủi ro liên quan                  |
+| Priority         | Mức ưu tiên do nhóm thống nhất                 |
+| Preconditions    | Trạng thái ứng dụng, tài khoản, quyền, dữ liệu |
+| Test data        | Dữ liệu sử dụng, không ghi secret thật         |
+| Steps            | Các bước thực hiện tuần tự                     |
+| Expected result  | Hành vi mong đợi có thể quan sát               |
+| Actual result    | Kết quả thực tế                                |
+| Status           | PASS/FAIL/INCONCLUSIVE/NOT RUN                 |
+| Evidence         | Log, ảnh, request/response hoặc report         |
+| Tester/Date      | Người thực hiện và ngày chạy                   |
 
 ### 8.2. Kiểm thử chéo
 
@@ -513,23 +527,23 @@ Nhóm nghiên cứu ZAP Automation Framework để cấu hình quy trình chạy
 ### 10.1. Bảng test execution
 
 | Test Case ID | Người chạy | Ngày chạy | Kết quả | Evidence | Ghi chú |
-|---|---|---|---|---|---|
-| SEC-01 | TODO | TODO | NOT RUN | — | |
-| SEC-02 | TODO | TODO | NOT RUN | — | |
-| SEC-03 | TODO | TODO | NOT RUN | — | |
-| SEC-04 | TODO | TODO | NOT RUN | — | |
-| SEC-05 | TODO | TODO | NOT RUN | — | |
-| SEC-06 | TODO | TODO | NOT RUN | — | |
-| SEC-07 | TODO | TODO | NOT RUN | — | |
-| SEC-08 | TODO | TODO | NOT RUN | — | |
-| SEC-09 | TODO | TODO | NOT RUN | — | |
-| SEC-10 | TODO | TODO | NOT RUN | — | |
+| ------------ | ---------- | --------- | ------- | -------- | ------- |
+| SEC-01       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-02       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-03       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-04       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-05       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-06       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-07       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-08       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-09       | TODO       | TODO      | NOT RUN | —        |         |
+| SEC-10       | TODO       | TODO      | NOT RUN | —        |         |
 
 ### 10.2. Bảng finding
 
-| Finding ID | Tên cảnh báo | Risk | URL/Endpoint | Trạng thái xác minh | Evidence |
-|---|---|---|---|---|---|
-| F-001 | Chưa có dữ liệu | — | — | Chưa chạy | — |
+| Finding ID | Tên cảnh báo    | Risk | URL/Endpoint | Trạng thái xác minh | Evidence |
+| ---------- | --------------- | ---- | ------------ | ------------------- | -------- |
+| F-001      | Chưa có dữ liệu | —    | —            | Chưa chạy           | —        |
 
 Trạng thái xác minh có thể gồm `Confirmed`, `False positive`, `Needs investigation` hoặc `Not reproducible`. Mỗi kết luận cần có giải thích và bằng chứng tương ứng.
 
@@ -603,14 +617,14 @@ Cấu trúc có thể điều chỉnh theo cách triển khai. Không commit rep
 
 ### 12.2. Trạng thái task
 
-| Trạng thái | Ý nghĩa |
-|---|---|
-| Backlog | Đã ghi nhận, chưa sẵn sàng thực hiện |
-| Ready | Đã rõ yêu cầu và có thể bắt đầu |
-| In Progress | Đang thực hiện |
-| Review | Chờ review hoặc kiểm tra chéo |
-| Done | Đạt tiêu chí và có bằng chứng |
-| Blocked | Bị vướng phụ thuộc hoặc lỗi cần hỗ trợ |
+| Trạng thái  | Ý nghĩa                                |
+| ----------- | -------------------------------------- |
+| Backlog     | Đã ghi nhận, chưa sẵn sàng thực hiện   |
+| Ready       | Đã rõ yêu cầu và có thể bắt đầu        |
+| In Progress | Đang thực hiện                         |
+| Review      | Chờ review hoặc kiểm tra chéo          |
+| Done        | Đạt tiêu chí và có bằng chứng          |
+| Blocked     | Bị vướng phụ thuộc hoặc lỗi cần hỗ trợ |
 
 ### 12.3. Quy ước commit đề xuất
 
@@ -635,16 +649,16 @@ Không commit `.env`, mật khẩu, token, cookie hoặc dữ liệu nhạy cả
 
 Các mốc dưới đây là kế hoạch đề xuất, cần điều chỉnh theo lịch chính thức của giảng viên và tiến độ thực tế.
 
-| Thời gian dự kiến | Công việc | Người phụ trách chính | Đầu ra |
-|---|---|---|---|
-| 03/10–05/10 | Chốt commit/tag, tạo task board, bắt đầu dựng môi trường | Hiệp, Văn An | Mốc phiên bản, bảng task, môi trường khởi tạo |
-| 06/10–10/10 | Khảo sát source, nghiệp vụ, kiến trúc và data flow | Anh Tuấn, Hiệp | Tài liệu phân tích và sơ đồ |
-| 06/10–10/10 | Hoàn tất cài đặt, dữ liệu test và smoke test | Văn An | On-boarding, bằng chứng hệ thống chạy |
-| 11/10–13/10 | Chốt scope, risk analysis và test scenarios | Văn Chương, Hiệp | Test plan và bộ scenario |
-| 11/10–15/10 | Cấu hình ZAP, thử passive scan và xác minh ban đầu | Duy Biên, cả nhóm | Cấu hình, log/report thử nghiệm |
-| 16/10–19/10 | Hoàn thiện tài liệu, demo và báo cáo giữa kỳ | Cả nhóm, Hiệp điều phối | Báo cáo, slide, demo |
-| Sau giữa kỳ | Mở rộng test, automation, chạy kiểm thử và phân tích finding | Cả nhóm | Bộ test và kết quả thực nghiệm |
-| Trước cuối kỳ | Kiểm tra tái lập, hoàn thiện báo cáo và bảo vệ | Cả nhóm | Tài liệu và demo cuối cùng |
+| Thời gian dự kiến | Công việc                                                    | Người phụ trách chính   | Đầu ra                                        |
+| ----------------- | ------------------------------------------------------------ | ----------------------- | --------------------------------------------- |
+| 03/10–05/10       | Chốt commit/tag, tạo task board, bắt đầu dựng môi trường     | Hiệp, Văn An            | Mốc phiên bản, bảng task, môi trường khởi tạo |
+| 06/10–10/10       | Khảo sát source, nghiệp vụ, kiến trúc và data flow           | Anh Tuấn, Hiệp          | Tài liệu phân tích và sơ đồ                   |
+| 06/10–10/10       | Hoàn tất cài đặt, dữ liệu test và smoke test                 | Văn An                  | On-boarding, bằng chứng hệ thống chạy         |
+| 11/10–13/10       | Chốt scope, risk analysis và test scenarios                  | Văn Chương, Hiệp        | Test plan và bộ scenario                      |
+| 11/10–15/10       | Cấu hình ZAP, thử passive scan và xác minh ban đầu           | Duy Biên, cả nhóm       | Cấu hình, log/report thử nghiệm               |
+| 16/10–19/10       | Hoàn thiện tài liệu, demo và báo cáo giữa kỳ                 | Cả nhóm, Hiệp điều phối | Báo cáo, slide, demo                          |
+| Sau giữa kỳ       | Mở rộng test, automation, chạy kiểm thử và phân tích finding | Cả nhóm                 | Bộ test và kết quả thực nghiệm                |
+| Trước cuối kỳ     | Kiểm tra tái lập, hoàn thiện báo cáo và bảo vệ               | Cả nhóm                 | Tài liệu và demo cuối cùng                    |
 
 ### 13.1. Ưu tiên trước báo cáo giữa kỳ
 
