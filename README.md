@@ -1,737 +1,489 @@
-# README -- Phân công công việc nhóm
+# Đề tài môn Kiểm thử phần mềm: R03 – Snipe-IT kết hợp K08 – DAST
 
-## Đề tài môn Kiểm thử phần mềm: R03 -- Snipe-IT kết hợp K08 -- DAST
+> **Đơn vị:** Trường Đại học Đà Lạt – Khoa Công nghệ Thông tin  
+> **Học phần:** Kiểm thử phần mềm  
+> **Giảng viên:** Nguyễn Thế Lâm  
+> **Nhóm:** 5 thành viên  
+> **Nhóm trưởng:** Nguyễn Trung Hiệp  
+> **Trạng thái:** Kế hoạch thực hiện và phân công công việc; cập nhật kết quả sau khi kiểm chứng trên môi trường local.
 
-> **Giảng viên:** Nguyễn Thế Lâm\
-> **Đơn vị:** Khoa Công nghệ Thông tin -- Trường Đại học Đà Lạt\
-> **Mô hình làm việc:** Agile/Scrum, quản lý mã nguồn bằng Git\
-> **Kỹ thuật kiểm thử nâng cao:** DAST (Dynamic Application Security
-> Testing)\
-> **Công cụ DAST dự kiến:** OWASP ZAP\
-> **Phạm vi an toàn:** Chỉ kiểm thử phiên bản Snipe-IT do nhóm tự triển
-> khai trong môi trường local/lab được phép kiểm thử.
+---
+
+## Mục lục
+
+- [1. Giới thiệu đề tài](#1-giới-thiệu-đề-tài)
+- [2. Mục tiêu và phạm vi](#2-mục-tiêu-và-phạm-vi)
+- [3. Thông tin thành viên](#3-thông-tin-thành-viên)
+- [4. Nguyên tắc phân công](#4-nguyên-tắc-phân-công)
+- [5. Phân công chi tiết theo thành viên](#5-phân-công-chi-tiết-theo-thành-viên)
+- [6. Bảng đối chiếu phần việc với cấu trúc báo cáo A–H](#6-bảng-đối-chiếu-phần-việc-với-cấu-trúc-báo-cáo-ah)
+- [7. Quy trình làm việc của nhóm](#7-quy-trình-làm-việc-của-nhóm)
+- [8. Quy ước Git và quản lý mã nguồn](#8-quy-ước-git-và-quản-lý-mã-nguồn)
+- [9. Kế hoạch kiểm thử DAST](#9-kế-hoạch-kiểm-thử-dast)
+- [10. Mẫu thiết kế test case](#10-mẫu-thiết-kế-test-case)
+- [11. Deliverables và tiêu chí hoàn thành](#11-deliverables-và-tiêu-chí-hoàn-thành)
+- [12. Các mốc tiến độ](#12-các-mốc-tiến-độ)
+- [13. Thông tin môi trường cần ghi nhận](#13-thông-tin-môi-trường-cần-ghi-nhận)
+- [14. Tài liệu tham khảo](#14-tài-liệu-tham-khảo)
 
 ---
 
 ## 1. Giới thiệu đề tài
 
-### 1.1. Đề tài được lựa chọn
+Nhóm lựa chọn tổ hợp đề tài:
 
-Nhóm lựa chọn tổ hợp:
+- **R03 – Snipe-IT:** hệ thống mã nguồn mở phục vụ quản lý tài sản CNTT.
+- **K08 – DAST (Dynamic Application Security Testing):** kiểm thử bảo mật động, gửi các request tới ứng dụng đang chạy để tìm dấu hiệu lỗ hổng hoặc cấu hình bảo mật chưa phù hợp.
+- **Công cụ DAST dự kiến:** OWASP ZAP, theo danh sách gợi ý trong tài liệu hướng dẫn môn học.
+- **Kho mã nguồn tham khảo:** <https://github.com/grokability/snipe-it>
 
-- **R03 -- Snipe-IT:** phần mềm mã nguồn mở phục vụ quản lý tài sản
-  CNTT.
-- **K08 -- DAST:** kiểm thử bảo mật động, thực hiện kiểm tra ứng dụng
-  khi ứng dụng đang chạy.
+Nhóm đóng vai trò một **QA Team** tiếp nhận dự án mã nguồn mở. Công việc gồm hai phần bắt buộc: (1) phân tích hệ thống và thiết lập môi trường chạy; (2) lựa chọn phạm vi phù hợp, thiết kế kịch bản, thực thi DAST, thu thập bằng chứng và phân tích kết quả.
 
-Kho mã nguồn Snipe-IT theo hướng dẫn môn học:\
-https://github.com/grokability/snipe-it
+README này mô tả cách chia việc, phối hợp và các đầu ra dự kiến. Phân công là kế hoạch thực hiện; nhóm chỉ ghi nhận một kiểm thử là **PASS/FAIL** hoặc một phát hiện là **defect** sau khi đã chạy thử, lưu bằng chứng và xác minh.
 
-Tài liệu OWASP ZAP:\
-https://www.zaproxy.org/docs/
+## 2. Mục tiêu và phạm vi
 
-### 1.2. Mục tiêu
+### 2.1. Mục tiêu
 
-1.  Đọc hiểu cấu trúc tổng quan của Snipe-IT, xác định các thành phần và
-    luồng nghiệp vụ liên quan đến phạm vi kiểm thử.
-2.  Cài đặt và chạy Snipe-IT trong môi trường local hoặc Docker, ghi lại
-    cấu hình và các bước để thành viên khác có thể dựng lại.
-3.  Nghiên cứu DAST, các loại kiểm tra phù hợp, giới hạn, giả định và
-    tiêu chí đánh giá.
-4.  Xây dựng kịch bản kiểm thử bảo mật động tập trung vào một phạm vi
-    vừa sức, ưu tiên luồng đăng nhập, phiên làm việc, biểu mẫu và phân
-    quyền nếu có thể tiếp cận trong môi trường đã dựng.
-5.  Chạy OWASP ZAP trên hệ thống local được cấp phép, lưu cấu hình, log,
-    báo cáo và bằng chứng.
-6.  Xác minh thủ công các cảnh báo quan trọng, phân loại kết quả, phân
-    tích nguyên nhân và đề xuất hướng xử lý; không mặc định mọi cảnh báo
-    đều là lỗ hổng đã được xác nhận.
-7.  Hoàn thiện báo cáo, README chạy lại, lịch sử commit và tài liệu
-    trình bày.
+1. Đọc hiểu cấu trúc mã nguồn, module và dependency quan trọng của Snipe-IT.
+2. Dựng được ứng dụng trong môi trường **local** hoặc Docker; tài liệu hóa phiên bản, cấu hình, dữ liệu mẫu và các lệnh cần dùng.
+3. Mô tả kiến trúc ở mức component/container và luồng dữ liệu của 3–5 nghiệp vụ trọng tâm.
+4. Giải thích DAST, lý do chọn phạm vi, giả định, rủi ro và tiêu chí pass/fail.
+5. Dùng OWASP ZAP để thực hiện kiểm thử động trên ứng dụng local, thu thập log/report, xác minh phát hiện và phân tích nguyên nhân.
+6. Lưu mã nguồn, cấu hình, phiên bản repo và hướng dẫn để thành viên khác hoặc giảng viên có thể chạy lại.
 
-### 1.3. Phạm vi và nguyên tắc
+### 2.2. Phạm vi kiểm thử đề xuất
 
-- Nhóm không có mục tiêu kiểm thử toàn bộ Snipe-IT. Chọn khoảng **3--5
-  module hoặc luồng nghiệp vụ** có liên quan trực tiếp đến kiểm thử,
-  phù hợp thời gian và cấu hình máy.
-- Phạm vi cuối cùng phải được chốt sau khi cài đặt, khảo sát ứng dụng
-  và thống nhất trong nhóm.
-- Chỉ quét ứng dụng do nhóm triển khai trên máy cá nhân hoặc môi
-  trường lab được cho phép. **Không chạy active scan trên website công
-  khai, máy chủ bên thứ ba hoặc hệ thống chưa có quyền kiểm thử.**
-- Không ghi mật khẩu, token, cookie phiên hoặc dữ liệu nhạy cảm vào
-  Git, README hay báo cáo.
-- Không kết luận hệ thống an toàn tuyệt đối chỉ vì công cụ không phát
-  hiện cảnh báo.
-- Khóa phiên bản bằng release/tag hoặc commit SHA và lưu lại thông tin
-  này trong báo cáo.
-- Phân biệt rõ: cảnh báo do công cụ phát hiện, kết quả đã xác minh,
-  false positive/không xác nhận được và giới hạn kiểm thử.
+Nhóm sẽ chốt phạm vi sau khi dựng ứng dụng và khảo sát các luồng thực tế. Phạm vi ban đầu ưu tiên:
 
----
+- Đăng nhập, đăng xuất và quản lý session.
+- Kiểm soát truy cập theo vai trò/quyền trên các trang hoặc API được chọn.
+- Các form/đầu vào liên quan tới nghiệp vụ quản lý tài sản.
+- Các cấu hình bảo mật HTTP/cookie có thể quan sát được từ ứng dụng đang chạy.
+- Những endpoint và luồng liên quan trực tiếp tới các kịch bản trên.
 
-## 2. Thông tin thành viên
+Các luồng được chọn cuối cùng phải được ghi rõ trong báo cáo, kèm lý do chọn và điều kiện tiền đề. Không cần kiểm thử toàn bộ codebase nếu phạm vi đó quá lớn.
 
----
+### 2.3. Giới hạn an toàn bắt buộc
 
-                STT Mã sinh viên  Họ và tên     Email                Vai trò
+- **Chỉ quét instance do nhóm dựng và được phép kiểm thử trên máy local/lab.** Không chạy active scan vào website Internet, máy chủ công khai hoặc hệ thống của bên thứ ba.
+- Không đưa dữ liệu cá nhân/thông tin thật vào bộ dữ liệu kiểm thử; dùng tài khoản và dữ liệu giả lập.
+- Trước active scan, tạo dữ liệu dùng thử và sao lưu/reset môi trường vì một số request có thể làm thay đổi dữ liệu.
+- Giới hạn target và context trong OWASP ZAP; không quét domain ngoài phạm vi đã được nhóm phê duyệt.
+- Bảo vệ thông tin đăng nhập, token, file `.env` và các bí mật cấu hình; không commit các thông tin này lên Git.
 
----
+## 3. Thông tin thành viên
 
-                  1 2312610       Nguyễn Trung  2312610@dlu.edu.vn   **Nhóm
-                                  Hiệp                               trưởng**,
-                                                                     điều phối dự
-                                                                     án và phụ
-                                                                     trách phương
-                                                                     pháp DAST
+Thứ tự dưới đây đặt **Nguyễn Trung Hiệp trước Nguyễn Lê Anh Tuấn** theo yêu cầu của nhóm.
 
-                  2 2300003       Nguyễn Lê Anh 2300003@dlu.edu.vn   Phụ trách
-                                  Tuấn                               thiết lập môi
-                                                                     trường và
-                                                                     phân tích hệ
-                                                                     thống
+| STT | MSSV | Họ và tên | Email | Vai trò |
+|---:|---|---|---|---|
+| 1 | 2312610 | Nguyễn Trung Hiệp | 2312610@dlu.edu.vn | **Nhóm trưởng**; quản lý Git, điều phối tiến độ và phụ trách chính thiết kế test case |
+| 2 | 2300003 | Nguyễn Lê Anh Tuấn | 2300003@dlu.edu.vn | Phân tích kiến trúc, cấu trúc mã nguồn và luồng dữ liệu |
+| 3 | 2312565 | Nguyễn Văn An | 2312565@dlu.edu.vn | Thiết lập môi trường chạy và tài liệu cài đặt/onboarding |
+| 4 | 2312588 | Ngô Văn Chương | 2312588@dlu.edu.vn | Thiết lập OWASP ZAP, thực thi DAST và tự động hóa quy trình quét |
+| 5 | 2312584 | Đỗ Duy Bien | 2312584@dlu.edu.vn | Tổng hợp kết quả, xác minh phát hiện, phân tích nguyên nhân và báo cáo |
 
+> **Lưu ý:** Tên thành viên được ghi theo danh sách nhóm đã cung cấp. Nếu họ tên chính thức trong danh sách nhà trường có dấu khác, hãy sửa lại trước khi nộp báo cáo.
 
-                  3 2312565       Nguyễn Văn An 2312565@dlu.edu.vn   Phụ trách
-                                                                     thiết kế kịch
-                                                                     bản và tiêu
-                                                                     chí kiểm thử
+## 4. Nguyên tắc phân công
 
-                  4 2312588       Ngô Văn       2312588@dlu.edu.vn   Phụ trách
-                                  Chương                             triển khai
-                                                                     chạy quét
-                                                                     DAST và quản
-                                                                     lý kết quả kỹ
-                                                                     thuật
-
-                  5 2312584       Đỗ Duy Biên   2312584@dlu.edu.vn   Phụ trách
-                                                                     bằng chứng,
-                                                                     tài liệu tái
-                                                                     lập, tích hợp
-                                                                     báo cáo và hỗ
-                                                                     trợ quản lý
-                                                                     cấu hình
-
----
-
-> Mã sinh viên và email được ghi theo danh sách nhóm đã cung cấp. Nhóm
-> nên đối chiếu lại với danh sách chính thức trước khi nộp.
-
----
-
-## 3. Nguyên tắc phân công để cân bằng công việc
-
-- Mỗi thành viên có **một phần việc chính chịu trách nhiệm đến cùng**,
-  có sản phẩm bàn giao cụ thể.
-- Mỗi thành viên cùng tham gia review chéo ít nhất một phần của thành
-  viên khác.
-- Nhóm trưởng điều phối, theo dõi tiến độ và kiểm tra tính nhất quán;
-  không làm thay toàn bộ công việc của các thành viên.
-- Những phần cần phối hợp (dựng môi trường, chọn phạm vi, xác minh
-  cảnh báo, hoàn thiện báo cáo) được ghi rõ người chính và người hỗ
-  trợ.
-- Khối lượng được cân đối theo đầu ra: tài liệu phân tích/môi trường,
-  thiết kế kiểm thử, phương pháp DAST/điều phối, thực thi và phân tích
-  kết quả, tích hợp bằng chứng/tái lập. Sau Sprint đầu tiên, nhóm
-  trưởng rà soát lại khối lượng thực tế và điều chỉnh nếu có chênh
-  lệch.
-
----
-
-## 4. Bảng phân công tổng quan
-
----
-
-Thành viên Phần việc chính Công việc cụ thể Sản phẩm bàn giao
-
----
-
-**Nguyễn Trung Điều phối dự án Chốt scope với nhóm; Kế hoạch Sprint;
-Hiệp -- Nhóm và cơ sở phương quản lý Sprint/task; phần lý thuyết
-trưởng** pháp DAST nghiên cứu nguyên lý, DAST; phạm vi và
-giới hạn, giả định, tiêu chí đánh
-rủi ro và tiêu chí giá; biên bản
-pass/fail DAST; thống họp/quyết định;
-nhất cấu hình quét; checklist chất
-kiểm tra tiến độ và lượng
-chất lượng
-
-**Nguyễn Lê Anh Phân tích hệ Khảo sát repository, Tài liệu kiến
-Tuấn** thống và thiết dependency, cấu trúc trúc; sơ đồ;
-lập môi trường thư mục; dựng hướng dẫn cài
-Snipe-IT đặt; bằng chứng
-local/Docker; ghi ứng dụng khởi
-phiên bản, cấu hình, chạy
-lệnh chạy; lập sơ đồ  
- component/container  
- và mô tả luồng dữ  
- liệu
-
-**Nguyễn Văn An** Thiết kế mô hình Chọn luồng nghiệp Test plan; bảng
-và kịch bản kiểm vụ/phạm vi cần kiểm test cases; dữ
-thử tra; xác định actor, liệu kiểm thử an
-quyền và tiền điều toàn; checklist
-kiện; lập test xác minh
-scenarios/cases;  
- chuẩn bị dữ liệu kiểm
-thử; xây dựng  
- checklist xác minh  
- thủ công
-
-**Ngô Văn Thực thi DAST và Cấu hình OWASP ZAP; Cấu hình/quy
-Chương** phân tích kỹ thực hiện kiểm tra trình chạy ZAP;
-thuật kết quả passive/active phù log và báo cáo
-hợp trên local; lưu quét; danh sách
-log/report; tái hiện phát hiện; hồ sơ
-cảnh báo trong phạm xác minh cảnh báo
-vi được phép; ghi  
- nhận bước tái hiện và
-phân loại kết quả
-
-**Đỗ Duy Biên** Bằng chứng, khả Tổ chức thư mục Thư mục evidence;
-năng tái lập và artifact; thu thập README tái lập;
-tích hợp báo cáo ảnh chụp bằng chứng bảng theo dõi
-hệ thống và luồng artifact; bản báo
-nghiệp vụ; kiểm tra cáo tích hợp;
-README để người khác checklist nộp bài
-chạy lại; ghi repo  
- tag/commit SHA, cấu  
- hình test và  
- dependency; ghép báo  
- cáo và hỗ trợ slide
-
----
-
----
+- Mỗi thành viên có **một mảng chính**, một đầu ra bàn giao cụ thể và phần phối hợp với các thành viên khác.
+- Khối lượng được cân bằng theo chuỗi công việc: phân tích hệ thống → dựng môi trường → thiết kế test → chạy DAST → xác minh và báo cáo.
+- Không thành viên nào chỉ làm việc hình thức. Mỗi người cần có commit/PR, tài liệu, bằng chứng kiểm thử hoặc phần trình bày thể hiện đóng góp thực tế.
+- Nguyễn Trung Hiệp giữ vai trò điều phối/Git và chủ trì thiết kế test case; các thành viên còn lại cùng góp ý kịch bản, kiểm tra chéo và hỗ trợ chạy test.
+- Các phần A–H trong cấu trúc báo cáo được gán người phụ trách chính tại Mục 6; cả nhóm vẫn chịu trách nhiệm đọc và rà soát báo cáo tổng thể.
 
 ## 5. Phân công chi tiết theo thành viên
 
-### 5.1. Nguyễn Trung Hiệp -- Nhóm trưởng, điều phối và phương pháp DAST
-
-**Mục tiêu:** Giữ tiến độ, thống nhất phương pháp kiểm thử và bảo đảm
-đầu ra của các thành viên ghép được thành một báo cáo nhất quán.
-
-**Nhiệm vụ:**
-
-1.  Tạo bảng công việc trên GitHub Projects, Trello hoặc Jira; chia task
-    theo Sprint, người phụ trách, hạn hoàn thành và trạng thái.
-2.  Thống nhất quy tắc Git, cách đặt tên branch, cách review pull
-    request và cách ghi commit.
-3.  Điều phối việc chốt phạm vi kiểm thử, mục tiêu, giả định và môi
-    trường an toàn.
-4.  Nghiên cứu DAST: nguyên lý, cách hoạt động, ưu điểm, giới hạn, loại
-    vấn đề có thể phát hiện và những vấn đề công cụ không thể tự xác
-    nhận.
-5.  Giải thích lý do lựa chọn OWASP ZAP và cách sử dụng phù hợp với phạm
-    vi môn học.
-6.  Cùng thành viên phụ trách thực thi thống nhất chế độ quét, phạm vi
-    URL, cách xử lý xác thực/session và cách lưu kết quả.
-7.  Xác định tiêu chí pass/fail cho từng kịch bản dựa trên expected
-    result; không dùng duy nhất số lượng cảnh báo làm tiêu chí thành
-    công.
-8.  Theo dõi rủi ro, gỡ vướng, tổ chức review định kỳ và kiểm tra các
-    phần A--H trước khi nộp.
-9.  Tổng hợp nội dung trình bày về mục tiêu, phương pháp, giới hạn và
-    kết luận; phân chia thời lượng thuyết trình công bằng cho cả nhóm.
-
-**Bàn giao:**
-
-- `docs/project-plan.md`
-- `docs/dast-methodology.md`
-- `docs/scope-and-acceptance-criteria.md`
-- Bảng task/Sprint và biên bản quyết định quan trọng
-- Checklist review báo cáo, mã nguồn và bản trình bày
-
-**Tiêu chí hoàn thành:**
-
-- Task có người chịu trách nhiệm, trạng thái và sản phẩm bàn giao.
-- Phạm vi DAST được giới hạn ở hệ thống local/lab có quyền kiểm thử.
-- Phương pháp, giả định, rủi ro và tiêu chí pass/fail được ghi rõ.
-- Có lịch sử commit/review thể hiện đóng góp của các thành viên.
-
-### 5.2. Nguyễn Lê Anh Tuấn -- Phân tích hệ thống và môi trường
-
-**Mục tiêu:** Bảo đảm nhóm hiểu hệ thống ở mức cần thiết và mọi thành
-viên có thể khởi chạy cùng một phiên bản Snipe-IT.
-
-**Nhiệm vụ:**
-
-1.  Clone repository Snipe-IT từ
-    https://github.com/grokability/snipe-it.
-2.  Khảo sát README, hướng dẫn triển khai, cấu trúc thư mục, framework,
-    dependency và các service cần thiết.
-3.  Cùng nhóm chọn release/tag hoặc commit SHA; ghi rõ phiên bản được sử
-    dụng.
-4.  Thiết lập Snipe-IT trên local hoặc bằng Docker theo phương án phù
-    hợp; ghi lại yêu cầu môi trường, biến cấu hình, cổng, cơ sở dữ
-    liệu/service và các lệnh build/run.
-5.  Ghi lại các bước xử lý lỗi cài đặt thường gặp nếu phát sinh.
-6.  Vẽ ít nhất một sơ đồ kiến trúc mức component/container; mô tả luồng
-    dữ liệu của 3--5 nghiệp vụ trọng tâm hoặc các luồng phù hợp với
-    scope đã chốt.
-7.  Giải thích 3--5 module liên quan trực tiếp tới kiểm thử; tránh mô tả
-    toàn bộ codebase không cần thiết.
-8.  Cung cấp bằng chứng ứng dụng chạy thành công và phối hợp xác nhận ít
-    nhất 3 luồng nghiệp vụ có thể thực hiện được.
-
-**Bàn giao:**
-
-- `docs/system-analysis.md`
-- `docs/architecture-diagram.png` hoặc tệp sơ đồ nguồn tương ứng
-- `docs/setup-guide.md`
-- Bằng chứng chạy ứng dụng trong `evidence/setup/`
-- Danh sách phiên bản, dependency và lệnh chạy
-
-**Tiêu chí hoàn thành:**
-
-- Thành viên khác làm theo tài liệu có thể dựng môi trường.
-- Có phiên bản repo cố định và cấu hình cần thiết nhưng không chứa bí
-  mật.
-- Sơ đồ và mô tả khớp với hệ thống thực tế đã dựng.
-- Có bằng chứng hệ thống chạy và ít nhất 3 luồng nghiệp vụ chạy được.
-
-### 5.3. Nguyễn Văn An -- Thiết kế test plan và kịch bản kiểm thử
-
-**Mục tiêu:** Chuyển phạm vi DAST thành các kịch bản rõ ràng, có thể
-thực hiện và đánh giá được.
-
-**Nhiệm vụ:**
-
-1.  Phối hợp với Tuấn và Hiệp chọn 3--5 luồng/module phù hợp, ưu tiên
-    những luồng liên quan đăng nhập, phiên làm việc, form và phân quyền
-    nếu hệ thống đã dựng hỗ trợ.
-2.  Xác định actor, quyền truy cập, điều kiện trước khi chạy, dữ liệu
-    cần chuẩn bị và trạng thái ban đầu.
-3.  Lập test scenarios/test cases cho các luồng được chọn; nêu rõ mục
-    tiêu, input, precondition, bước thực hiện, expected result và bằng
-    chứng cần lưu.
-4.  Lập checklist kiểm tra thủ công các cảnh báo do ZAP đưa ra, gồm bước
-    tái hiện, kết quả mong đợi, kết quả quan sát và cách phân loại.
-5.  Phối hợp với Chương để bảo đảm các kịch bản thiết kế có thể được
-    kiểm tra bằng cấu hình DAST hoặc kiểm tra thủ công bổ trợ.
-6.  Theo dõi tình trạng từng test case: chưa chạy, đạt, không đạt, bị
-    chặn hoặc chưa thể kết luận.
-7.  Đề xuất cách tái kiểm tra sau khi điều chỉnh cấu hình hoặc xử lý vấn
-    đề; không tự sửa mã nguồn sản phẩm nếu chưa được nhóm thống nhất.
-
-**Bàn giao:**
-
-- `docs/test-plan.md`
-- `docs/test-cases.md` hoặc bảng test case
-- `docs/manual-verification-checklist.md`
-- Bảng trạng thái chạy test và liên kết tới evidence
-
-**Mẫu test case đề xuất:**
-
-Trường Nội dung cần ghi
-
----
-
-Test Case ID Mã duy nhất, ví dụ `DAST-TC-01`
-Mục tiêu Vấn đề/hành vi cần kiểm tra
-Phạm vi/URL Đường dẫn trong môi trường local đã chốt
-Actor/Role Người dùng hoặc vai trò liên quan
-Preconditions Điều kiện trước khi chạy
-Input/Test data Dữ liệu kiểm thử không nhạy cảm
-Steps Các bước thực hiện
-Expected result Kết quả mong đợi
-Actual result Kết quả thực tế
-Status Pass / Fail / Blocked / Inconclusive
-Evidence Đường dẫn log, ảnh hoặc báo cáo
-Notes Giới hạn, ghi chú xác minh
-
-**Tiêu chí hoàn thành:**
-
-- Mỗi test case có input, precondition, expected result và dữ liệu
-  kiểm thử.
-- Có tiêu chí phân biệt lỗi thực tế với cảnh báo chưa xác minh.
-- Các test case được liên kết với kết quả và evidence tương ứng.
-
-### 5.4. Ngô Văn Chương -- Thực thi OWASP ZAP và quản lý phát hiện
-
-**Mục tiêu:** Thực hiện kiểm tra động có kiểm soát, tạo ra kết quả có
-thể kiểm tra lại và phân tích được.
-
-**Nhiệm vụ:**
-
-1.  Kiểm tra ứng dụng local đã chạy ổn định trước khi quét.
-2.  Cài đặt và cấu hình OWASP ZAP theo hướng dẫn chính thức.
-3.  Xác định target/scope đúng với địa chỉ local của nhóm; kiểm tra
-    không đưa host ngoài phạm vi vào mục tiêu quét.
-4.  Chạy các bước phù hợp như passive scan; chỉ chạy active scan khi đã
-    xác nhận môi trường là lab của nhóm và nhóm đã thống nhất phạm vi.
-5.  Nếu cần kiểm tra luồng yêu cầu xác thực, phối hợp thiết lập
-    phiên/đăng nhập theo cách phù hợp; ghi rõ phần nào được quét có xác
-    thực và phần nào không.
-6.  Lưu báo cáo ZAP, cấu hình cần thiết, log, thời điểm chạy và phiên
-    bản công cụ.
-7.  Phối hợp với An xác minh cảnh báo quan trọng; ghi lại bước tái hiện,
-    kết quả quan sát và phân loại như đã xác nhận, false positive hoặc
-    chưa đủ bằng chứng.
-8.  Không thực hiện khai thác phá hoại, không lấy cắp dữ liệu, không gây
-    tải quá mức và không thử nghiệm ngoài phạm vi được phép.
-9.  Đề xuất cách chạy lại để thành viên khác tái lập được kết quả.
-
-**Bàn giao:**
-
-- `tests/dast/` chứa script/cấu hình hỗ trợ chạy lại nếu có
-- `reports/zap/` chứa báo cáo xuất ra đã kiểm tra không có thông tin
-  nhạy cảm
-- `docs/findings.md` hoặc bảng phát hiện
-- `evidence/dast/` chứa bằng chứng đã loại bỏ thông tin bí mật
-- Hướng dẫn phiên bản công cụ và quy trình chạy
-
-**Mẫu ghi nhận phát hiện:**
-
-Trường Nội dung cần ghi
-
----
-
-Finding ID Mã phát hiện, ví dụ `DAST-F-01`
-Tên cảnh báo Theo báo cáo công cụ
-Mức độ Theo công cụ, kèm đánh giá của nhóm
-URL/Module Đích trong môi trường local
-Bằng chứng Request/response đã làm sạch, log hoặc ảnh
-Xác minh Các bước kiểm tra thủ công
-Kết luận Confirmed / False positive / Inconclusive
-Ảnh hưởng Mô tả tác động có bằng chứng
-Đề xuất Hướng xử lý hoặc kiểm tra bổ sung
-Giới hạn Điều kiện khiến chưa thể kết luận
-
-**Tiêu chí hoàn thành:**
-
-- Có báo cáo/log chạy quét và ghi lại cấu hình quan trọng.
-- Kết quả được liên kết với scope và thời điểm chạy.
-- Cảnh báo trọng yếu có ghi nhận xác minh, hoặc nêu rõ vì sao chưa thể
-  xác minh.
-- Không đưa thông tin nhạy cảm vào repository hoặc báo cáo.
-
-### 5.5. Đỗ Duy Biên -- Evidence, tái lập và tích hợp báo cáo
-
-**Mục tiêu:** Bảo đảm kết quả được lưu trữ có tổ chức và giảng
-viên/thành viên khác có thể kiểm tra lại.
-
-**Nhiệm vụ:**
-
-1.  Thiết kế cây thư mục cho tài liệu, test, báo cáo, log và bằng chứng.
-2.  Phối hợp với Tuấn thu thập ảnh/chứng cứ ứng dụng chạy thành công và
-    tối thiểu 3 luồng nghiệp vụ.
-3.  Kiểm tra hướng dẫn README/setup trên một môi trường khác hoặc nhờ
-    thành viên khác làm theo để phát hiện bước còn thiếu.
-4.  Ghi lại repository URL, release/tag hoặc commit SHA; lưu các cấu
-    hình test cần thiết và dependency.
-5.  Kiểm tra các tệp xuất từ ZAP trước khi commit; loại bỏ cookie,
-    token, mật khẩu, dữ liệu cá nhân và thông tin nhạy cảm.
-6.  Tổ chức evidence theo mã test case/finding để người đọc tìm được
-    bằng chứng nhanh.
-7.  Tích hợp nội dung từ các thành viên thành báo cáo thống nhất về
-    thuật ngữ, cấu trúc, hình ảnh, bảng và tham chiếu.
-8.  Chuẩn bị checklist sản phẩm nộp và hỗ trợ nhóm trưởng rà soát slide,
-    phân chia phần trình bày.
-
-**Bàn giao:**
-
-- `README.md` tại thư mục gốc
-- `docs/reproducibility.md`
-- `evidence/` được tổ chức theo nội dung
-- `docs/report-checklist.md`
-- Bản báo cáo đã tích hợp và danh sách tệp nộp
-
-**Tiêu chí hoàn thành:**
-
-- Tài liệu cho biết cách dựng và chạy lại test trên máy mới.
-- Repo/tag/commit SHA và dependency được ghi lại.
-- Evidence được đặt tên rõ, không chứa bí mật.
-- Báo cáo có đủ các phần A--H theo yêu cầu môn học.
-
----
-
-## 6. Ma trận phân công theo cấu trúc báo cáo A--H
-
-Tài liệu môn học yêu cầu báo cáo cơ bản có các phần A--H. Bảng sau phân
-người chịu trách nhiệm chính và người phối hợp:
-
----
-
-Phần Nội dung bắt buộc Người chính Người phối hợp
-
----
-
-**A** Mục tiêu hệ thống, Nguyễn Lê Anh Nguyễn Trung Hiệp
-actor/use case, cây Tuấn  
- thư mục/module,  
- dependency, luồng dữ  
- liệu
-
-**B** Ít nhất 1 sơ đồ kiến Nguyễn Lê Anh Đỗ Duy Biên
-trúc Tuấn  
- component/container và  
- giải thích 3--5 module  
- liên quan kiểm thử
-
-**C** Môi trường, phiên bản, Nguyễn Lê Anh Đỗ Duy Biên
-lệnh build/run, Tuấn  
- DB/service, seed data;  
- bằng chứng hệ thống  
- chạy và ít nhất 3  
- luồng nghiệp vụ
-
-**D** Nguyên lý DAST, lý do Nguyễn Trung Hiệp Ngô Văn Chương
-chọn phạm vi, giả  
- định, rủi ro, tiêu chí  
- pass/fail
-
-**E** Test Nguyễn Văn An Ngô Văn Chương
-Model/Scenario/Case;  
- input, precondition,  
- expected  
- result/invariant, dữ  
- liệu test
-
-**F** Mã nguồn Ngô Văn Chương Nguyễn Trung
-test/harness/script có Hiệp, Đỗ Duy Biên
-thể chạy lại; README,  
- lệnh chạy và  
- dependency
-
-**G** Log/report/metrics; Ngô Văn Chương Nguyễn Văn An,
-phát hiện hoặc hành vi Nguyễn Trung Hiệp
-bất thường; phân tích  
- nguyên nhân; nếu không  
- có lỗi thì chứng minh  
- phạm vi/coverage/tiêu  
- chí đã đạt
-
-**H** Pin commit/tag repo; Đỗ Duy Biên Nguyễn Lê Anh
-lưu cấu hình test; Tuấn, Ngô Văn
-hướng dẫn người khác Chương
-chạy lại trên máy mới
-
----
-
-**Lưu ý:** Đây là người chịu trách nhiệm chính, không có nghĩa các thành
-viên khác không cần đọc hoặc review phần đó. Mỗi phần phải được ít nhất
-một thành viên khác kiểm tra trước khi tích hợp.
-
----
-
-## 7. Quy trình làm việc Agile/Scrum đề xuất
-
-### Sprint 0 -- Chốt đề tài và tổ chức công việc
-
-**Việc cần làm:**
-
-- Xác nhận 5 thành viên, vai trò và phạm vi ban đầu.
-- Chốt tổ hợp R03 + K08; kiểm tra yêu cầu đăng ký theo lớp.
-- Tạo repository Git và bảng quản lý task.
-- Chốt quy ước branch, commit, pull request và review.
-- Chọn phạm vi môi trường thử nghiệm; thống nhất chỉ quét local/lab.
-- Ghi lại repository, tag/release hoặc commit SHA dự kiến sử dụng.
-
-**Đầu ra:** danh sách thành viên, kế hoạch công việc, repository nhóm,
-bảng task, phạm vi ban đầu.
-
-### Sprint 1 -- Phân tích và dựng hệ thống
-
-**Việc cần làm:**
-
-- Tuấn khảo sát codebase và dựng ứng dụng.
-- Hiệp theo dõi task và xác nhận phạm vi với cả nhóm.
-- An khảo sát các luồng nghiệp vụ có thể dùng làm kịch bản.
-- Chương kiểm tra khả năng truy cập ứng dụng từ công cụ kiểm thử.
-- Biên kiểm tra hướng dẫn setup và thu thập bằng chứng.
-
-**Đầu ra:** tài liệu cài đặt, sơ đồ kiến trúc bản đầu, bằng chứng ứng
-dụng chạy, danh sách luồng nghiệp vụ.
-
-### Sprint 2 -- Thiết kế DAST và test cases
-
-**Việc cần làm:**
-
-- Hiệp hoàn thiện cơ sở lý thuyết, phạm vi, giả định, rủi ro và tiêu
-  chí đánh giá.
-- An hoàn thiện test plan, test cases và checklist xác minh.
-- Chương thiết lập OWASP ZAP và thử quy trình quét trên local.
-- Tuấn hỗ trợ xác định module/URL và giải thích luồng nghiệp vụ.
-- Biên chuẩn hóa thư mục evidence và cấu trúc tài liệu.
-
-**Đầu ra:** test plan, test cases, cấu hình thử nghiệm, checklist
-evidence.
-
-### Sprint 3 -- Chạy kiểm thử, xác minh và phân tích
-
-**Việc cần làm:**
-
-- Chương chạy các bước kiểm thử đã thống nhất, lưu log và báo cáo.
-- An kiểm tra kết quả theo test cases và hỗ trợ xác minh cảnh báo.
-- Hiệp rà soát việc tuân thủ scope, tiêu chí pass/fail và giới hạn kết
-  luận.
-- Tuấn hỗ trợ phân tích module/luồng khi cần.
-- Biên tổ chức bằng chứng và kiểm tra không lộ thông tin nhạy cảm.
-
-**Đầu ra:** báo cáo ZAP, danh sách phát hiện, trạng thái test case,
-evidence và phân tích kết quả.
-
-### Sprint 4 -- Tích hợp báo cáo và chuẩn bị bảo vệ
-
-**Việc cần làm:**
-
-- Mỗi thành viên hoàn thiện phần mình phụ trách.
-- Biên tích hợp định dạng báo cáo và kiểm tra khả năng tái lập.
-- Tuấn kiểm tra tài liệu setup và sơ đồ.
-- An rà soát bảng test cases và liên kết bằng chứng.
-- Chương kiểm tra script/cấu hình chạy lại và báo cáo công cụ.
-- Hiệp rà soát tổng thể, điều phối peer-review và phân chia thuyết
-  trình.
-
-**Đầu ra:** báo cáo hoàn chỉnh A--H, README, mã nguồn/cấu hình test,
-log/report, slide và checklist nộp.
-
-> Mốc thời gian cụ thể cần được nhóm đối chiếu với lịch học và thông báo
-> của giảng viên. Theo hướng dẫn môn học, báo cáo giữa kỳ tập trung vào
-> demo hệ thống chạy, sơ đồ kiến trúc, tài liệu on-boarding và kế hoạch
-> áp dụng kỹ thuật kiểm thử; báo cáo cuối kỳ bao gồm demo automation, mã
-> nguồn kiểm thử và báo cáo tổng kết.
-
----
-
-## 8. Quy ước quản lý mã nguồn và task
-
-### 8.1. Cấu trúc thư mục đề xuất
-
-Cấu trúc dưới đây là gợi ý tổ chức sản phẩm nhóm; có thể điều chỉnh theo
-thực tế repository:
+### 5.1. Nguyễn Trung Hiệp — Nhóm trưởng, Git và test case
+
+**Phụ trách chính**
+
+1. Lập kế hoạch công việc, chia task, theo dõi trạng thái trên GitHub Projects/Trello/Jira hoặc bảng task thống nhất của nhóm.
+2. Quản lý repository của nhóm: quy ước branch/commit, tạo issue, xem xét pull request, xử lý xung đột và giữ nhánh chính ổn định.
+3. Chốt phạm vi DAST cùng nhóm; viết phần nguyên lý kỹ thuật, lý do chọn phạm vi, giả định, rủi ro và tiêu chí pass/fail.
+4. Chủ trì lập **Test Model/Test Scenarios/Test Cases**: ID, mục tiêu, precondition, tài khoản/role, input, expected result, dữ liệu test và bằng chứng cần lưu.
+5. Tổng hợp cấu hình kiểm thử cần cố định; phối hợp với thành viên phụ trách môi trường để ghi lại commit/tag/SHA của Snipe-IT và phiên bản công cụ.
+6. Kiểm tra README, đối chiếu báo cáo A–H và nhắc tiến độ bàn giao; phân công người rà soát chéo.
+
+**Đầu ra cần bàn giao**
+
+- Bảng kế hoạch/task có người phụ trách và trạng thái.
+- Quy ước Git và lịch sử commit/PR rõ ràng.
+- File test case, ví dụ `docs/test-cases.md`.
+- Phần báo cáo D và E; thông tin cố định phiên bản/config trong phần H phối hợp với Nguyễn Văn An.
+
+**Phối hợp**
+
+- Với Nguyễn Lê Anh Tuấn: bảo đảm test case gắn với module và luồng nghiệp vụ đã phân tích.
+- Với Nguyễn Văn An: chốt môi trường, phiên bản, dữ liệu mẫu và tài khoản test.
+- Với Ngô Văn Chương: rà soát khả năng thực thi kịch bản bằng OWASP ZAP và bổ sung kiểm tra thủ công khi cần.
+- Với Đỗ Duy Bien: thống nhất cách ghi trạng thái, mức độ nghiêm trọng, bằng chứng và kết luận của từng phát hiện.
+
+### 5.2. Nguyễn Lê Anh Tuấn — Phân tích hệ thống và kiến trúc
+
+**Phụ trách chính**
+
+1. Khảo sát repository Snipe-IT; mô tả mục tiêu hệ thống, actor/use case chính và các dependency/module liên quan.
+2. Đọc cây thư mục, xác định các module có liên quan trực tiếp tới đăng nhập/session, phân quyền và nghiệp vụ tài sản được chọn kiểm thử.
+3. Vẽ ít nhất một sơ đồ kiến trúc ở mức component/container và mô tả luồng dữ liệu của 3–5 nghiệp vụ trọng tâm.
+4. Ghi nhận các route/page/API và vai trò tương ứng ở mức cần thiết để Nguyễn Trung Hiệp thiết kế test case.
+5. Đề xuất các điểm cần quan sát bằng DAST và các giả định/giới hạn của phân tích mã nguồn.
+6. Rà soát phần mô tả kiến trúc trong báo cáo, đảm bảo sơ đồ khớp với hệ thống thực tế đã chạy.
+
+**Đầu ra cần bàn giao**
+
+- `docs/system-analysis.md`: mục tiêu, actor/use case, module/dependency và cây thư mục rút gọn.
+- Sơ đồ kiến trúc component/container (định dạng Mermaid, draw.io hoặc ảnh rõ nét).
+- Sơ đồ luồng dữ liệu của 3–5 nghiệp vụ; danh sách module/route cần kiểm thử.
+- Phần báo cáo A và B.
+
+**Phối hợp**
+
+- Với Nguyễn Văn An để sơ đồ và mô tả phù hợp cấu hình chạy thật.
+- Với Nguyễn Trung Hiệp để chuyển phát hiện phân tích thành kịch bản kiểm thử có điều kiện và kết quả mong đợi rõ ràng.
+
+### 5.3. Nguyễn Văn An — Thiết lập môi trường và hướng dẫn chạy
+
+**Phụ trách chính**
+
+1. Dựng Snipe-IT trên máy local hoặc bằng Docker theo hướng dẫn chính thức phù hợp với phiên bản nhóm chốt.
+2. Ghi rõ hệ điều hành, runtime, dependency, cơ sở dữ liệu/service, phiên bản, port, biến môi trường và bước tạo dữ liệu mẫu.
+3. Ghi lại lệnh cài đặt, build/run, kiểm tra trạng thái và cách reset dữ liệu dùng thử. Các lệnh chỉ được đưa vào README sau khi đã chạy thử và xác nhận.
+4. Tạo hoặc chuẩn bị dữ liệu giả lập, tài khoản/role phục vụ kiểm thử; không lưu mật khẩu thật vào repository.
+5. Chứng minh hệ thống khởi động thành công và tối thiểu **03 luồng nghiệp vụ chạy được** theo yêu cầu báo cáo; lưu ảnh chụp/log có chú thích.
+6. Hỗ trợ Ngô Văn Chương cấu hình target local cho ZAP và hỗ trợ cả nhóm dựng lại môi trường khi cần.
+
+**Đầu ra cần bàn giao**
+
+- `docs/setup-local.md` hoặc `docs/setup-docker.md` chứa hướng dẫn onboarding có thể làm lại từ máy mới.
+- Bảng phiên bản, biến môi trường mẫu không chứa bí mật, port và dependency.
+- Hướng dẫn dữ liệu seed/reset và tài khoản kiểm thử (ghi placeholder hoặc lưu qua kênh an toàn).
+- Bằng chứng hệ thống chạy thành công và ít nhất 03 luồng nghiệp vụ.
+- Phần báo cáo C; phối hợp hoàn thiện phần H về khả năng tái lập.
+
+**Phối hợp**
+
+- Với Nguyễn Lê Anh Tuấn để xác nhận module và luồng nghiệp vụ.
+- Với Ngô Văn Chương để đảm bảo ZAP quét đúng instance local, đúng port và đúng scope.
+
+### 5.4. Ngô Văn Chương — Công cụ DAST và chạy kiểm thử
+
+**Phụ trách chính**
+
+1. Tìm hiểu cấu hình và cách sử dụng OWASP ZAP phục vụ kiểm thử DAST cho web app có đăng nhập, form và session.
+2. Thiết lập target/context cho đúng instance local; cấu hình xác thực nếu cần và xác nhận ZAP không truy cập ngoài phạm vi.
+3. Chạy kiểm tra thụ động (passive scan) trước; chỉ chạy active scan sau khi nhóm xác nhận scope, có dữ liệu thử nghiệm và có thể reset môi trường.
+4. Thiết kế/cấu hình quy trình chạy lặp lại: cấu hình ZAP, script/hướng dẫn chạy, đầu ra report/log và vị trí lưu bằng chứng.
+5. Chạy các test case có thể hỗ trợ bằng ZAP; ghi nhận thời gian chạy, cấu hình, cảnh báo, false positive tiềm năng và giới hạn công cụ.
+6. Phối hợp xác minh phát hiện cùng Đỗ Duy Bien và Nguyễn Trung Hiệp; không kết luận lỗ hổng chỉ dựa vào cảnh báo tự động chưa được kiểm tra.
+
+**Đầu ra cần bàn giao**
+
+- `dast/` hoặc `tests/dast/`: cấu hình và script/harness cần thiết, loại bỏ thông tin xác thực nhạy cảm.
+- `docs/dast-runbook.md`: các bước chạy passive/active scan và cách lưu report.
+- OWASP ZAP report/log đã loại bỏ dữ liệu nhạy cảm; danh sách scan profile và target đã dùng.
+- Phần báo cáo F và nội dung kỹ thuật liên quan trong D/G.
+
+**Phối hợp**
+
+- Với Nguyễn Trung Hiệp để bảo đảm test case có thể thực thi và tiêu chí pass/fail nhất quán.
+- Với Nguyễn Văn An để xác minh target local và dữ liệu thử nghiệm.
+- Với Đỗ Duy Bien để phân loại phát hiện, tái hiện và ghi lại kết quả xác minh.
+
+### 5.5. Đỗ Duy Bien — Phân tích kết quả, xác minh và báo cáo
+
+**Phụ trách chính**
+
+1. Thu thập các report/log do Ngô Văn Chương tạo ra, chuẩn hóa vị trí lưu và liên kết mỗi phát hiện với test case/bằng chứng tương ứng.
+2. Phối hợp tái hiện thủ công các cảnh báo quan trọng để phân biệt lỗi thật, cảnh báo cần xem xét và false positive.
+3. Lập bảng phát hiện gồm ID, URL/module, mô tả, mức độ nghiêm trọng đề xuất, điều kiện tái hiện, kết quả kỳ vọng/thực tế, bằng chứng và trạng thái xác minh.
+4. Phân tích nguyên nhân gốc (Root Cause Analysis) ở mức bằng chứng cho phép; ghi rõ điều gì đã xác nhận và điều gì vẫn là giả thuyết.
+5. Tổng hợp số liệu: số lượng cảnh báo theo mức độ/nhóm, trạng thái xác minh, test case pass/fail/not run và hạn chế của lần quét.
+6. Nếu không tìm thấy lỗi đã xác minh, trình bày report, phạm vi đã quét, cấu hình/coverage đo được và ngưỡng/tiêu chí đã đạt; không tuyên bố hệ thống an toàn tuyệt đối.
+7. Hỗ trợ biên tập báo cáo tổng kết, slide, phần trình bày demo và bảng đánh giá đóng góp dựa trên công việc thực tế.
+
+**Đầu ra cần bàn giao**
+
+- `docs/findings.md` hoặc bảng theo dõi defect.
+- `reports/summary.md` cùng log/report đã làm sạch dữ liệu nhạy cảm.
+- Phần báo cáo G và phần tổng kết kết quả/giới hạn.
+- Slide hoặc nội dung trình bày phần kết quả và phân tích nguyên nhân.
+
+**Phối hợp**
+
+- Với Ngô Văn Chương để tái hiện và xác minh cảnh báo.
+- Với Nguyễn Trung Hiệp để kiểm tra test case, tiêu chí pass/fail và trạng thái cuối.
+- Với Nguyễn Lê Anh Tuấn để đối chiếu phát hiện với kiến trúc/module liên quan.
+
+## 6. Bảng đối chiếu phần việc với cấu trúc báo cáo A–H
+
+Bản hướng dẫn yêu cầu báo cáo theo các mục A–H. Bảng dưới đây quy định người **phụ trách chính** và người **phối hợp**, tránh bỏ sót yêu cầu.
+
+| Phần | Nội dung cần có theo hướng dẫn môn học | Phụ trách chính | Phối hợp |
+|---|---|---|---|
+| **A** | Mục tiêu hệ thống, actor/use case chính, cây thư mục/module, dependency và luồng dữ liệu | Nguyễn Lê Anh Tuấn | Nguyễn Trung Hiệp, Nguyễn Văn An |
+| **B** | Ít nhất 01 sơ đồ kiến trúc component/container; giải thích 3–5 module liên quan trực tiếp tới kiểm thử | Nguyễn Lê Anh Tuấn | Nguyễn Văn An, Nguyễn Trung Hiệp |
+| **C** | Môi trường, phiên bản, lệnh build/run, DB/service, seed data; bằng chứng chạy thành công và ít nhất 03 luồng nghiệp vụ | Nguyễn Văn An | Nguyễn Lê Anh Tuấn, Ngô Văn Chương |
+| **D** | Nguyên lý DAST, lý do chọn phạm vi, giả định, rủi ro và tiêu chí pass/fail | Nguyễn Trung Hiệp | Ngô Văn Chương, Đỗ Duy Bien |
+| **E** | Test Model/Scenario/Case; nêu input, precondition, expected result/invariant và dữ liệu test | Nguyễn Trung Hiệp | Cả nhóm góp ý; Ngô Văn Chương xác nhận khả năng chạy |
+| **F** | Mã nguồn test/harness/script có thể chạy lại tự động; README gồm lệnh chạy và dependency | Ngô Văn Chương | Nguyễn Văn An, Nguyễn Trung Hiệp |
+| **G** | Log/report/metrics; defect hoặc hành vi bất thường và phân tích nguyên nhân; nếu không có lỗi thì chứng minh coverage/score/threshold đạt | Đỗ Duy Bien | Ngô Văn Chương, Nguyễn Trung Hiệp |
+| **H** | Pin commit/tag của repo; lưu cấu hình test; hướng dẫn để người khác chạy lại trên máy mới | Nguyễn Trung Hiệp | Nguyễn Văn An, Ngô Văn Chương |
+
+**Nguyên tắc:** người phụ trách chính chịu trách nhiệm bảo đảm phần đó hoàn chỉnh; người phối hợp cung cấp dữ liệu/bằng chứng và rà soát. Mọi phần phải được ít nhất một thành viên khác kiểm tra trước khi chốt.
+
+## 7. Quy trình làm việc của nhóm
+
+### Bước 1 — Chốt phạm vi và khóa phiên bản
+
+- Xác nhận tổ hợp R03 + K08, phạm vi DAST và giới hạn an toàn.
+- Chọn release/tag/commit SHA cụ thể của Snipe-IT, ghi vào `docs/version-lock.md`.
+- Tạo repository nhóm và bảng task; lưu link repo nhóm tại phần thông tin dự án khi đã tạo.
+
+### Bước 2 — Phân tích hệ thống
+
+- Nguyễn Lê Anh Tuấn khảo sát mã nguồn, module, dependency, actor/use case và luồng nghiệp vụ.
+- Các thành viên xác nhận các luồng phù hợp với phạm vi DAST.
+- Hoàn thành sơ đồ kiến trúc và tài liệu phân tích trước khi chuyển sang thiết kế test chi tiết.
+
+### Bước 3 — Dựng môi trường và kiểm chứng nghiệp vụ
+
+- Nguyễn Văn An dựng ứng dụng local/Docker, ghi lại lệnh và cấu hình đã thử thành công.
+- Chuẩn bị dữ liệu/tài khoản kiểm thử giả lập và cách reset môi trường.
+- Chụp bằng chứng tối thiểu 03 luồng nghiệp vụ chạy được.
+
+### Bước 4 — Thiết kế test case và cấu hình DAST
+
+- Nguyễn Trung Hiệp điều phối thiết kế test case, precondition, input và expected result.
+- Ngô Văn Chương ánh xạ các kịch bản vào cấu hình/quy trình OWASP ZAP.
+- Cả nhóm review phạm vi, loại tài khoản, dữ liệu và ảnh hưởng tiềm năng trước khi active scan.
+
+### Bước 5 — Thực thi, xác minh và phân tích
+
+- Chạy passive scan, kiểm tra log, sau đó mới active scan trong scope local đã xác nhận.
+- Lưu report/log, thời điểm chạy, phiên bản công cụ và cấu hình tương ứng.
+- Đỗ Duy Bien phối hợp cùng Chương xác minh cảnh báo; Hiệp cập nhật trạng thái test case.
+- Không đánh dấu lỗi chỉ từ tên cảnh báo của công cụ; cần ghi bằng chứng tái hiện hoặc nêu rõ chưa xác minh.
+
+### Bước 6 — Tổng hợp, peer-review và chuẩn bị bảo vệ
+
+- Ghép báo cáo theo đúng A–H, kiểm tra tính nhất quán giữa sơ đồ, test case, log và kết luận.
+- Một thành viên không phải tác giả chính rà soát từng phần.
+- Tập demo từ máy mới hoặc môi trường sạch theo README; chuẩn bị kịch bản demo, slide và câu trả lời về giới hạn kiểm thử.
+
+### Trạng thái task đề xuất
+
+`Backlog` → `To Do` → `In Progress` → `Review` → `Done`
+
+Một task chỉ được chuyển sang **Done** khi có đầu ra lưu trong repository, có bằng chứng phù hợp và đã được người khác review.
+
+## 8. Quy ước Git và quản lý mã nguồn
+
+### 8.1. Cấu trúc nhánh đề xuất
+
+- `main`: phiên bản ổn định để nộp/demo.
+- `feature/<task-id>-<short-name>`: tính năng/tài liệu/test mới.
+- `docs/<task-id>-<short-name>`: cập nhật tài liệu.
+- `test/<task-id>-<short-name>`: test case hoặc script kiểm thử.
+- `fix/<task-id>-<short-name>`: sửa lỗi trong script/tài liệu.
+
+Ví dụ: `docs/T01-system-analysis`, `test/T05-dast-cases`, `feature/T07-zap-runner`.
+
+### 8.2. Quy tắc commit và pull request
+
+- Commit cần mô tả được thay đổi; ví dụ: `docs: add Snipe-IT system architecture` hoặc `test: add DAST access-control cases`.
+- Mỗi thành viên commit phần việc do mình thực hiện để lịch sử đóng góp dễ đối chiếu.
+- Không đẩy thẳng thay đổi chưa review vào `main`; tạo Pull Request và nhờ ít nhất một thành viên khác rà soát.
+- Khi review cần kiểm tra: đúng phạm vi, không chứa bí mật, hướng dẫn chạy có thể làm lại, report đã loại bỏ cookie/token/mật khẩu và dữ liệu nhạy cảm.
+- Không commit file `.env`, credential, token, cookie/session, dữ liệu cá nhân hoặc file dump có thông tin nhạy cảm. Có thể cung cấp `.env.example` chỉ gồm tên biến và giá trị mẫu không nhạy cảm.
+- Ghi commit SHA/tag Snipe-IT và phiên bản cấu hình test trong `docs/version-lock.md` để người khác chạy đúng phiên bản.
+
+### 8.3. Gợi ý cấu trúc thư mục repository nhóm
+
+Cấu trúc dưới đây là **đề xuất cho tài liệu và artefact của nhóm**, có thể điều chỉnh theo repository thực tế:
 
 ```text
-R03-SnipeIT-K08-DAST/
+.
 ├── README.md
 ├── docs/
-│   ├── project-plan.md
 │   ├── system-analysis.md
-│   ├── architecture-diagram.png
-│   ├── setup-guide.md
-│   ├── dast-methodology.md
-│   ├── scope-and-acceptance-criteria.md
-│   ├── test-plan.md
+│   ├── architecture.md
+│   ├── setup-local.md
+│   ├── setup-docker.md
+│   ├── version-lock.md
+│   ├── dast-runbook.md
 │   ├── test-cases.md
-│   ├── manual-verification-checklist.md
-│   ├── findings.md
-│   ├── reproducibility.md
-│   └── report-checklist.md
-├── tests/
-│   └── dast/
+│   └── findings.md
+├── dast/
+│   ├── config/          # Cấu hình được phép chia sẻ, đã loại bỏ bí mật
+│   └── scripts/         # Script/harness chạy kiểm thử
 ├── reports/
-│   └── zap/
-└── evidence/
-    ├── setup/
-    ├── business-flows/
-    └── dast/
+│   ├── README.md        # Cách tạo/đọc báo cáo; không lưu thông tin nhạy cảm
+│   └── evidence/        # Ảnh/log minh chứng đã làm sạch
+└── presentation/
+    └── README.md        # Ghi chú chuẩn bị slide/demo
 ```
 
-Không đưa vào Git các tệp chứa mật khẩu, `.env` có bí mật,
-cookie/session token hoặc dữ liệu nhạy cảm. Với tệp báo cáo lớn, nhóm
-thống nhất cách lưu trữ và liên kết để mọi thành viên có thể truy cập.
+Không nhất thiết phải đưa toàn bộ repository Snipe-IT vào thư mục con này. Nhóm cần phân biệt rõ mã nguồn upstream với repository chứa tài liệu, cấu hình và artefact kiểm thử của nhóm.
 
-### 8.2. Quy trình Git
+## 9. Kế hoạch kiểm thử DAST
 
-1.  Mỗi task thực hiện trên branch riêng, ví dụ `docs/system-analysis`,
-    `test/dast-cases` hoặc `test/zap-scan`.
-2.  Commit cần mô tả đúng thay đổi, ví dụ:
-    - `docs: add system setup guide`
-    - `test: add DAST test scenarios`
-    - `test: document ZAP findings`
-    - `docs: integrate final report`
-3.  Tạo pull request hoặc yêu cầu thành viên khác review trước khi nhập
-    vào nhánh chính.
-4.  Không commit thông tin xác thực hoặc dữ liệu nhạy cảm.
-5.  Ghi lại tag/release hoặc commit SHA của Snipe-IT được kiểm thử.
-6.  Lưu hướng dẫn chạy và cấu hình cần thiết để thành viên khác có thể
-    tái lập kết quả.
+### 9.1. Công cụ và cách tiếp cận
 
-### 8.3. Theo dõi task
+- **Công cụ dự kiến:** OWASP ZAP.
+- **Phương pháp:** khảo sát ứng dụng đang chạy, cấu hình scope, thực hiện passive scan, sau khi review mới thực hiện active scan trong môi trường local, sau đó xác minh cảnh báo.
+- **Phạm vi target:** ghi URL local thực tế khi nhóm đã dựng thành công, ví dụ `http://localhost:<PORT>`; thay `<PORT>` bằng port đã xác nhận.
+- **Xác thực:** nếu kịch bản cần đăng nhập, chuẩn bị tài khoản thử nghiệm riêng cho từng role và kiểm tra ZAP đã duy trì session đúng cách.
+- **Đầu ra:** cấu hình đã làm sạch bí mật, log, report, danh sách cảnh báo, kết quả xác minh và giới hạn của lần quét.
 
-Mỗi task trên Trello/Jira/GitHub Projects nên có:
+### 9.2. Nhóm kịch bản ban đầu
 
-- Tên task và mô tả đầu ra.
-- Người chịu trách nhiệm chính.
-- Người review.
-- Ngày bắt đầu và hạn hoàn thành.
-- Trạng thái: `To Do`, `In Progress`, `Review`, `Done`.
-- Liên kết commit/PR, tài liệu hoặc evidence liên quan.
-- Vướng mắc và cách xử lý nếu có.
+Đây là các **kịch bản dự kiến để nhóm đánh giá sau khi khảo sát hệ thống**, không phải tuyên bố rằng Snipe-IT đang có lỗi.
+
+| ID | Nhóm kiểm thử | Điều kiện/thao tác tổng quát | Kết quả mong đợi |
+|---|---|---|---|
+| DAST-01 | Truy cập khi chưa đăng nhập | Mở các route được xác định là cần xác thực trong scope local khi chưa có session | Chuyển tới đăng nhập hoặc trả về trạng thái từ chối phù hợp; không để lộ dữ liệu được bảo vệ |
+| DAST-02 | Phân quyền theo role | Dùng tài khoản test có quyền khác nhau, thử truy cập chức năng được giới hạn theo ma trận quyền đã xác nhận | Người dùng không đủ quyền không thể đọc/thay đổi tài nguyên vượt quyền |
+| DAST-03 | Vòng đời session | Đăng nhập, đăng xuất, sau đăng xuất thử dùng lại session theo cách kiểm thử được phê duyệt | Session bị vô hiệu hóa hoặc hành vi phù hợp với thiết kế bảo mật đã tài liệu hóa |
+| DAST-04 | Xử lý dữ liệu đầu vào | Dùng dữ liệu thử nghiệm vô hại trên các form/đầu vào trong phạm vi; kiểm tra phản hồi và mã hóa đầu ra | Dữ liệu được validate/encode phù hợp; không thực thi nội dung đầu vào ngoài ý muốn |
+| DAST-05 | HTTP security headers/cookie | Quan sát header và thuộc tính cookie trên các phản hồi liên quan | Ghi nhận cấu hình thực tế và đối chiếu tiêu chí bảo mật mà nhóm đã xác định; nêu rõ header nào áp dụng được trong bối cảnh test |
+| DAST-06 | Phát hiện tự động của ZAP | Chạy passive scan và active scan giới hạn trên instance local sau khi chuẩn bị/reset dữ liệu | Mọi cảnh báo được lưu, phân loại và xác minh; cảnh báo chưa xác minh không được trình bày như lỗi đã xác nhận |
+
+### 9.3. Tiêu chí đánh giá
+
+- **PASS:** hành vi thực tế đáp ứng expected result đã định nghĩa và có bằng chứng.
+- **FAIL:** hành vi thực tế trái với expected result, đã tái hiện và lưu bằng chứng.
+- **BLOCKED:** chưa thực hiện được do môi trường, tài khoản, cấu hình hoặc phụ thuộc khác; phải ghi rõ lý do.
+- **NOT RUN:** chưa chạy; không tính là PASS.
+- **Finding cần xác minh:** cảnh báo của công cụ cần bước tái hiện/đối chiếu trước khi kết luận.
+- Với phát hiện bảo mật, ghi nhận điều kiện khai thác, tác động có thể có và mức độ nghiêm trọng theo tiêu chí nhóm thống nhất; không khẳng định vượt quá bằng chứng.
+- Nếu không phát hiện lỗi đã xác minh, báo cáo vẫn phải nêu rõ target, phạm vi, cấu hình, số lượng test đã chạy, log/report và các giới hạn; kết quả không chứng minh hệ thống an toàn tuyệt đối.
+
+## 10. Mẫu thiết kế test case
+
+Nguyễn Trung Hiệp chủ trì quản lý file `docs/test-cases.md`. Mỗi test case nên có tối thiểu các trường sau:
+
+| Trường | Nội dung cần ghi |
+|---|---|
+| Test Case ID | Mã duy nhất, ví dụ `DAST-01` |
+| Mục tiêu | Hành vi hoặc rủi ro cần kiểm tra |
+| Module/URL | Module, route hoặc endpoint nằm trong scope |
+| Mức quyền/tài khoản | Chưa đăng nhập hoặc role dùng để chạy test; không lưu mật khẩu thật |
+| Precondition | Trạng thái hệ thống, dữ liệu và session trước khi chạy |
+| Input/Steps | Dữ liệu thử và các bước tái hiện |
+| Expected Result | Hành vi đúng được xác định trước khi chạy |
+| Actual Result | Kết quả quan sát thực tế |
+| Status | PASS / FAIL / BLOCKED / NOT RUN |
+| Evidence | Link tới report, log hoặc ảnh chụp đã làm sạch dữ liệu nhạy cảm |
+| Người chạy/Ngày chạy | Người thực hiện và ngày kiểm thử |
+| Ghi chú | Hạn chế, cảnh báo chưa xác minh, điều kiện chạy lại |
+
+### Ví dụ khung ghi test case
+
+```markdown
+### DAST-01 — Kiểm tra route cần xác thực khi chưa đăng nhập
+- Mục tiêu:
+- Module/URL trong scope:
+- Precondition:
+- Input/Steps:
+  1. Xóa session/cookie test.
+  2. Truy cập route đã xác nhận là cần đăng nhập trên instance local.
+- Expected Result:
+- Actual Result:
+- Status: NOT RUN
+- Evidence:
+- Người chạy/Ngày chạy:
+- Ghi chú:
+```
+
+> Không điền trước kết quả PASS/FAIL. Trạng thái chỉ được cập nhật sau khi chạy test và lưu bằng chứng.
+
+## 11. Deliverables và tiêu chí hoàn thành
+
+| Đầu ra | Người phụ trách chính | Tiêu chí hoàn thành |
+|---|---|---|
+| Phân tích hệ thống và use case | Nguyễn Lê Anh Tuấn | Có mục tiêu, actor/use case, cây thư mục/module, dependency và luồng dữ liệu |
+| Sơ đồ kiến trúc và mô tả module | Nguyễn Lê Anh Tuấn | Có ít nhất 01 sơ đồ component/container và giải thích 3–5 module liên quan trực tiếp tới test |
+| Hướng dẫn cài đặt/onboarding | Nguyễn Văn An | Có phiên bản, runtime, DB/service, biến môi trường, lệnh build/run, seed/reset data và hướng dẫn làm lại |
+| Bằng chứng ứng dụng chạy | Nguyễn Văn An | Có log/ảnh hệ thống chạy thành công và ít nhất 03 luồng nghiệp vụ chạy được |
+| Cơ sở lý thuyết và kế hoạch DAST | Nguyễn Trung Hiệp | Nêu lý do chọn, phạm vi, giả định, rủi ro, tiêu chí pass/fail và giới hạn |
+| Bộ test case | Nguyễn Trung Hiệp | Case có input, precondition, expected result/invariant và dữ liệu test; có trạng thái chạy thực tế |
+| Script/harness và hướng dẫn DAST | Ngô Văn Chương | Người khác có thể chạy theo README; cấu hình target rõ ràng; bí mật đã loại bỏ |
+| Log/report và phân tích phát hiện | Đỗ Duy Bien | Có kết quả, bằng chứng, trạng thái xác minh và phân tích nguyên nhân; nếu không có defect đã xác minh thì nêu minh chứng/giới hạn |
+| Cố định phiên bản và tái lập | Nguyễn Trung Hiệp + Nguyễn Văn An | Có commit/tag/SHA của upstream, config test và hướng dẫn chạy lại trên máy mới |
+| Báo cáo, slide và demo | Cả nhóm; Đỗ Duy Bien tổng hợp | Đầy đủ phần A–H, nhất quán giữa báo cáo và artefact, mỗi thành viên trình bày được phần mình phụ trách |
+
+### Checklist trước khi nộp
+
+- [ ] Chốt và lưu commit SHA/tag của Snipe-IT.
+- [ ] Có repository nhóm và lịch sử commit/PR thể hiện đóng góp thực tế.
+- [ ] Có bảng task, người phụ trách, trạng thái và đầu ra tương ứng.
+- [ ] Báo cáo có đầy đủ phần A–H.
+- [ ] Có sơ đồ kiến trúc và luồng dữ liệu.
+- [ ] Có hướng dẫn setup đã được chạy thử và ít nhất 03 luồng nghiệp vụ có bằng chứng.
+- [ ] Có test case với precondition, input, expected result, actual result và trạng thái.
+- [ ] Có script/config và hướng dẫn chạy lại DAST.
+- [ ] Có log/report, phân loại cảnh báo và xác minh phát hiện.
+- [ ] Không có credential, cookie, token hoặc dữ liệu nhạy cảm trong repository/report.
+- [ ] Active scan chỉ chạy trên instance local được phép kiểm thử.
+- [ ] Có hướng dẫn để người khác làm lại trên máy mới.
+- [ ] Đã peer-review và tập demo trước khi bảo vệ.
+
+## 12. Các mốc tiến độ
+
+Các mốc dưới đây được trích theo hướng dẫn môn học; nhóm cần theo dõi thông báo của giảng viên/nhà trường nếu lịch thực tế có điều chỉnh.
+
+| Mốc | Yêu cầu theo hướng dẫn | Việc nhóm cần chuẩn bị |
+|---|---|---|
+| **18/09 — Hạn đăng ký đề tài** | Chốt thành viên, repo, kỹ thuật; chốt commit SHA/tag; thiết lập công cụ quản lý dự án | Xác nhận danh sách nhóm, lựa chọn R03 + K08, repo và task board; ghi phiên bản upstream |
+| **20/10 — Báo cáo giữa kỳ** | Demo hệ thống chạy thành công; trình bày sơ đồ kiến trúc, tài liệu onboarding và kế hoạch kỹ thuật kiểm thử | Ưu tiên hoàn thành phần A–C, sơ đồ kiến trúc, tài liệu setup, phạm vi DAST, giả định/rủi ro và tiêu chí đánh giá |
+| **Bảo vệ cuối kỳ theo lịch nhà trường** | Thuyết trình toàn bộ dự án, demo script automation, nộp mã nguồn test và báo cáo tổng kết; báo cáo nộp trước buổi bảo vệ 1 tuần theo hướng dẫn | Hoàn thiện phần D–H, script/test cases, report/log, phân tích nguyên nhân, hướng dẫn chạy lại, slide và demo rehearsal |
+
+### Ưu tiên công việc theo giai đoạn
+
+1. **Trước giữa kỳ:** dựng hệ thống thành công, khóa phiên bản, hoàn tất sơ đồ kiến trúc/onboarding, chọn scope và viết kế hoạch DAST.
+2. **Sau giữa kỳ:** hoàn thiện test case, cấu hình ZAP, chạy kiểm thử local, xác minh cảnh báo và tổng hợp log/report.
+3. **Trước nộp cuối kỳ:** rà soát A–H, kiểm tra tái lập từ môi trường sạch, dọn bí mật khỏi repo, peer-review và tập demo.
+
+## 13. Thông tin môi trường cần ghi nhận
+
+Các thông tin sau hiện chưa có trong tài liệu phân công; người phụ trách môi trường cập nhật sau khi kiểm chứng, **không điền bằng phỏng đoán**.
+
+| Thông tin | Giá trị cần cập nhật | Người cập nhật |
+|---|---|---|
+| Repository nhóm | `<URL_REPOSITORY_NHÓM>` | Nguyễn Trung Hiệp |
+| Repository upstream | `https://github.com/grokability/snipe-it` | Nguyễn Trung Hiệp |
+| Release/tag upstream | `<TAG_ĐÃ_CHỌN>` | Nguyễn Trung Hiệp + Nguyễn Văn An |
+| Commit SHA upstream | `<COMMIT_SHA_ĐÃ_CHỐT>` | Nguyễn Trung Hiệp + Nguyễn Văn An |
+| Hệ điều hành/môi trường | `<HỆ_ĐIỀU_HÀNH_VÀ_PHIÊN_BẢN>` | Nguyễn Văn An |
+| Cách dựng | `<LOCAL_HOẶC_DOCKER_COMPOSE>` | Nguyễn Văn An |
+| DB/service và phiên bản | `<GHI_THEO_MÔI_TRƯỜNG_THỰC_TẾ>` | Nguyễn Văn An |
+| Port/URL local | `<URL_LOCAL_ĐÃ_KIỂM_TRA>` | Nguyễn Văn An + Ngô Văn Chương |
+| Phiên bản OWASP ZAP | `<PHIÊN_BẢN_ĐÃ_DÙNG>` | Ngô Văn Chương |
+| Lệnh chạy DAST | `<LỆNH_ĐÃ_CHẠY_THÀNH_CÔNG>` | Ngô Văn Chương |
+| Vị trí report/evidence | `<ĐƯỜNG_DẪN_TRONG_REPO>` | Đỗ Duy Bien |
+
+### Hướng dẫn chạy lại cần hoàn thiện
+
+README cuối cùng của nhóm phải cung cấp các bước theo đúng thứ tự, dựa trên môi trường đã kiểm chứng:
+
+1. Cài dependency và phiên bản công cụ yêu cầu.
+2. Lấy đúng phiên bản/tag/commit của Snipe-IT.
+3. Khai báo cấu hình môi trường từ mẫu; không chia sẻ giá trị bí mật.
+4. Khởi động DB/service và ứng dụng; kiểm tra ứng dụng truy cập được bằng URL local.
+5. Tạo/reset dữ liệu giả lập và tài khoản test.
+6. Khởi chạy OWASP ZAP với target/scope đã xác nhận, theo hướng dẫn/script của nhóm.
+7. Xuất report/log, chạy bước xác minh và cập nhật trạng thái test case.
+8. Xóa hoặc che các session/token/thông tin nhạy cảm trước khi commit và nộp báo cáo.
+
+## 14. Tài liệu tham khảo
+
+1. **Hướng dẫn thực hiện đề tài môn Kiểm thử phần mềm**, giảng viên Nguyễn Thế Lâm, Trường Đại học Đà Lạt, đặc biệt các mục: nội dung đề tài, quy định nhóm, cấu trúc báo cáo A–H, milestones, quy trình làm việc và phụ lục R03/K08.
+2. Repository Snipe-IT: <https://github.com/grokability/snipe-it>
+3. OWASP ZAP documentation: <https://www.zaproxy.org/docs/>
 
 ---
 
-## 9. Tiêu chí nghiệm thu chung
-
-Nhóm chỉ đánh dấu hoàn thành khi đã kiểm tra các tiêu chí liên quan:
-
-- [ ] Đã ghi rõ mục tiêu, scope và phiên bản Snipe-IT được kiểm thử.
-- [ ] Có phân tích hệ thống, cây thư mục/module, dependency và luồng
-      dữ liệu.
-- [ ] Có ít nhất một sơ đồ kiến trúc component/container.
-- [ ] Có hướng dẫn cài đặt với phiên bản, cấu hình, service/DB và lệnh
-      chạy.
-- [ ] Có bằng chứng hệ thống chạy thành công và ít nhất 3 luồng nghiệp
-      vụ chạy được.
-- [ ] Có tài liệu DAST: nguyên lý, lý do chọn, giả định, rủi ro, giới
-      hạn và tiêu chí pass/fail.
-- [ ] Có test scenarios/cases với input, precondition, expected result
-      và dữ liệu test.
-- [ ] Có cấu hình hoặc script hỗ trợ chạy lại kiểm thử; ghi rõ
-      dependency và lệnh chạy.
-- [ ] Có log/report/metrics và danh sách phát hiện hoặc hành vi bất
-      thường.
-- [ ] Các cảnh báo được xác minh hoặc được đánh dấu rõ là chưa đủ bằng
-      chứng.
-- [ ] Nếu không phát hiện lỗi, báo cáo vẫn nêu rõ phạm vi đã kiểm tra,
-      kết quả, giới hạn và bằng chứng tương ứng; không tuyên bố hệ thống
-      hoàn toàn an toàn.
-- [ ] Có tag/commit SHA, cấu hình test và hướng dẫn tái lập trên máy
-      mới.
-- [ ] Có lịch sử Git thể hiện đóng góp đều đặn, review chéo và peer
-      evaluation.
-- [ ] Tài liệu, log và ảnh đã được rà soát để không lộ thông tin nhạy
-      cảm.
-- [ ] Các thành viên đều nắm được tổng quan đề tài và phần mình trình
-      bày.
-
----
-
-## 10. Cách đánh giá đóng góp cá nhân
-
-Để phục vụ peer-review cuối kỳ, nhóm có thể theo dõi đóng góp dựa trên
-các minh chứng thực tế:
-
-1.  Task đã nhận và kết quả bàn giao.
-2.  Commit/pull request và phần review cho thành viên khác.
-3.  Tài liệu, test case, script, log hoặc evidence do thành viên tạo.
-4.  Mức độ chủ động giải quyết vướng mắc và hỗ trợ tích hợp.
-5.  Khả năng giải thích phần việc trong buổi bảo vệ.
-
-Không đánh giá chỉ dựa vào số lượng commit; cần xem chất lượng, độ khó,
-kết quả thực tế và mức độ phối hợp.
-
----
-
-## 11. Tài liệu tham khảo chính
-
-- **Hướng dẫn thực hiện đề tài môn Kiểm thử phần mềm** -- Nguyễn Thế
-  Lâm, Khoa Công nghệ Thông tin, Trường Đại học Đà Lạt (tài liệu nhóm
-  cung cấp).
-- **Snipe-IT repository:** https://github.com/grokability/snipe-it
-- **OWASP ZAP Documentation:** https://www.zaproxy.org/docs/
-
----
-
-## 12. Kết luận
-
-Bản phân công này chia đề tài thành năm mảng có sản phẩm bàn giao cụ
-thể: phân tích và môi trường; điều phối và phương pháp DAST; thiết kế
-kịch bản; thực thi và phân tích kết quả; bằng chứng và tái lập. Các phần
-báo cáo A--H đều có người phụ trách chính và người phối hợp để hạn chế
-bỏ sót công việc.
-
-Nhóm cần rà soát khối lượng sau mỗi Sprint, cập nhật task theo tiến độ
-thực tế và bảo đảm tất cả thành viên cùng hiểu mục tiêu, phạm vi, kết
-quả và giới hạn của kiểm thử DAST.
+**Nguyên tắc chốt:** README này là kế hoạch và checklist làm việc. Mọi thông tin về phiên bản, lệnh chạy, kết quả test và phát hiện bảo mật cần được cập nhật từ lần chạy thực tế của nhóm, kèm bằng chứng và người chịu trách nhiệm.
