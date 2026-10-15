@@ -302,7 +302,7 @@ Ví dụ: `docs/T01-system-analysis`, `test/T05-dast-cases`, `feature/T07-zap-ru
 
 ### 8.3. Gợi ý cấu trúc thư mục repository nhóm
 
-Cấu trúc dưới đây là **đề xuất cho tài liệu và artefact của nhóm**, có thể điều chỉnh theo repository thực tế:
+Cấu trúc dưới đây đã được khởi tạo cho tài liệu và artefact của nhóm:
 
 ```text
 .
@@ -315,18 +315,40 @@ Cấu trúc dưới đây là **đề xuất cho tài liệu và artefact của 
 │   ├── version-lock.md
 │   ├── dast-runbook.md
 │   ├── test-cases.md
-│   └── findings.md
+│   ├── findings.md
+│   └── integration-guide.md
+├── test-cases/
+│   ├── dast-test-cases.csv
+│   └── dast-checklist.md
 ├── dast/
-│   ├── config/          # Cấu hình được phép chia sẻ, đã loại bỏ bí mật
-│   └── scripts/         # Script/harness chạy kiểm thử
+│   ├── config/
+│   │   └── README.md    # Quy tắc lưu cấu hình ZAP an toàn
+│   └── scripts/
+│       └── README.md    # Quy ước lệnh/script chạy DAST
+├── evidence/
+│   ├── screenshots/
+│   │   └── README.md
+│   └── logs/
+│       └── README.md
 ├── reports/
-│   ├── README.md        # Cách tạo/đọc báo cáo; không lưu thông tin nhạy cảm
-│   └── evidence/        # Ảnh/log minh chứng đã làm sạch
+│   └── README.md        # Cách tổ chức và đọc báo cáo
 └── presentation/
     └── README.md        # Ghi chú chuẩn bị slide/demo
 ```
 
 Không nhất thiết phải đưa toàn bộ repository Snipe-IT vào thư mục con này. Nhóm cần phân biệt rõ mã nguồn upstream với repository chứa tài liệu, cấu hình và artefact kiểm thử của nhóm.
+Các tài liệu A–E trong cấu trúc đề xuất ở ảnh được tổ chức tương ứng trong `docs/`: phân tích hệ thống (`system-analysis.md`), kiến trúc (`architecture.md`), thiết lập môi trường (`setup-local.md`/`setup-docker.md`), phương pháp DAST (`dast-runbook.md`) và thiết kế test (`test-cases.md`). Danh sách dạng CSV và checklist thao tác nằm trong `test-cases/`.
+
+### 8.4. Hướng dẫn thực hiện đầu việc tích hợp
+
+Đầu việc **“Tích hợp artefact kiểm thử, lệnh chạy và README nhóm”** do Nguyễn Trung Hiệp phụ trách chính (10/11/2026–20/11/2026). Cách chia artefact, checklist chạy lại trên máy mới, quy trình cập nhật lệnh đã kiểm chứng và tiêu chí review được ghi tại [`docs/integration-guide.md`](docs/integration-guide.md). Không ghi credential/token vào README, file cấu hình, log hoặc report.
+
+Các tài liệu để dựng và chạy lại:
+
+- [Khóa phiên bản và môi trường](docs/version-lock.md)
+- [Thiết lập local](docs/setup-local.md) / [Thiết lập Docker](docs/setup-docker.md) — nhóm điền và duy trì cách thực sự hỗ trợ.
+- [Test cases](docs/test-cases.md), [CSV](test-cases/dast-test-cases.csv), [checklist](test-cases/dast-checklist.md) và [runbook DAST](docs/dast-runbook.md)
+- [Kết quả/phát hiện](docs/findings.md), [quy tắc report](reports/README.md) và [evidence](evidence/)
 
 ## 9. Kế hoạch kiểm thử DAST
 

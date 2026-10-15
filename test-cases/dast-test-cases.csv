@@ -1,0 +1,16 @@
+Test Case ID,Title,Objective,Scope URL or Module,Role,Precondition,Input and Steps,Expected Result,Actual Result,Status,Evidence,Run By,Run Date,Notes
+DAST-01,Unauthenticated access,Verify protected pages require authentication,,Unauthenticated,"Local instance is running; route is confirmed in scope","Clear test session and request the approved local route","Redirect or deny access without exposing protected data",,NOT RUN,,,,
+DAST-02,Role-based authorization,Verify users cannot exceed assigned permissions,,Test role,"Local instance is running; role permissions are documented","Sign in with a test role and request only approved in-scope resources","Access is limited to the permissions assigned to the role",,NOT RUN,,,,
+DAST-03,Session lifecycle,Verify logout and session invalidation,,Test role,"A dedicated test account and session are available","Sign in, sign out, then safely verify whether the old session remains valid","Behavior matches the documented security expectation; revoked sessions cannot access protected content",,NOT RUN,,,,
+DAST-04,Input handling,Verify safe handling of benign test input,,Test role,"An approved in-scope form and reset procedure are available","Submit harmless boundary or marker input defined by the team","Input is handled as data and does not cause unintended execution or exposure",,NOT RUN,,,,
+DAST-05,HTTP headers and cookies,Record relevant response security attributes,,Test role,"Local instance is running and response capture is enabled","Inspect approved responses and cookie attributes","Observed values are recorded and assessed against documented criteria",,NOT RUN,,,,
+DAST-06,ZAP scan findings,Review automated alerts from an approved local scan,,As configured,"Local target and ZAP scope are confirmed; data can be reset","Run passive scan; run active scan only after scope review and approval","Alerts are recorded and individually verified; unverified alerts are not reported as confirmed defects",,NOT RUN,,,,
+
+Mã	Kịch bản kiểm thử	Cách thực hiện	Kết quả mong đợi
+DAST-01	Kiểm tra HTTP headers	Truy cập trang và xem response headers bằng ZAP	Ghi nhận các header bảo mật hiện diện hoặc thiếu
+DAST-02	Kiểm tra cookie/session	Đăng nhập thử và kiểm tra thuộc tính cookie	Ghi nhận Secure, HttpOnly, SameSite phù hợp với cấu hình
+DAST-03	Kiểm tra HTTPS và truyền tải	Xác minh cấu hình HTTP/HTTPS của môi trường	Ghi nhận có mã hóa hay không; không kết luận lỗi chỉ dựa trên môi trường local
+DAST-04	Kiểm tra lỗi cấu hình và lộ thông tin	Dùng passive scan để xem cảnh báo	Không có thông tin nhạy cảm bị lộ ngoài dự kiến
+DAST-05	Kiểm tra kiểm soát truy cập	Dùng hai tài khoản có vai trò khác nhau để truy cập chức năng được phép kiểm tra	Tài khoản không đủ quyền không được thực hiện hành động trái phép
+DAST-06	Kiểm tra quản lý phiên đăng nhập	Đăng xuất, sau đó thử truy cập lại trang cần xác thực	Phiên đã kết thúc không được tiếp tục sử dụng trái phép
+DAST-07	Kiểm tra cảnh báo do ZAP phát hiện	Chạy passive scan và active scan có kiểm soát	Các cảnh báo được ghi lại, phân loại và xác minh
