@@ -5,14 +5,14 @@
 
 ## Danh sách test case
 
-| ID | Mục tiêu | Module/URL trong scope | Role | Status | Evidence |
-|---|---|---|---|---|---|
-| DAST-01 | Truy cập khi chưa đăng nhập | | | NOT RUN | |
-| DAST-02 | Phân quyền theo role | | | NOT RUN | |
-| DAST-03 | Vòng đời session | | | NOT RUN | |
-| DAST-04 | Xử lý dữ liệu đầu vào | | | NOT RUN | |
-| DAST-05 | HTTP security headers/cookie | | | NOT RUN | |
-| DAST-06 | Phát hiện tự động của ZAP | | | NOT RUN | |
+| ID         | Mục tiêu                     | Module/URL trong scope | Role | Status  | Evidence |
+| ---------- | ---------------------------- | ---------------------- | ---- | ------- | -------- |
+| TC_DAST_01 | Truy cập khi chưa đăng nhập  |                        |      | NOT RUN |          |
+| TC_DAST_02 | Phân quyền theo role         |                        |      | NOT RUN |          |
+| TC_DAST_03 | Vòng đời session             |                        |      | NOT RUN |          |
+| TC_DAST_04 | Xử lý dữ liệu đầu vào        |                        |      | NOT RUN |          |
+| TC_DAST_05 | HTTP security headers/cookie |                        |      | NOT RUN |          |
+| TC_DAST_06 | Phát hiện tự động của ZAP    |                        |      | NOT RUN |          |
 
 ## Mẫu test case
 
@@ -23,7 +23,7 @@
 - **Role/tài khoản thử nghiệm:** ghi định danh role, không ghi mật khẩu.
 - **Precondition:**
 - **Input/Steps:**
-  1. 
+  1.
 - **Expected result:**
 - **Actual result:**
 - **Status:** NOT RUN
