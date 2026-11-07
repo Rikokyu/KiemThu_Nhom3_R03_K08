@@ -41,6 +41,13 @@ Nhóm đóng vai trò một **QA Team** tiếp nhận dự án mã nguồn mở.
 
 README này mô tả cách chia việc, phối hợp và các đầu ra dự kiến. Phân công là kế hoạch thực hiện; nhóm chỉ ghi nhận một kiểm thử là **PASS/FAIL** hoặc một phát hiện là **defect** sau khi đã chạy thử, lưu bằng chứng và xác minh.
 
+### Tài liệu khởi chạy nhanh
+
+- [Hướng dẫn cài Snipe-IT bằng Docker](docs/setup-docker.md)
+- [Phiên bản, môi trường và tài khoản kiểm thử](docs/test-environment.md)
+- [Khóa phiên bản kiểm thử](docs/version-lock.md)
+- [12 test case theo báo cáo giữa kỳ](test-cases/dast-test-cases.csv)
+
 ## 2. Mục tiêu và phạm vi
 
 ### 2.1. Mục tiêu
@@ -474,18 +481,18 @@ Các mốc dưới đây được trích theo hướng dẫn môn học; nhóm c
 
 ## 13. Thông tin môi trường cần ghi nhận
 
-Các thông tin sau hiện chưa có trong tài liệu phân công; người phụ trách môi trường cập nhật sau khi kiểm chứng, **không điền bằng phỏng đoán**.
+Các thông tin môi trường đã kiểm chứng được cập nhật theo hướng dẫn Docker và báo cáo giữa kỳ.
 
 | Thông tin | Giá trị cần cập nhật | Người cập nhật |
 |---|---|---|
-| Repository nhóm | `<URL_REPOSITORY_NHÓM>` | Nguyễn Trung Hiệp |
+| Repository nhóm | `https://github.com/Rikokyu/KiemThu_Nhom4_R03_K08` | Nguyễn Trung Hiệp |
 | Repository upstream | `https://github.com/grokability/snipe-it` | Nguyễn Trung Hiệp |
-| Release/tag upstream | `<TAG_ĐÃ_CHỌN>` | Nguyễn Trung Hiệp + Nguyễn Văn An |
-| Commit SHA upstream | `<COMMIT_SHA_ĐÃ_CHỐT>` | Nguyễn Trung Hiệp + Nguyễn Văn An |
-| Hệ điều hành/môi trường | `<HỆ_ĐIỀU_HÀNH_VÀ_PHIÊN_BẢN>` | Nguyễn Văn An |
-| Cách dựng | `<LOCAL_HOẶC_DOCKER_COMPOSE>` | Nguyễn Văn An |
-| DB/service và phiên bản | `<GHI_THEO_MÔI_TRƯỜNG_THỰC_TẾ>` | Nguyễn Văn An |
-| Port/URL local | `<URL_LOCAL_ĐÃ_KIỂM_TRA>` | Nguyễn Văn An + Ngô Văn Chương |
+| Release/tag upstream | `v8.8.0` | Nguyễn Trung Hiệp + Nguyễn Văn An |
+| Commit SHA upstream | `2c466fa8a5a68525439bf1bbbc24470d6670c516` | Nguyễn Trung Hiệp + Nguyễn Văn An |
+| Hệ điều hành/môi trường | Windows 11 + Docker Desktop/WSL 2 | Nguyễn Văn An |
+| Cách dựng | Docker Compose | Nguyễn Văn An |
+| DB/service và phiên bản | MariaDB 11.4.7 | Nguyễn Văn An |
+| Port/URL local | `http://localhost:8000` | Nguyễn Văn An + Ngô Văn Chương |
 | Phiên bản OWASP ZAP | `<PHIÊN_BẢN_ĐÃ_DÙNG>` | Ngô Văn Chương |
 | Lệnh chạy DAST | `<LỆNH_ĐÃ_CHẠY_THÀNH_CÔNG>` | Ngô Văn Chương |
 | Vị trí report/evidence | `<ĐƯỜNG_DẪN_TRONG_REPO>` | Đỗ Duy Bien |

@@ -8,6 +8,7 @@
 - Đọc `version-lock.md`; ghi phiên bản ZAP và Snipe-IT.
 - Xác nhận ứng dụng đang chạy tại URL local đã ghi ở setup guide.
 - Chuẩn bị dữ liệu giả lập, tài khoản test và cách reset.
+- Sử dụng tài khoản lab trong `test-environment.md`; không dùng credential thật.
 - Kiểm tra target/context chỉ bao gồm instance local được nhóm cho phép.
 - Chạy passive scan trước. Chỉ chạy active scan sau khi review scope và ảnh hưởng dữ liệu.
 
@@ -43,4 +44,3 @@ Không chạy các khối trên khi còn nội dung hướng dẫn/placeholder. 
 - Liên kết report với test case trong `docs/test-cases.md` và kết quả xác minh trong `docs/findings.md`.
 - Ghi rõ cảnh báo chưa xác minh, false positive tiềm năng và giới hạn scan.
 - Kiểm tra report không chứa cookie, token, mật khẩu, dữ liệu cá nhân hoặc host ngoài scope trước khi commit.
-
