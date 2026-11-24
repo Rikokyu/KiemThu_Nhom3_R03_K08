@@ -1,0 +1,45 @@
+====================================================================
+THÔNG TIN MẪU LOG HTTP RESPONSE HEADERS
+- Run ID: RUN-01
+- Ngày quét ZAP: 16/10/2026 | Ngày trích xuất đối chiếu: 24/11/2026
+- Phiên bản ứng dụng: Snipe-IT v8.8.0 (SHA: 2c466fa8a5a68525439bf1bbbc24470d6670c516)
+- Target local: http://localhost:8000
+- Người tổng hợp: Đỗ Duy Biên
+- Liên kết phát hiện: FIND-02, FIND-05, FIND-06 (docs/findings.md)
+====================================================================
+
+--- [1] HTTP Response Headers: GET http://localhost:8000/login ---
+HTTP/1.1 200 OK
+Date: Tue, 24 Nov 2026 15:37:01 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Cache-Control: max-age=0, must-revalidate, no-cache, no-store, private
+Pragma: no-cache
+Expires: Sun, 02 Jan 1990 00:00:00 GMT
+X-Content-Type-Options: nosniff
+Feature-Policy: accelerometer 'none';autoplay 'none';camera 'none';display-capture 'none';document-domain 'none';encrypted-media 'none';fullscreen 'none';geolocation 'none';sync-xhr 'none';usb 'none';xr-spatial-tracking 'none'
+Referrer-Policy: same-origin
+X-Frame-Options: DENY
+Content-Security-Policy: default-src 'self';style-src 'self' 'unsafe-inline';script-src 'self' 'unsafe-inline' 'unsafe-eval';connect-src 'self';object-src 'none';font-src 'self' data:;img-src 'self' data: http://localhost:8000   https://secure.gravatar.com http://gravatar.com maps.google.com maps.gstatic.com *.googleapis.com
+Set-Cookie: XSRF-TOKEN=eyJpdiI6ImV4ejVHSXI4NmxHM1hBNXc0V2c0Vmc9PSIsInZhbHVlIjoia0ZHOVZUUmtlVHg1U1pUUzBLa1NXVEdyekNmbTV1U3JHNTI2WWVWVTVaajhpMmRUeFNDRllIeUgweEd5c0Q3bGMzWTZxLzI5YU9JbEM1dCtHT0h3Vkt0UWs2SytoeUk2T3o5YXlydjd6bUR4TlZWa1FORGhGdXdHMjFTdHRTY1giLCJtYWMiOiJlZjc4NDRlYzQ4NGJjZjliMzk0MzU1NGZkYzY4MGNkNGEzNjU5NzVjMGVkODMxMWVjMDg0ODc5YjYxMTFkNGJkIiwidGFnIjoiIn0%3D; expires=Wed, 02 Dec 2026 23:37:01 GMT; Max-Age=720000; path=/; samesite=lax
+Set-Cookie: snipeit_session=w2nJUAL2uLdqE7vCE4io19TGRMZis3nuwgsdec9c; expires=Wed, 02 Dec 2026 23:37:01 GMT; Max-Age=720000; path=/; httponly; samesite=lax
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+
+
+--- [2] HTTP Response Headers: GET http://localhost:8000/js/dist/all.js ---
+HTTP/1.1 200 OK
+Date: Tue, 24 Nov 2026 15:42:52 GMT
+Server: Apache/2.4.58 (Ubuntu)
+Last-Modified: Wed, 30 Sep 2026 19:14:46 GMT
+ETag: "f4053-65cb81cbab580-gzip"
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+Content-Encoding: gzip
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Transfer-Encoding: chunked
+Content-Type: text/javascript
