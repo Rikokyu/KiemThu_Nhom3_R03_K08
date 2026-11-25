@@ -2,7 +2,7 @@
 
 > Phụ trách chính: Nguyễn Trung Hiệp  
 > Thời gian theo bảng phân công: 10/11/2026–20/11/2026  
-> Phối hợp: Nguyễn Văn An (môi trường), Ngô Văn Chương (ZAP/script), Đỗ Duy Bien (report/bằng chứng)
+> Phối hợp: Nguyễn Văn An (môi trường), Nguyễn Lê Anh Tuấn (ZAP/script), Đỗ Duy Biên (report/bằng chứng)
 
 ## Mục tiêu
 
@@ -20,17 +20,17 @@ Repository hiện tại lưu README, tài liệu, cấu hình và artefact kiể
 | Tag/SHA và phiên bản dependency            | `docs/version-lock.md`                            | Nguyễn Trung Hiệp + Nguyễn Văn An |
 | Test case, precondition và expected result | `docs/test-cases.md`, `test-cases/dast-test-cases.csv` | Nguyễn Trung Hiệp |
 | Checklist trước/trong/sau scan | `test-cases/dast-checklist.md` | Nguyễn Trung Hiệp + Ngô Văn Chương |
-| Cấu hình ZAP đã làm sạch                   | `dast/config/`                                    | Ngô Văn Chương                    |
-| Script/harness và cách chạy                | `dast/scripts/`, `docs/dast-runbook.md`           | Ngô Văn Chương                    |
-| Kết quả phân tích phát hiện                | `docs/findings.md`                                | Đỗ Duy Bien                       |
-| Report và bằng chứng đã làm sạch           | `reports/`, `evidence/`                           | Người chạy; Đỗ Duy Bien tổng hợp  |
+| Cấu hình ZAP đã làm sạch                   | `dast/config/`                                    | Nguyễn Lê Anh Tuấn                |
+| Script/harness và cách chạy                | `dast/scripts/`, `docs/dast-runbook.md`           | Nguyễn Lê Anh Tuấn                |
+| Kết quả phân tích phát hiện                | `docs/findings.md`                                | Đỗ Duy Biên                       |
+| Report và bằng chứng đã làm sạch           | `reports/`, `evidence/`                           | Người chạy; Đỗ Duy Biên tổng hợp  |
 
 ## Thứ tự tích hợp
 
 1. **Chốt phiên bản:** điền repository, release/tag, commit SHA và dependency đã kiểm chứng vào `docs/version-lock.md`. Dùng đúng SHA khi clone/checkout; không dùng nhánh di động làm định danh kết quả.
 2. **Ghi setup:** Nguyễn Văn An hoàn thiện đúng một hướng dẫn được nhóm dùng (`setup-local.md` hoặc `setup-docker.md`), gồm prerequisite, cấu hình mẫu, lệnh khởi động/kiểm tra/dừng, seed và reset. Hướng dẫn còn lại ghi rõ không áp dụng nếu nhóm không hỗ trợ cách đó.
 3. **Tích hợp test:** liên kết mỗi test case với module/URL trong scope, điều kiện chạy, tài khoản/role (chỉ tên/placeholder), expected result và evidence. Trạng thái ban đầu là `NOT RUN`.
-4. **Tích hợp ZAP:** Nguyễn Văn Chương ghi target local, phiên bản ZAP/image, cấu hình context/auth đã làm sạch, lệnh chính xác, report đầu ra và giới hạn scan trong `docs/dast-runbook.md` cùng `dast/`.
+4. **Tích hợp ZAP:** Nguyễn Lê Anh Tuấn ghi target local, phiên bản ZAP/image, cấu hình context/auth đã làm sạch, lệnh chính xác, report đầu ra và giới hạn scan trong `docs/dast-runbook.md` cùng `dast/`; Ngô Văn Chương phối hợp phân tích chức năng/URL.
 5. **Tích hợp kết quả:** lưu report đã làm sạch dưới `reports/`, ảnh trong `evidence/screenshots/`, log đã rà soát trong `evidence/logs/`; cập nhật `docs/findings.md` và liên kết evidence bằng đường dẫn tương đối. Không đưa artefact thô chứa cookie, token, mật khẩu hoặc dữ liệu cá nhân vào Git.
 6. **Hoàn thiện README:** README gốc dẫn tới setup, version lock, test case, runbook, findings và report. Phần Quick Start phải dùng đúng lệnh đã kiểm chứng ở các tài liệu nguồn, tránh duy trì nhiều bản lệnh khác nhau.
 7. **Peer-review:** một thành viên không phải tác giả chạy lại theo checklist dưới đây, đối chiếu output/path report, kiểm tra scope và rà soát bí mật trước khi merge.
@@ -70,6 +70,35 @@ Mỗi lệnh hướng dẫn phải có đủ:
 - [ ] `git diff --check` không báo lỗi whitespace; diff không có `.env`, credential, token, cookie, database dump hoặc report chưa làm sạch.
 - [ ] PR nêu artefact/lệnh đã kiểm chứng, môi trường chạy và kết quả kiểm tra.
 
-## Thông tin chưa thể điền
+## Trạng thái test case theo bảng phân công
 
-Tại thời điểm tạo bộ khung, repository chưa có mã nguồn Snipe-IT, file compose, cấu hình ZAP, script chạy hay dữ liệu phiên bản đã chốt. Vì vậy các lệnh cài/chạy cụ thể phải được Nguyễn Văn An và Ngô Văn Chương bổ sung sau khi thực thi và kiểm chứng; không chạy active scan khi chưa xác nhận target local và khả năng reset.
+| Nhóm | Người phụ trách chính | Phối hợp | Trạng thái trong ảnh |
+|---|---|---|---|
+| Xác thực (`TC_AUTH_001`–`TC_AUTH_003`) | Nguyễn Trung Hiệp | — | Hoàn thành |
+| Phân quyền (`TC_AUTHZ_001`–`TC_AUTHZ_002`) | Nguyễn Lê Anh Tuấn | Nguyễn Trung Hiệp | Hoàn thành |
+| Quản lý tài sản (`TC_ASSET_001`–`TC_ASSET_002`) | Nguyễn Văn An | Ngô Văn Chương | Chưa ghi |
+| API (`TC_API_001`–`TC_API_002`) | Đỗ Duy Biên | Nguyễn Văn An | Chưa ghi |
+| Cookie (`TC_COOKIE_001`) | Nguyễn Trung Hiệp | — | Chưa ghi |
+| ZAP (`TC_ZAP_001`–`TC_ZAP_002`) | Nguyễn Lê Anh Tuấn | — | Hoàn thành |
+| Xác minh/phân loại lỗi | Ngô Văn Chương | Người phụ trách case tương ứng | Chưa ghi |
+
+“Hoàn thành” ở bảng này là trạng thái nhóm công việc. Không tự chuyển trạng thái từng case sang `PASS` hoặc `FAIL`; phải điền actual result và evidence trong CSV sau khi đối chiếu kết quả chạy.
+
+## Snapshot tiến độ công việc
+
+Các trạng thái và ngày dưới đây được chép từ ảnh bảng tiến độ nhóm. Ngày giữ nguyên định dạng `DD/MM/YYYY`; ô trống trong bảng gốc được thể hiện là `—`.
+
+| STT | Công việc | Phụ trách | Phối hợp | Trạng thái | Bắt đầu | Hoàn thành |
+|---:|---|---|---|---|---|---|
+| 1 | Xác nhận phiên bản, commit, Docker và trạng thái ứng dụng | Nguyễn Văn An | Ngô Văn Chương | Chưa bắt đầu | — | — |
+| 2 | Chuẩn bị tài khoản theo vai trò và dữ liệu tài sản mẫu | Nguyễn Văn An | Nguyễn Trung Hiệp | Chưa bắt đầu | — | — |
+| 3 | Rà soát kiến trúc, module, luồng nghiệp vụ và URL trong scope | Ngô Văn Chương | Nguyễn Lê Anh Tuấn | Hoàn thành | 11/08/2026 | 11/08/2026 |
+| 4 | Rà soát test plan, tiêu chí PASS/FAIL và test case | Nguyễn Trung Hiệp | Đỗ Duy Biên | Hoàn thành | 18/10/2026 | 19/10/2026 |
+| 5 | Cấu hình ZAP Context, scope và thu thập URL | Nguyễn Lê Anh Tuấn | Đỗ Duy Biên | Hoàn thành | 14/10/2026 | 19/10/2026 |
+| 6 | Thực hiện test case xác thực và phân quyền | Nguyễn Trung Hiệp | Ngô Văn Chương | Hoàn thành | 07/11/2026 | 12/11/2026 |
+| 7 | Thực hiện test case tài sản và API | Nguyễn Văn An | Nguyễn Trung Hiệp | Chưa bắt đầu | — | — |
+| 8 | Thực hiện test case cookie và ZAP | Đỗ Duy Biên | Nguyễn Lê Anh Tuấn | Chưa bắt đầu | — | — |
+| 9 | Xác minh cảnh báo, phân loại mức độ nghiêm trọng | Đỗ Duy Biên | Ngô Văn Chương; Nguyễn Lê Anh Tuấn | Chưa bắt đầu | — | — |
+| 10 | Kiểm thử lại, kiểm thử hồi quy và tổng hợp báo cáo | Ngô Văn Chương | Nguyễn Trung Hiệp; cả nhóm | Chưa bắt đầu | — | — |
+
+Ảnh tiến độ ghi các việc 1–2 chưa bắt đầu dù tài liệu phiên bản đã có thông tin khóa Snipe-IT. Cần đối chiếu bằng chứng Docker/runtime và cập nhật lại bảng theo dõi trước khi kết luận hai việc đã hoàn tất. Repository nhóm không chứa source Snipe-IT, file Compose, cấu hình ZAP hoặc script DAST; các lệnh và công cụ chưa được ghi nhận là đã chạy nếu chưa có evidence tương ứng.
