@@ -1,5 +1,5 @@
 # Kết quả và phát hiện
-**Ảnh tổng quan kết quả quét (Summary of Alerts):** [`RUN-01-zap-summary.png`](../evidence/screenshots/RUN-01-zap-summary.png)
+
 > Phụ trách tổng hợp: Đỗ Duy Bien  
 > Không coi cảnh báo scanner là defect đã xác nhận nếu chưa tái hiện/đối chiếu.
 
@@ -9,16 +9,18 @@
 |---|---|---|---|---|---|---|
 | RUN-01 | 16/10/2026 | `2c466fa8a5a68525439bf1bbbc24470d6670c516` (`v8.8.0`) | `<Điền phiên bản ZAP từ Ngô Văn Chương>` | `http://localhost:8000` | Ngô Văn Chương (DAST) / Đỗ Duy Bien (tổng hợp) | [`RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html) |
 
+- **Ảnh tổng quan kết quả quét (Summary of Alerts):** [`RUN-01-zap-summary.png`](../evidence/screenshots/findings%20run/RUN-01-zap-summary.png)
+
 ## Danh sách phát hiện
 
 | ID | Test case | Module/URL | Mô tả | Severity | Trạng thái xác minh | Evidence |
 |---|---|---|---|---|---|---|
-| FIND-01 | `TC_DAST_04` | API Users (`GET /api/v1/users`) | Cảnh báo SQL Injection trên tham số truy vấn `order` với payload `asc AND 1=1 -- ` | High | Chưa xác minh | [`FIND-01-sqli-users-order.png`](../evidence/screenshots/FIND-01-sqli-users-order.png) |
-| FIND-02 | `TC_DAST_05` | Xác thực / Toàn trang (`GET /login`) | Thiếu HTTP response header `Content-Security-Policy` (CSP) | Medium | Không tái hiện | [`FIND-02-missing-csp.png`](../evidence/screenshots/FIND-02-missing-csp.png) |
-| FIND-03 | `TC_DAST_04` | Livewire Endpoint (`POST /livewire/update`) | Gửi chuỗi dài (~2.500 ký tự) vào tham số `method` gây lỗi HTTP 500 (ZAP gắn nhãn Buffer Overflow) | Medium | False positive (nhãn Buffer Overflow) / Đã xác minh lỗi HTTP 500 | [`FIND-03-livewire-500.png`](../evidence/screenshots/FIND-03-livewire-500.png) |
-| FIND-04 | `TC_DAST_06` | Tài nguyên tĩnh (`/js/dist/all.js`) | Đóng gói thư viện Bootstrap `3.3.4` đã lỗi thời, tồn tại các CVE XSS đã biết | Medium | Đã xác minh (phiên bản thư viện) | [`FIND-04-bootstrap-334.png`](../evidence/screenshots/FIND-04-bootstrap-334.png) |
-| FIND-05 | `TC_DAST_05` | Tài nguyên tĩnh & Web Server (`*.js`, `*.css`, toàn site) | Thiếu `X-Content-Type-Options`, `Strict-Transport-Security` trên file tĩnh và lộ phiên bản `Apache/2.4.58 (Ubuntu)` | Low | Đã xác minh | [`FIND-05-server-headers.png`](../evidence/screenshots/FIND-05-server-headers.png) |
-| FIND-06 | `TC_DAST_05` | Quản lý phiên / CSRF (`XSRF-TOKEN`) | Cookie `XSRF-TOKEN` không thiết lập cờ `HttpOnly` | Low | False positive (thiết kế chuẩn của Laravel) | [`FIND-06-xsrf-cookie.png`](../evidence/screenshots/FIND-06-xsrf-cookie.png) |
+| FIND-01 | `TC_DAST_04` | API Users (`GET /api/v1/users`) | Cảnh báo SQL Injection trên tham số truy vấn `order` với payload `asc AND 1=1 -- ` | High | Chưa xác minh | [`FIND-01-sqli-users-order.png`](../evidence/screenshots/findings%20run/FIND-01-sqli-users-order.png) |
+| FIND-02 | `TC_DAST_05` | Xác thực / Toàn trang (`GET /login`) | Thiếu HTTP response header `Content-Security-Policy` (CSP) | Medium | Không tái hiện | [`FIND-02-missing-csp.png`](../evidence/screenshots/findings%20run/FIND-02-missing-csp.png) |
+| FIND-03 | `TC_DAST_04` | Livewire Endpoint (`POST /livewire/update`) | Gửi chuỗi dài (~2.500 ký tự) vào tham số `method` gây lỗi HTTP 500 (ZAP gắn nhãn Buffer Overflow) | Medium | False positive (nhãn Buffer Overflow) / Đã xác minh lỗi HTTP 500 | [`FIND-03-livewire-500.png`](../evidence/screenshots/findings%20run/FIND-03-livewire-500.png) |
+| FIND-04 | `TC_DAST_06` | Tài nguyên tĩnh (`/js/dist/all.js`) | Đóng gói thư viện Bootstrap `3.3.4` đã lỗi thời, tồn tại các CVE XSS đã biết | Medium | Đã xác minh (phiên bản thư viện) | [`FIND-04-bootstrap-334.png`](../evidence/screenshots/findings%20run/FIND-04-bootstrap-334.png) |
+| FIND-05 | `TC_DAST_05` | Tài nguyên tĩnh & Web Server (`*.js`, `*.css`, toàn site) | Thiếu `X-Content-Type-Options`, `Strict-Transport-Security` trên file tĩnh và lộ phiên bản `Apache/2.4.58 (Ubuntu)` | Low | Đã xác minh | [`FIND-05-server-headers.png`](../evidence/screenshots/findings%20run/FIND-05-server-headers.png) |
+| FIND-06 | `TC_DAST_05` | Quản lý phiên / CSRF (`XSRF-TOKEN`) | Cookie `XSRF-TOKEN` không thiết lập cờ `HttpOnly` | Low | False positive (thiết kế chuẩn của Laravel) | [`FIND-06-xsrf-cookie.png`](../evidence/screenshots/findings%20run/FIND-06-xsrf-cookie.png) |
 
 > **Ghi chú phạm vi test case:** Các test case `TC_DAST_01` (Truy cập khi chưa đăng nhập), `TC_DAST_02` (Phân quyền theo role) và `TC_DAST_03` (Vòng đời session) thuộc nhóm kiểm thử kiểm soát truy cập/phiên đang ở trạng thái `NOT RUN` trong `docs/test-cases.md` và chưa ghi nhận defect trong `RUN-01`.
 
@@ -44,7 +46,7 @@
   - *Giả thuyết:* Bộ lọc đầu vào của API chưa áp dụng danh sách trắng (whitelist) nghiêm ngặt cho hướng sắp xếp `asc`/`desc` trước khi đưa vào truy vấn hoặc bộ phân tích của ZAP nhận diện nhầm phản hồi HTTP.
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng đã làm sạch: [`../evidence/screenshots/FIND-01-sqli-users-order.png`](../evidence/screenshots/FIND-01-sqli-users-order.png)
+  - Ảnh minh chứng đã làm sạch: [`../evidence/screenshots/findings%20run/FIND-01-sqli-users-order.png`](../evidence/screenshots/findings%20run/FIND-01-sqli-users-order.png)
 - **Giới hạn:** Kết quả hiện tại mới dựa trên phát hiện tự động của ZAP trong RUN-01; chưa thực hiện tái hiện thủ công với API token hợp lệ để xác nhận khả năng khai thác thực tế.
 
 ---
@@ -54,19 +56,20 @@
 - **Test case liên quan:** `TC_DAST_05` (HTTP security headers/cookie)
 - **Nguồn/cảnh báo:** OWASP ZAP Passive Scan — Alert: *Content Security Policy (CSP) Header Not Set* (`GET http://localhost:8000/login` và các trang giao diện web).
 - **Điều kiện và bước tái hiện:**
-  1. Truy cập `http://localhost:8000/login` bằng trình duyệt hoặc công cụ bắt gói tin.
-  2. Kiểm tra danh sách HTTP Response Headers trả về từ máy chủ ứng dụng.
+  1. Truy cập `http://localhost:8000/login` bằng trình duyệt và mở Chrome DevTools (`Network` $\rightarrow$ `login` $\rightarrow$ `Response Headers`).
+  2. Kiểm tra danh sách HTTP Response Headers trả về từ máy chủ ứng dụng trên bản Docker đã khóa phiên bản (`v8.8.0`).
 - **Kết quả kỳ vọng/thực tế:**
   - *Kỳ vọng:* Phản hồi HTTP bao gồm header `Content-Security-Policy` giới hạn nguồn tải script, style, frame và object hợp lệ.
-  - *Thực tế:* Trong mã nguồn HTML của Snipe-IT đã sinh sẵn thuộc tính `nonce` gắn với CSRF token cho các thẻ `<script>`, nhưng HTTP Response Header không trả về trường `Content-Security-Policy`.
-- **Severity và căn cứ:** **Medium** (theo phân loại của OWASP ZAP; thiếu lớp phòng thủ chiều sâu giúp giảm thiểu tác động nếu phát sinh lỗ hổng XSS hoặc chèn tài nguyên trái phép).
-- **Trạng thái:** **Đã xác minh**
+  - *Thực tế:* Cảnh báo thiếu CSP xuất hiện ở lần quét `RUN-01` (`16/10/2026`); tuy nhiên khi tái hiện đối chiếu trực tiếp trên môi trường Docker khóa phiên bản `v8.8.0` (`24/11/2026`), phản hồi `GET /login` **đã có sẵn header `Content-Security-Policy`**, dù chỉ thị `script-src` vẫn cấu hình lỏng lẻo với `'unsafe-inline'` và `'unsafe-eval'`.
+- **Severity và căn cứ:** **Medium** (theo phân loại ban đầu của OWASP ZAP).
+- **Trạng thái:** **Không tái hiện** (trên bản dựng Docker `v8.8.0` đã khóa cấu hình chuẩn).
 - **Nguyên nhân gốc:**
-  - *Đã xác nhận:* Cấu hình middleware/web server mặc định của Snipe-IT `v8.8.0` chưa thiết lập header `Content-Security-Policy` trong phản hồi HTTP.
+  - *Đã xác nhận:* Sự khác biệt cấu hình môi trường/biến `.env` giữa thời điểm quét thử nghiệm ban đầu (`16/10/2026`) và bản dựng Docker chuẩn được nhóm khóa phiên bản (`07/11/2026`).
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng HTTP headers: [`../evidence/screenshots/FIND-02-missing-csp.png`](../evidence/screenshots/FIND-02-missing-csp.png)
-- **Giới hạn:** Việc thiếu header CSP không tự tạo ra lỗ hổng thực thi mã nếu không kết hợp với một điểm chèn XSS khác; việc cấu hình CSP cần tương thích với cơ chế `nonce` và thư viện frontend hiện có của Snipe-IT.
+  - Ảnh minh chứng đối chiếu HTTP headers: [`../evidence/screenshots/findings%20run/FIND-02-missing-csp.png`](../evidence/screenshots/findings%20run/FIND-02-missing-csp.png)
+  - Log headers đã làm sạch: [`../evidence/logs/RUN-01-headers-sample.txt`](../evidence/logs/RUN-01-headers-sample.txt)
+- **Giới hạn:** Header CSP hiện có trên bản `v8.8.0` vẫn cho phép `'unsafe-inline'` và `'unsafe-eval'` nên chưa đạt mức phòng thủ XSS tối ưu.
 
 ---
 
@@ -86,7 +89,7 @@
   - *Đã xác nhận:* Snipe-IT chạy trên runtime PHP `8.3.6` (ngôn ngữ có cơ chế quản lý bộ nhớ tự động), do đó không tồn tại lỗi tràn bộ đệm cấp phát bộ nhớ như C/C++. Cảnh báo của ZAP là nhận diện heuristic dựa trên dấu hiệu server trả về lỗi `500` và ngắt kết nối khi gửi chuỗi dài ~2.500 ký tự.
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng phản hồi HTTP 500: [`../evidence/screenshots/FIND-03-livewire-500.png`](../evidence/screenshots/FIND-03-livewire-500.png)
+  - Ảnh minh chứng phản hồi HTTP 500: [`../evidence/screenshots/findings%20run/FIND-03-livewire-500.png`](../evidence/screenshots/findings%20run/FIND-03-livewire-500.png)
 - **Giới hạn:** Chưa kiểm tra log chi tiết phía container `app` (`storage/logs/laravel.log`) để xác định chính xác lớp ngoại lệ PHP phát sinh tại `/livewire/update`.
 
 ---
@@ -107,7 +110,7 @@
   - *Đã xác nhận:* Bản dựng phát hành `v8.8.0` của Snipe-IT vẫn duy trì nhánh giao diện AdminLTE/Bootstrap 3 cũ trong tệp biên dịch `/js/dist/all.js`.
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng định danh phiên bản trong `all.js`: [`../evidence/screenshots/FIND-04-bootstrap-334.png`](../evidence/screenshots/FIND-04-bootstrap-334.png)
+  - Ảnh minh chứng định danh phiên bản trong `all.js`: [`../evidence/screenshots/findings%20run/FIND-04-bootstrap-334.png`](../evidence/screenshots/findings%20run/FIND-04-bootstrap-334.png)
 - **Giới hạn:** Mới xác nhận phiên bản thư viện tồn tại trong bundle; chưa chứng minh được luồng khai thác XSS thực tế qua các thuộc tính `data-target`, `href` hoặc tooltip/popover từ dữ liệu người dùng nhập vào trên Snipe-IT.
 
 ---
@@ -128,7 +131,8 @@
   - *Đã xác nhận:* Cấu hình Apache mặc định trong image Docker của Snipe-IT chưa bật `ServerTokens Prod` / `ServerSignature Off` và chưa bổ sung header bảo mật cho các tệp tĩnh phục vụ trực tiếp không qua PHP middleware.
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng response header của file tĩnh: [`../evidence/screenshots/FIND-05-server-headers.png`](../evidence/screenshots/FIND-05-server-headers.png)
+  - Ảnh minh chứng response header của file tĩnh: [`../evidence/screenshots/findings%20run/FIND-05-server-headers.png`](../evidence/screenshots/findings%20run/FIND-05-server-headers.png)
+  - Log headers đã làm sạch: [`../evidence/logs/RUN-01-headers-sample.txt`](../evidence/logs/RUN-01-headers-sample.txt)
 - **Giới hạn:** Môi trường kiểm thử hiện chạy qua giao thức HTTP (`http://localhost:8000`), do đó header `Strict-Transport-Security` (HSTS) theo đặc tả trình duyệt chỉ có tác dụng khi ứng dụng được cấu hình chạy qua HTTPS.
 
 ---
@@ -149,7 +153,5 @@
   - *Đã xác nhận:* Snipe-IT được xây dựng trên framework Laravel. Theo kiến trúc chuẩn của Laravel, cookie `XSRF-TOKEN` **bắt buộc không đặt `HttpOnly`** để mã JavaScript hợp lệ (như Axios) có thể đọc giá trị token và gắn vào HTTP header `X-XSRF-TOKEN` trong các yêu cầu AJAX/API nhằm phòng chống tấn công CSRF. Cookie này không chứa thông tin định danh phiên đăng nhập.
 - **Evidence:**
   - Báo cáo quét: [`../reports/RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html)
-  - Ảnh minh chứng `Set-Cookie` (đã che giá trị token): [`../evidence/screenshots/FIND-06-xsrf-cookie.png`](../evidence/screenshots/FIND-06-xsrf-cookie.png)
+  - Ảnh minh chứng `Set-Cookie` (đã che giá trị token): [`../evidence/screenshots/findings%20run/FIND-06-xsrf-cookie.png`](../evidence/screenshots/findings%20run/FIND-06-xsrf-cookie.png)
 - **Giới hạn:** Không có; đã đối chiếu trực tiếp với cấu hình session và cơ chế CSRF của Laravel trên Snipe-IT `v8.8.0`.
-
-Nếu không có defect đã xác minh, ghi rõ scope, lần chạy, giới hạn và report hỗ trợ kết luận; không để bảng trống mà không có giải thích.
