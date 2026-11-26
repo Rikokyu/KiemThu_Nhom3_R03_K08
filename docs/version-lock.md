@@ -1,6 +1,6 @@
 # Khóa phiên bản và môi trường kiểm thử
 
-> Cập nhật: Nguyễn Trung Hiệp + Nguyễn Văn An; ZAP do Ngô Văn Chương xác nhận.  
+> Cập nhật: Nguyễn Trung Hiệp + Nguyễn Văn An; ZAP do Nguyễn Lê Anh Tuấn xác nhận.
 > Các giá trị dưới đây đã được kiểm chứng ngày 07/11/2026.
 
 | Thành phần | Phiên bản/tag/SHA | Nguồn hoặc lệnh xác minh | Ngày xác minh | Người xác minh |
@@ -12,8 +12,8 @@
 | Runtime | PHP 8.3.6 trong image Snipe-IT | `php artisan about` | 07/11/2026 | Nguyễn Văn An |
 | Database/service | MariaDB 11.4.7 | Docker Compose service `db` | 07/11/2026 | Nguyễn Văn An |
 | Docker/Compose | Docker Engine 29.8.0 / Compose v5.5.1 | `docker version`, `docker compose version` | 07/11/2026 | Nguyễn Văn An |
-| OWASP ZAP | Chưa cập nhật phiên bản thực tế | ZAP | Chưa xác minh | Ngô Văn Chương |
-| Image ZAP (nếu dùng) | Chưa cập nhật | ZAP | Chưa xác minh | Ngô Văn Chương |
+| OWASP ZAP | Chưa cập nhật phiên bản thực tế | ZAP | Chưa xác minh | Nguyễn Lê Anh Tuấn |
+| Image ZAP (nếu dùng) | Chưa cập nhật | ZAP | Chưa xác minh | Nguyễn Lê Anh Tuấn |
 
 ## Cấu hình kiểm thử
 

@@ -1,6 +1,6 @@
 # Kết quả và phát hiện
 
-> Phụ trách tổng hợp: Đỗ Duy Bien  
+> Phụ trách tổng hợp: Đỗ Duy Biên
 > Không coi cảnh báo scanner là defect đã xác nhận nếu chưa tái hiện/đối chiếu.
 
 ## Tóm tắt lần chạy

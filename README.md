@@ -102,6 +102,15 @@ Danh sách thành viên và nhiệm vụ được cập nhật theo **bảng ph�
 - Nguyễn Trung Hiệp giữ vai trò điều phối/Git và chủ trì thiết kế test case; các thành viên còn lại cùng góp ý kịch bản, kiểm tra chéo và hỗ trợ chạy test.
 - Các phần A–H trong cấu trúc báo cáo được gán người phụ trách chính tại Mục 6; cả nhóm vẫn chịu trách nhiệm đọc và rà soát báo cáo tổng thể.
 
+### Tiêu chí peer review
+
+Chấm chéo theo bốn tiêu chí, mỗi tiêu chí tối đa 2,5 điểm (tổng tối đa 10 điểm):
+
+- **Đúng hạn:** nộp sản phẩm đúng deadline đã cam kết.
+- **Chất lượng công việc:** sản phẩm chỉn chu, đúng yêu cầu, hạn chế phải sửa lại.
+- **Thái độ và hợp tác:** tham gia họp, phản hồi và hỗ trợ các thành viên.
+- **Sáng tạo và chủ động:** đóng góp ý tưởng và chủ động nhận việc.
+
 ## 5. Phân công chi tiết theo thành viên
 
 Nội dung dưới đây được cập nhật theo phần **phân công công việc** trong báo cáo giữa kỳ. Phạm vi nhiệm vụ và sản phẩm bàn giao không tự ý mở rộng ngoài nội dung báo cáo.
@@ -112,23 +121,22 @@ Nội dung dưới đây được cập nhật theo phần **phân công công v
 
 1. Xây dựng kế hoạch kiểm thử tổng thể cho đề tài.
 2. Phụ trách các trường hợp kiểm thử thuộc nhóm xác thực (`TC_AUTH`).
-3. Phụ trách các trường hợp kiểm thử thuộc nhóm phân quyền (`TC_AUTHZ`).
+3. Theo dõi và rà soát nhóm phân quyền (`TC_AUTHZ`); theo bảng phân công test case, Nguyễn Lê Anh Tuấn là người phụ trách chính và Nguyễn Trung Hiệp phối hợp.
 4. Điều phối tiến độ thực hiện công việc của các thành viên.
 5. Rà soát test case và tổng hợp nội dung báo cáo.
 
 **Đầu ra cần bàn giao**
 
 - Kế hoạch kiểm thử tổng thể.
-- Các test case nhóm `TC_AUTH_*` và `TC_AUTHZ_*`.
+- Các test case nhóm `TC_AUTH_*`; rà soát/điều phối nhóm `TC_AUTHZ_*`.
 - Bảng theo dõi tiến độ.
 - Nội dung báo cáo tổng hợp.
 
 **Phối hợp**
 
-- Với Ngô Văn Chương trong nhóm test case xác thực.
 - Với Nguyễn Lê Anh Tuấn trong nhóm test case phân quyền.
-- Với Nguyễn Văn An trong test case API.
-- Với Đỗ Duy Biên trong test case bảo mật cookie.
+- Với Đỗ Duy Biên trong việc thực hiện test case cookie theo bảng tiến độ.
+- Rà soát test case và tổng hợp tiến độ cùng các thành viên phụ trách.
 
 ### 5.2. Nguyễn Lê Anh Tuấn — Cấu hình OWASP ZAP và thực hiện DAST
 
@@ -175,7 +183,7 @@ Nội dung dưới đây được cập nhật theo phần **phân công công v
 **Phối hợp**
 
 - Với Ngô Văn Chương trong nhóm test case quản lý tài sản.
-- Với Nguyễn Trung Hiệp trong nhóm test case API.
+- Với Đỗ Duy Biên trong nhóm test case API.
 
 ### 5.4. Ngô Văn Chương — Phân tích hệ thống và xác minh/kiểm thử lại
 
@@ -197,7 +205,7 @@ Nội dung dưới đây được cập nhật theo phần **phân công công v
 
 **Phối hợp**
 
-- Với Nguyễn Trung Hiệp trong nhóm test case xác thực.
+- Với Nguyễn Trung Hiệp trong nhóm test case xác thực và phân quyền theo bảng tiến độ.
 - Với Nguyễn Văn An trong nhóm test case quản lý tài sản.
 - Với Nguyễn Lê Anh Tuấn trong việc xác định URL và phạm vi quét.
 - Với người phụ trách test case tương ứng khi cần xác minh kết quả bất thường.
@@ -219,6 +227,7 @@ Nội dung dưới đây được cập nhật theo phần **phân công công v
 - Bằng chứng xác minh.
 - Bảng phân loại lỗi.
 - Đề xuất hướng xử lý.
+- Kết quả thực hiện nhóm `TC_API_*` theo bảng phân công test case.
 
 **Phối hợp**
 
@@ -233,13 +242,16 @@ Bảng dưới đây giữ nguyên mã test case, người phụ trách chính v
 
 | Nhóm test case | Mã test case | Người phụ trách chính | Người phối hợp |
 |---|---|---|---|
-| Xác thực | `TC_AUTH_001`, `TC_AUTH_002`, `TC_AUTH_003` | Nguyễn Trung Hiệp | Ngô Văn Chương |
-| Phân quyền | `TC_AUTHZ_001`, `TC_AUTHZ_002` | Nguyễn Trung Hiệp | Nguyễn Lê Anh Tuấn |
+| Xác thực | `TC_AUTH_001`, `TC_AUTH_002`, `TC_AUTH_003` | Nguyễn Trung Hiệp | — |
+| Phân quyền | `TC_AUTHZ_001`, `TC_AUTHZ_002` | Nguyễn Lê Anh Tuấn | Nguyễn Trung Hiệp |
 | Quản lý tài sản | `TC_ASSET_001`, `TC_ASSET_002` | Nguyễn Văn An | Ngô Văn Chương |
-| API | `TC_API_001`, `TC_API_002` | Nguyễn Văn An | Nguyễn Trung Hiệp |
-| Bảo mật cookie | `TC_COOKIE_001` | Nguyễn Trung Hiệp | Đỗ Duy Biên |
-| Quét bảo mật bằng ZAP | `TC_ZAP_001`, `TC_ZAP_002` | Đỗ Duy Biên | Nguyễn Lê Anh Tuấn |
+| API | `TC_API_001`, `TC_API_002` | Đỗ Duy Biên | Nguyễn Văn An |
+| Bảo mật cookie | `TC_COOKIE_001` | Nguyễn Trung Hiệp | — |
+| Quét bảo mật bằng ZAP | `TC_ZAP_001`, `TC_ZAP_002` | Nguyễn Lê Anh Tuấn | — |
 | Xác minh và phân loại lỗi | Các test case có kết quả bất thường | Ngô Văn Chương | Người phụ trách test case tương ứng |
+
+> Bảng này phản ánh người phụ trách test case theo sheet phân công. Bảng tiến độ có thể giao người thực hiện một đầu việc tổng hợp khác; hai vai trò đó không thay thế nhau.
+> Ở mức vai trò nhóm trưởng, sheet tổng quan cũng giao Nguyễn Trung Hiệp theo dõi `TC_AUTHZ`; bảng phân công case chi tiết ở trên xác định Nguyễn Lê Anh Tuấn là người phụ trách chính.
 
 ### Nguyên tắc thực hiện
 
@@ -271,10 +283,11 @@ Bảng dưới đây giữ nguyên mã test case, người phụ trách chính v
 
 ### Bước 4 — Thực hiện kiểm thử
 
-- Nguyễn Trung Hiệp phụ trách nhóm `TC_AUTH` và `TC_AUTHZ`.
-- Nguyễn Văn An phụ trách nhóm `TC_ASSET` và phối hợp nhóm `TC_API`.
-- Nguyễn Trung Hiệp phụ trách `TC_COOKIE_001`, phối hợp với Đỗ Duy Biên.
-- Đỗ Duy Biên phụ trách `TC_ZAP_001`, `TC_ZAP_002`, phối hợp với Nguyễn Lê Anh Tuấn.
+- Nguyễn Trung Hiệp phụ trách nhóm `TC_AUTH`; Nguyễn Lê Anh Tuấn phụ trách `TC_AUTHZ`, Nguyễn Trung Hiệp phối hợp.
+- Nguyễn Văn An phụ trách nhóm `TC_ASSET`, Ngô Văn Chương phối hợp.
+- Đỗ Duy Biên phụ trách nhóm `TC_API`, Nguyễn Văn An phối hợp.
+- Nguyễn Trung Hiệp phụ trách `TC_COOKIE_001`; đầu việc thực hiện cookie/ZAP trong bảng tiến độ do Đỗ Duy Biên phụ trách, phối hợp Nguyễn Lê Anh Tuấn.
+- Nguyễn Lê Anh Tuấn phụ trách `TC_ZAP_001`, `TC_ZAP_002` và cấu hình/phạm vi quét; Đỗ Duy Biên thực hiện đầu việc test cookie/ZAP theo bảng tiến độ.
 - Nguyễn Lê Anh Tuấn cấu hình ZAP, thiết lập phạm vi, thu thập URL và thực hiện quét trong phạm vi cho phép.
 
 ### Bước 5 — Đối chiếu, xác minh và phân loại
@@ -378,18 +391,20 @@ Các tài liệu để dựng và chạy lại:
 - **Xác thực:** nếu kịch bản cần đăng nhập, chuẩn bị tài khoản thử nghiệm riêng cho từng role và kiểm tra ZAP đã duy trì session đúng cách.
 - **Đầu ra:** cấu hình đã làm sạch bí mật, log, report, danh sách cảnh báo, kết quả xác minh và giới hạn của lần quét.
 
-### 9.2. Nhóm kịch bản ban đầu
+### 9.2. Nhóm test case theo phân công
 
-Đây là các **kịch bản dự kiến để nhóm đánh giá sau khi khảo sát hệ thống**, không phải tuyên bố rằng Snipe-IT đang có lỗi.
+Các nhóm dưới đây theo mã test case trong bảng phân công; việc liệt kê không phải tuyên bố rằng Snipe-IT đang có lỗi.
 
-| ID | Nhóm kiểm thử | Điều kiện/thao tác tổng quát | Kết quả mong đợi |
-|---|---|---|---|
-| DAST-01 | Truy cập khi chưa đăng nhập | Mở các route được xác định là cần xác thực trong scope local khi chưa có session | Chuyển tới đăng nhập hoặc trả về trạng thái từ chối phù hợp; không để lộ dữ liệu được bảo vệ |
-| DAST-02 | Phân quyền theo role | Dùng tài khoản test có quyền khác nhau, thử truy cập chức năng được giới hạn theo ma trận quyền đã xác nhận | Người dùng không đủ quyền không thể đọc/thay đổi tài nguyên vượt quyền |
-| DAST-03 | Vòng đời session | Đăng nhập, đăng xuất, sau đăng xuất thử dùng lại session theo cách kiểm thử được phê duyệt | Session bị vô hiệu hóa hoặc hành vi phù hợp với thiết kế bảo mật đã tài liệu hóa |
-| DAST-04 | Xử lý dữ liệu đầu vào | Dùng dữ liệu thử nghiệm vô hại trên các form/đầu vào trong phạm vi; kiểm tra phản hồi và mã hóa đầu ra | Dữ liệu được validate/encode phù hợp; không thực thi nội dung đầu vào ngoài ý muốn |
-| DAST-05 | HTTP security headers/cookie | Quan sát header và thuộc tính cookie trên các phản hồi liên quan | Ghi nhận cấu hình thực tế và đối chiếu tiêu chí bảo mật mà nhóm đã xác định; nêu rõ header nào áp dụng được trong bối cảnh test |
-| DAST-06 | Phát hiện tự động của ZAP | Chạy passive scan và active scan giới hạn trên instance local sau khi chuẩn bị/reset dữ liệu | Mọi cảnh báo được lưu, phân loại và xác minh; cảnh báo chưa xác minh không được trình bày như lỗi đã xác nhận |
+| Nhóm | Mã test case | Phạm vi |
+|---|---|---|
+| Xác thực | `TC_AUTH_001`–`TC_AUTH_003` | Đăng nhập sai, truy cập khi chưa đăng nhập và kiểm tra session/cookie |
+| Phân quyền | `TC_AUTHZ_001`–`TC_AUTHZ_002` | Quyền xem và chỉnh sửa tài sản theo role |
+| Quản lý tài sản | `TC_ASSET_001`–`TC_ASSET_002` | Xem danh sách tài sản và validation dữ liệu |
+| API | `TC_API_001`–`TC_API_002` | API chưa xác thực và xử lý tham số không hợp lệ; endpoint cụ thể phải được xác nhận trước khi chạy |
+| Cookie | `TC_COOKIE_001` | Quan sát thuộc tính cookie theo cấu hình local |
+| DAST/ZAP | `TC_ZAP_001`–`TC_ZAP_002` | HTTP security headers và cảnh báo trong scope local |
+
+Chi tiết bước chạy, expected result và phân công xem [`docs/test-cases.md`](docs/test-cases.md) và [`test-cases/dast-test-cases.csv`](test-cases/dast-test-cases.csv). Trạng thái nhóm trong bảng theo dõi không tự động thay thế actual result/evidence của từng case; chỉ cập nhật trạng thái case sau khi đối chiếu bằng chứng.
 
 ### 9.3. Tiêu chí đánh giá
 
@@ -407,7 +422,7 @@ Nguyễn Trung Hiệp chủ trì quản lý file `docs/test-cases.md`. Mỗi tes
 
 | Trường | Nội dung cần ghi |
 |---|---|
-| Test Case ID | Mã duy nhất, ví dụ `DAST-01` |
+| Test Case ID | Mã duy nhất theo bảng phân công, ví dụ `TC_AUTH_002` |
 | Mục tiêu | Hành vi hoặc rủi ro cần kiểm tra |
 | Module/URL | Module, route hoặc endpoint nằm trong scope |
 | Mức quyền/tài khoản | Chưa đăng nhập hoặc role dùng để chạy test; không lưu mật khẩu thật |
@@ -423,7 +438,7 @@ Nguyễn Trung Hiệp chủ trì quản lý file `docs/test-cases.md`. Mỗi tes
 ### Ví dụ khung ghi test case
 
 ```markdown
-### DAST-01 — Kiểm tra route cần xác thực khi chưa đăng nhập
+### TC_AUTH_002 — Kiểm tra route cần xác thực khi chưa đăng nhập
 - Mục tiêu:
 - Module/URL trong scope:
 - Precondition:
@@ -444,11 +459,11 @@ Nguyễn Trung Hiệp chủ trì quản lý file `docs/test-cases.md`. Mỗi tes
 
 | Thành viên | Sản phẩm bàn giao | Tiêu chí hoàn thành |
 |---|---|---|
-| Nguyễn Trung Hiệp | Kế hoạch kiểm thử; test case `TC_AUTH_*`, `TC_AUTHZ_*`; bảng theo dõi tiến độ; báo cáo tổng hợp | Có kế hoạch kiểm thử, kết quả các test case được giao, tiến độ được cập nhật và nội dung báo cáo được tổng hợp |
+| Nguyễn Trung Hiệp | Kế hoạch kiểm thử; test case `TC_AUTH_*`; rà soát/điều phối `TC_AUTHZ_*`; bảng theo dõi tiến độ; báo cáo tổng hợp | Có kế hoạch kiểm thử, kết quả các test case được giao, tiến độ được cập nhật và nội dung báo cáo được tổng hợp |
 | Nguyễn Lê Anh Tuấn | Cấu hình quét; báo cáo OWASP ZAP; test case `TC_ZAP_*`; bằng chứng quét; danh sách cảnh báo | ZAP được cấu hình theo phạm vi cho phép; có báo cáo/bằng chứng và danh sách cảnh báo cần xem xét |
 | Nguyễn Văn An | Tài liệu môi trường; hướng dẫn khởi chạy; dữ liệu kiểm thử; kết quả `TC_ASSET_*`; phối hợp `TC_API_*` | Môi trường, cơ sở dữ liệu, tài khoản và dữ liệu mẫu được chuẩn bị; có tài liệu và kết quả kiểm thử phần việc được giao |
 | Ngô Văn Chương | Tài liệu phân tích hệ thống; danh sách chức năng/URL; sơ đồ luồng nghiệp vụ; kết quả xác minh/kiểm thử lại | Có tài liệu phân tích, xác định được URL/chức năng thuộc phạm vi và phối hợp xác minh các kết quả bất thường |
-| Đỗ Duy Biên | Danh sách scenario; kết quả kiểm thử thủ công; bằng chứng xác minh; bảng phân loại lỗi; đề xuất xử lý | Có scenario, kết quả đối chiếu expected/actual, bằng chứng và phân loại mức độ nghiêm trọng của lỗi |
+| Đỗ Duy Biên | Danh sách scenario; kết quả `TC_API_*`; kiểm thử thủ công; bằng chứng xác minh; bảng phân loại lỗi; đề xuất xử lý | Có scenario, kết quả đối chiếu expected/actual, bằng chứng và phân loại mức độ nghiêm trọng của lỗi |
 
 ### Checklist trước khi nộp
 
@@ -485,7 +500,7 @@ Các thông tin môi trường đã kiểm chứng được cập nhật theo h�
 
 | Thông tin | Giá trị cần cập nhật | Người cập nhật |
 |---|---|---|
-| Repository nhóm | `https://github.com/Rikokyu/KiemThu_Nhom4_R03_K08` | Nguyễn Trung Hiệp |
+| Repository nhóm | `https://github.com/Rikokyu/KiemThu_Nhom3_R03_K08` | Nguyễn Trung Hiệp |
 | Repository upstream | `https://github.com/grokability/snipe-it` | Nguyễn Trung Hiệp |
 | Release/tag upstream | `v8.8.0` | Nguyễn Trung Hiệp + Nguyễn Văn An |
 | Commit SHA upstream | `2c466fa8a5a68525439bf1bbbc24470d6670c516` | Nguyễn Trung Hiệp + Nguyễn Văn An |
@@ -493,9 +508,9 @@ Các thông tin môi trường đã kiểm chứng được cập nhật theo h�
 | Cách dựng | Docker Compose | Nguyễn Văn An |
 | DB/service và phiên bản | MariaDB 11.4.7 | Nguyễn Văn An |
 | Port/URL local | `http://localhost:8000` | Nguyễn Văn An + Ngô Văn Chương |
-| Phiên bản OWASP ZAP | `<PHIÊN_BẢN_ĐÃ_DÙNG>` | Ngô Văn Chương |
-| Lệnh chạy DAST | `<LỆNH_ĐÃ_CHẠY_THÀNH_CÔNG>` | Ngô Văn Chương |
-| Vị trí report/evidence | `<ĐƯỜNG_DẪN_TRONG_REPO>` | Đỗ Duy Bien |
+| Phiên bản OWASP ZAP | `<PHIÊN_BẢN_ĐÃ_DÙNG>` | Nguyễn Lê Anh Tuấn |
+| Lệnh chạy DAST | `<LỆNH_ĐÃ_CHẠY_THÀNH_CÔNG>` | Nguyễn Lê Anh Tuấn |
+| Vị trí report/evidence | `<ĐƯỜNG_DẪN_TRONG_REPO>` | Đỗ Duy Biên |
 
 ### Hướng dẫn chạy lại cần hoàn thiện
 

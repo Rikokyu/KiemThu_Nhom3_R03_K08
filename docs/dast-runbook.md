@@ -1,6 +1,6 @@
 # Runbook chạy DAST bằng OWASP ZAP
 
-> Phụ trách: Ngô Văn Chương  
+> Phụ trách OWASP ZAP/DAST: Nguyễn Lê Anh Tuấn
 > Trạng thái: Bộ khung; lệnh phải được bổ sung sau khi chạy thử trên instance local.
 
 ## Điều kiện trước khi chạy
