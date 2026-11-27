@@ -1,6 +1,10 @@
 # Checklist thực thi DAST
 
-Checklist này dùng cùng `dast-test-cases.csv` và `docs/dast-runbook.md`. Chỉ chạy trên instance local mà nhóm được phép kiểm thử. Active scan có thể làm thay đổi dữ liệu; phải xác nhận scope và khả năng reset trước khi chạy.
+Checklist này dùng cùng `dast-test-cases.csv` và `docs/dast-runbook.md`;
+chỉ áp dụng cho kiểm thử thủ công/DAST với mã `TC_*`. Đây không phải checklist
+Playwright. Chỉ chạy trên instance local mà nhóm được phép kiểm thử. Active
+scan có thể làm thay đổi dữ liệu; phải xác nhận scope và khả năng khôi phục
+trước khi chạy.
 
 ## Trước khi chạy
 

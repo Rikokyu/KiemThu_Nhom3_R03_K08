@@ -1,84 +1,75 @@
-# Test Data Management
+# Quản lý dữ liệu kiểm thử
 
-## Run identity and manifest
+## RUN_ID và manifest
 
-`global-setup.js` creates a unique `RUN_ID` only after a successful Admin login
-and live Superuser verification. It records the baseline inventory and dynamic
-Asset catalog fixture in `automation/.cache/current-run.json`. Every created
-object is registered in `automation/.cache/managed-data-<RUN_ID>.json` with its
-type, exact identity, ID, ownership metadata, state, and cleanup result.
+`global-setup.js` tạo `RUN_ID` sau khi đăng nhập Admin và xác minh quyền
+Superuser. Baseline inventory và fixture catalog được lưu tại
+`automation/.cache/current-run.json`. Mọi đối tượng được tạo sẽ có entry trong
+`automation/.cache/managed-data-<RUN_ID>.json`, gồm loại, ID, identity,
+metadata ownership, state và kết quả cleanup.
 
-Run-owned Usernames start with `pw_<RUN_ID>_`; Asset Tags and Group/token names
-start with `AUTO-TEST-<RUN_ID>-`. API tokens are named uniquely per owner. The
-manifest contains no password, session cookie, CSRF value, or token value.
-Generated account passwords are held only in an ignored, permission-restricted
-temporary run-secrets file and removed after cleanup.
+Username do automation tạo có dạng `pw_<RUN_ID>_...`; Asset Tag, Group và tên
+token dùng prefix `AUTO-TEST-<RUN_ID>-...`. Manifest không lưu password,
+session cookie, CSRF value hoặc token value. Password sinh cho account được
+lưu tạm trong file local bị ignore và xóa sau cleanup.
 
-## Fixture lifecycle
+## Vòng đời fixture
 
-1. Authenticate with `ADMIN_USERNAME` and `ADMIN_PASSWORD` from `.env`.
-2. Verify the configured account and Superuser permission using the live UI.
-3. Inventory Models, Status Labels, Categories, Companies, Locations, Users,
-   Groups, and active Assets through stable, paginated API reads.
-4. Resolve existing active Asset-category Model and deployable Status Label;
-   never assume a fixed database ID.
-5. Create per-test run-owned users/groups/tokens/assets only where needed.
-6. Assert the API's JSON business result and read back created/updated data.
-7. Clean in dependency order: Assets, owner tokens, Users, then Groups.
-8. Re-read the active inventory and compare counts and identity fingerprints
-   with the pre-run baseline.
+1. Đăng nhập bằng `ADMIN_USERNAME` và `ADMIN_PASSWORD` từ `.env`.
+2. Xác minh identity Admin và quyền Superuser trước khi chuẩn bị dữ liệu.
+3. Đọc Models, Status Labels, Categories, Companies, Locations, Users, Groups
+   và Assets bằng API đã phân trang.
+4. Chọn động Model/Status hợp lệ; không giả định ID cố định.
+5. Mỗi test tạo user/group/token/Asset riêng theo nhu cầu.
+6. Kiểm tra JSON business result và đọc lại dữ liệu đã tạo/sửa.
+7. Cleanup theo quan hệ phụ thuộc: Asset, token thuộc owner, User, Group.
+8. Đọc lại inventory active và so sánh fingerprint với baseline.
 
-Catalog records and all pre-existing accounts, groups, and Assets are
-read-only fixtures. Test accounts are not the Superuser. Cases needing two
-users receive separate run-owned users with verified individual/group
-permissions.
+Dữ liệu nền chỉ đọc. User test không phải Superuser; case quyền dùng identity
+và permission riêng. Test độc lập về dữ liệu, không dùng Asset do case trước
+tạo.
 
-## Cleanup safeguards and recovery
+## Bảo vệ cleanup và khôi phục
 
-Cleanup requires all of the following before deleting/revoking an object:
+Trước khi xóa/revoke, cleanup xác minh:
 
-- The manifest entry belongs to the active `RUN_ID`.
-- Its identity has the expected run prefix.
-- The recorded ID resolves to the same exact Asset Tag, Username, Group name,
-  or token name/owner.
-- For a pending entry without an ID, an exact identity lookup must return at
-  most one object; ambiguity stops cleanup.
-- The delete/revoke response is checked and the result is verified afterward.
+- Manifest entry thuộc `RUN_ID` đang xử lý.
+- Identity có đúng prefix của lượt chạy.
+- ID hiện tại khớp đúng Asset Tag, Username, Group name hoặc tên token và owner.
+- Nếu entry chưa có ID, exact identity lookup không được mơ hồ; nhiều kết quả
+  khiến cleanup dừng.
+- Response xóa/revoke và trạng thái sau thao tác được kiểm tra.
 
-No Admin/Superuser or pre-existing data is eligible for cleanup. Snipe-IT
-soft-deletes Users and Assets; these run-owned rows may remain in the database
-but are absent from active inventory. OAuth tokens are revoked and verified.
-Cleanup never attempts to purge soft-deleted records or alter system settings.
+Admin/Superuser và dữ liệu có sẵn không đủ điều kiện cleanup. Snipe-IT có thể
+soft-delete User/Asset; record có thể còn trong database nhưng không còn trong
+inventory active. Token được revoke. Cleanup không purge soft-deleted record
+và không đổi system settings.
 
-Playwright fixture teardown runs even when a test fails. Global teardown
-resumes any remaining manifest work and verifies the baseline. If the process
-is interrupted, run:
+Fixture teardown chạy khi test lỗi; global teardown tiếp tục xử lý manifest
+còn lại. Nếu tiến trình bị dừng, chạy:
 
 ```powershell
 npm run test:data-cleanup
 ```
 
-The command operates only on the current run manifest, then verifies baseline
-fingerprints. If ownership, credentials, or identity cannot be verified, it
-stops and reports the unresolved entry instead of deleting it.
+Lệnh chỉ thao tác theo manifest hiện hành. Nếu không xác minh được ownership,
+credential hoặc identity thì dừng và báo entry chưa xử lý, không đoán/xóa.
 
-## Repeatability and observed baseline
+## Baseline và khả năng lặp lại đã ghi nhận
 
-The validated active API baseline is 18 Models, 7 Status Labels, 20 Categories,
-111 Companies, 21 Locations, 2,107 Users, 1 Group, and 2,559 Assets. The direct
-database contains 2,609 Assets total; the API listing excludes the 50 assets
-whose Status Label is Archived. Both full test runs returned to identical
-active-inventory counts and fingerprints. See
-`TEST_DATA_IMPLEMENTATION_REPORT.md` and `FINAL_TEST_REPORT.md`.
+Snapshot active lịch sử: 18 Models, 7 Status Labels, 20 Categories, 111
+Companies, 21 Locations, 2,107 Users, 1 Group và 2,559 Assets. Database có
+2,609 Assets tổng, trong đó API active không liệt kê 50 Archived. Hai lượt
+full run trước đó và RUN_ID `20261127142336-FDB59D` có summary xác nhận
+cleanup/fingerprint. Raw JSON và summary hiện tại nằm trong thư mục bị ignore.
+Xem [báo cáo triển khai](TEST_DATA_IMPLEMENTATION_REPORT.md) và
+[báo cáo cuối](FINAL_TEST_REPORT.md).
 
-Snipe-IT's API throttle is 120 requests per minute per authenticated user.
-Paginated session requests honor `Retry-After` with bounded retries; catalog
-records are reused from the verified run baseline to avoid redundant reads.
+Client có bounded retry theo `Retry-After` khi gặp rate limit. Không tăng
+worker để ép tốc độ; `playwright.config.js` hiện chạy một worker.
 
-## Secret handling
+## Bảo vệ bí mật
 
-`.env`, `.cache/`, Playwright results, and generated reports must not contain
-credentials or token values. `.env.example` contains placeholders only.
-Screenshots and traces are disabled. The report generator redacts bearer and
-password-shaped values; never paste credentials or session material into a
-test annotation or assertion message.
+`.env`, `.cache/`, Playwright results và reports bị ignore. `.env.example` chỉ
+có giá trị minh họa. Không đưa credential/session/token vào assertion message,
+annotation, log, report hoặc Git. Screenshot và trace đang tắt trong config.

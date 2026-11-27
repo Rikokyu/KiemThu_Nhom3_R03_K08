@@ -1,23 +1,33 @@
-# Test Design
+# Phương pháp thiết kế Test Case Playwright
 
-## Sources
+Tài liệu này áp dụng cho bộ chức năng Playwright với 29 mã `AUTH-*`,
+`AUTHZ-*`, `ASSET-*`, `API-*` và `COOKIE-*`. Bộ này tách biệt với case DAST
+`TC_*` trong `docs/test-cases.md`.
 
-The design is based on the provided Snipe-IT source-analysis prompt and runtime observations of `http://localhost:8000`. It does not assume undocumented behavior or read Snipe-IT source code.
+## Kỹ thuật kiểm thử
 
-## Techniques
+- **Equivalence Partitioning:** thông tin đăng nhập, API và dữ liệu Asset
+  hợp lệ/không hợp lệ.
+- **Boundary Value Analysis:** giới hạn input Asset, thời gian throttle và
+  giá trị biên có liên quan.
+- **Decision Table:** trạng thái tài khoản, quyền cá nhân/Group và quyền API.
+- **Negative Testing:** truy cập chưa xác thực, ID sai và thiếu CSRF.
+- **State Transition:** login/logout/session và vòng đời create/update/delete
+  Asset.
+- **Risk-based Testing:** truy cập xuyên Company cần FMCS.
+- **Configuration Testing:** cookie/session và thuộc tính bảo mật.
 
-- Equivalence partitioning: valid/invalid login, API and asset data.
-- Boundary value analysis: throttle, asset tag, name, warranty, cost and invalid API data.
-- Decision tables: role/permission, inactive accounts and personal/group permission precedence.
-- Negative testing: unauthenticated access, invalid IDs and missing CSRF.
-- State transitions: login/logout/session and asset create/update/delete.
-- Risk-based testing: cross-company FMCS scope.
-- Configuration testing: session/cookie properties.
+## Trạng thái môi trường đã ghi nhận
 
-## Runtime uncertainties
+- Target HTTP local không cho xác minh cờ Secure qua HTTPS.
+- `AUTHZ-06` cần FMCS/Company Scoping; chưa thực hiện khi feature chưa bật.
+- Lượt chạy gần nhất được người dùng cung cấp có 34 executions: 31 PASS,
+  1 FAIL, 2 SKIPPED. `ASSET-04` là case fail; `AUTHZ-06` và `COOKIE-04`
+  skipped do precondition. Run ID/report artifact cho lượt này
+  **CẦN XÁC NHẬN**.
+- `ASSET-04` ghi nhận ứng dụng chấp nhận `warranty_months=241` trong khi
+  assertion mong từ chối. Đây là quan sát, chưa tự kết luận nguyên nhân hay
+  yêu cầu nghiệp vụ.
 
-The local URL is HTTP, so Secure cookie and HTTPS behavior cannot be verified. HttpOnly and SameSite are read from the browser cookie runtime and recorded as unverified unless observed. Login redirect status and API status codes are asserted from runtime-safe alternatives instead of assumed exact codes.
-
-## Blocked cases
-
-Cases needing dedicated credentials, API tokens, real test IDs, permission combinations or FMCS company data are blocked unless environment variables provide them. The suite does not create accounts, tokens, permissions or data. Login throttling is skipped by design to avoid changing throttle state.
+Kết quả chi tiết và các case liên quan: [báo cáo triển khai](TEST_CASE_IMPLEMENTATION_REPORT.md)
+và [báo cáo cuối](FINAL_TEST_REPORT.md).

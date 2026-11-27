@@ -1,19 +1,24 @@
-# Snipe-IT Playwright Automation
+# Tự động hóa kiểm thử Snipe-IT bằng Playwright
 
-## Setup
+## Yêu cầu và cài đặt
+
+Môi trường kiểm thử Snipe-IT phải đang chạy tại URL local được phép. Package
+lock ghi Playwright `1.65.1` và yêu cầu Node.js `>=20`.
+
+Từ PowerShell tại thư mục repository:
 
 ```powershell
-cd automation
-npm install
+Set-Location automation
+npm ci
 Copy-Item .env.example .env
 ```
 
-Set `BASE_URL`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` in the ignored `.env`.
-The runner authenticates the configured account and verifies Superuser access
-before test execution. It rejects non-loopback targets and does not print or
-report credentials, cookies, or API token values.
+Điền `BASE_URL`, `ADMIN_USERNAME` và `ADMIN_PASSWORD` vào `automation/.env`.
+File `.env` đã được Git ignore; không chia sẻ hoặc ghi các giá trị này vào log,
+report hay source code. Global setup đăng nhập và xác minh quyền Superuser
+trước khi chuẩn bị dữ liệu. Nếu preflight thất bại, suite dừng.
 
-## Commands
+## Lệnh chạy
 
 ```powershell
 npm run test:list
@@ -26,36 +31,59 @@ npm run test:full
 npm run test:report
 ```
 
-Run one case with, for example:
+Chạy một mã case:
 
 ```powershell
 npm run test:case -- "AUTH-01"
 ```
 
-## Data lifecycle
+Hoàn tất cleanup từ manifest hiện hành:
 
-Global setup takes a paginated inventory baseline and resolves the live Model
-and deployable Status Label dynamically. Each test receives a unique `RUN_ID`;
-its fixture creates only the required run-prefixed users, groups, tokens, and
-Assets. A manifest records object identities and IDs. Fixture teardown and
-global teardown verify ownership before cleanup, then compare the active
-inventory with the baseline. Cleanup is repeatable and resumable with
-`npm run test:data-cleanup`.
+```powershell
+npm run test:data-cleanup
+```
 
-Run-owned users are soft-deleted by Snipe-IT and API tokens are
-revoked; run-owned Assets may be soft-deleted. They are excluded from active
-inventory, while all pre-existing sample records remain untouched. No seeder
-or database reset is used.
+## Nhóm kiểm thử
 
-## Reports and known environment blocks
+Suite có 29 mã nghiệp vụ thuộc AUTH (Authentication), AUTHZ (Authorization),
+ASSET, API Testing và COOKIE (Cookie/Session). Đây là bộ riêng với mã DAST
+`TC_*` trong `../docs/test-cases.md`. Các test dùng Playwright và helper để
+kiểm tra giao diện, HTTP/API result và trạng thái dữ liệu tùy từng case.
 
-- HTML: `automation/reports/index.html`
-- JSON: `automation/test-results/playwright-results.json`
-- Markdown/CSV summary: `automation/reports/test-summary.md` and `test-results.csv`
-- Required implementation reports: `automation/docs/TEST_CASE_IMPLEMENTATION_REPORT.md`
-  and `automation/docs/FINAL_TEST_REPORT.md`
+## Quản lý dữ liệu
 
-`AUTHZ-06` requires FMCS to already be enabled and is BLOCKED on the current
-instance. `COOKIE-04` requires HTTPS and is BLOCKED on the configured HTTP
-instance. `TEST_DATA_REQUIREMENTS.md` and `TEST_DATA_MANAGEMENT.md` document
-live prerequisites and cleanup safeguards.
+Mỗi lượt chạy có `RUN_ID`; fixture ghi nhận tài khoản, group, token và Asset
+được tạo trong manifest. Asset Tag/tên nhận diện theo lượt chạy. Cleanup chỉ
+thực hiện khi xác minh được RUN_ID, ID và identity; user/Asset có thể bị
+soft-delete theo hành vi Snipe-IT, token bị revoke. Dữ liệu nền không phải
+fixture xóa. Không chạy seeder/reset database. Xem
+[quản lý test data](docs/TEST_DATA_MANAGEMENT.md) và
+[yêu cầu dữ liệu](docs/TEST_DATA_REQUIREMENTS.md).
+
+## Kết quả gần nhất được cung cấp
+
+Lượt mới nhất: **RUN_ID `20261127142336-FDB59D`**, 34 executions,
+**31 PASS, 1 FAIL, 2 SKIPPED**, khoảng 3 phút 12 giây. Vì `ASSET-04` có nhiều
+subtest và suite có smoke check, ở cấp 29 mã nghiệp vụ là 26 PASS, 1 FAIL,
+2 case bị chặn bởi precondition. Raw Playwright result ghi `SKIPPED`; summary
+generator hiện ánh xạ hai case này thành `BLOCKED`.
+
+- `ASSET-04`: input `warranty_months=241` được chấp nhận; assertion chờ HTTP
+  422 hoặc JSON `status: error`. Hiện tượng đã quan sát được; nguyên nhân và
+  yêu cầu nghiệp vụ cần xác nhận.
+- `AUTHZ-06`: SKIPPED do FMCS/Company Scoping chưa được bật.
+- `COOKIE-04`: SKIPPED do target HTTP, không thể xác minh cờ Secure qua HTTPS.
+- Summary sinh lúc `2026-11-27T14:26:40Z` và raw JSON cùng khớp RUN_ID này;
+  cleanup và 8 inventory fingerprint được xác nhận trong summary. Hai output
+  nằm trong thư mục bị ignore, không được commit.
+
+## Báo cáo
+
+- [Báo cáo cuối](docs/FINAL_TEST_REPORT.md)
+- [Bảng triển khai 29 case](docs/TEST_CASE_IMPLEMENTATION_REPORT.md)
+- [Thiết kế chu kỳ](docs/TEST_CYCLE_DESIGN.md)
+- [Báo cáo triển khai Test Data Manager](docs/TEST_DATA_IMPLEMENTATION_REPORT.md)
+
+Report HTML/JSON và CSV được sinh trong `reports/` và `test-results/`; các
+thư mục này bị ignore. Chỉ chia sẻ report sau khi kiểm tra thời điểm chạy,
+Run ID và đảm bảo không có credential, token, cookie hoặc dữ liệu cá nhân.

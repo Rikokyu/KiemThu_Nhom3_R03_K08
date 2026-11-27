@@ -12,8 +12,8 @@
 | Runtime | PHP 8.3.6 trong image Snipe-IT | `php artisan about` | 07/11/2026 | Nguyễn Văn An |
 | Database/service | MariaDB 11.4.7 | Docker Compose service `db` | 07/11/2026 | Nguyễn Văn An |
 | Docker/Compose | Docker Engine 29.8.0 / Compose v5.5.1 | `docker version`, `docker compose version` | 07/11/2026 | Nguyễn Văn An |
-| OWASP ZAP | Chưa cập nhật phiên bản thực tế | ZAP | Chưa xác minh | Nguyễn Lê Anh Tuấn |
-| Image ZAP (nếu dùng) | Chưa cập nhật | ZAP | Chưa xác minh | Nguyễn Lê Anh Tuấn |
+| OWASP ZAP | CẦN XÁC NHẬN phiên bản thực tế | Bản ghi phiên bản trong ZAP/report | Chưa xác minh | Nguyễn Lê Anh Tuấn |
+| Image ZAP (nếu dùng) | CẦN XÁC NHẬN; chưa có image tag được ghi nhận | Cấu hình chạy ZAP | Chưa xác minh | Nguyễn Lê Anh Tuấn |
 
 ## Cấu hình kiểm thử
 

@@ -1,94 +1,81 @@
-# Test Data Requirements
+# Yêu cầu dữ liệu kiểm thử
 
-## Live instance baseline
+## Baseline instance đã ghi nhận
 
-The test environment is Snipe-IT `http://localhost:8000`. The latest
-pre-run inventory snapshot used for the two complete suite runs reported:
+Môi trường kiểm thử là Snipe-IT `http://localhost:8000`. Snapshot hoạt động
+dùng cho hai full run ngày 27/11/2026 ghi nhận:
 
-| Record type | Active API records | Notes |
+| Loại dữ liệu | Bản ghi active qua API | Ghi chú |
 |---|---:|---|
-| Models | 18 | Resolve active model dynamically; do not assume an ID. |
-| Status Labels | 7 | Resolve a deployable status dynamically. |
-| Categories | 20 | Existing asset categories are available. |
-| Companies | 111 | FMCS company scoping is disabled. |
-| Locations | 21 | Existing locations are available. |
-| Users | 2,107 | Active API users; the configured Admin was verified as Superuser. |
-| Groups | 1 | Existing group is read-only fixture data. |
-| Assets | 2,559 | Active API assets; database total was 2,609, including 50 archived assets. |
+| Models | 18 | Chọn động model phù hợp, không dựa ID cố định. |
+| Status Labels | 7 | Chọn động nhãn deployable. |
+| Categories | 20 | Chỉ đọc dữ liệu nền. |
+| Companies | 111 | FMCS chưa bật. |
+| Locations | 21 | Chỉ đọc dữ liệu nền. |
+| Users | 2,107 | Admin cấu hình đã được xác minh Superuser trong các lượt có report. |
+| Groups | 1 | Group có sẵn chỉ dùng làm dữ liệu đọc. |
+| Assets | 2,559 | Tổng database ghi nhận 2,609; API active không liệt kê 50 Archived. |
 
-These are observed environment counts, not seeded assumptions; counts can
-change. The reports record the run IDs and inventory fingerprints for the
-validated runs. No catalog, user, group, or asset fixture from this baseline
-is modified or deleted. Per-run disposable accounts and assets are
-soft-deleted by Snipe-IT during cleanup and are not part of active counts.
+Đây là số liệu của snapshot lịch sử, có thể thay đổi. Lượt gần nhất
+`20261127142336-FDB59D` có summary xác nhận cleanup và các inventory
+fingerprint khớp baseline. Không sửa/xóa dữ liệu nền. User/Asset do test tạo
+có thể được soft-delete theo hành vi ứng dụng; token bị revoke.
 
-The initial investigation found no usable active API token. The test flow
-creates short-lived, per-owner tokens through the authenticated personal
-token endpoint, verifies their use, and revokes them during cleanup. Never
-include token values in this document or logs.
+Lần điều tra ban đầu chưa có API token dùng được. Test hiện tạo token ngắn
+hạn cho user do chính lượt chạy tạo, xác minh owner/sử dụng, sau đó revoke.
+Không ghi token value vào tài liệu.
 
-## Prerequisites and how to verify
+## Điều kiện trước khi chạy
 
-1. Start the intended local Snipe-IT instance and confirm it is reachable.
-2. Create `automation/.env` from `.env.example`, then set:
-   - `BASE_URL=http://localhost:8000`
-   - `ADMIN_USERNAME` and `ADMIN_PASSWORD` to the authorized test credentials.
-3. Run `npm run test:list` from `automation/` to verify test discovery.
-4. Run `npm run test:full`. Global setup authenticates first and confirms
-   Superuser access before inventory or test data preparation. On failure it
-   stops; it does not fall back to a presumed Admin.
-5. Review `reports/test-summary.md` and the run manifest for inventory and
-   cleanup verification. Do not copy secret-bearing `.env` or cache files
-   into reports or Git.
+1. Khởi chạy đúng instance Snipe-IT local và xác nhận URL.
+2. Tạo `automation/.env` từ `.env.example`, đặt `BASE_URL`,
+   `ADMIN_USERNAME`, `ADMIN_PASSWORD`.
+3. Chạy `npm run test:list` trong `automation/` để kiểm tra phát hiện test.
+4. Chạy `npm run test:full`. Global setup phải xác thực Admin và quyền
+   Superuser trước khi đọc inventory/chuẩn bị dữ liệu; thất bại thì dừng.
+5. Đối chiếu Run ID, thời điểm và cleanup trong report/manifest. Không commit
+   `.env`, `.cache` hoặc output chưa rà soát.
 
-## Asset and user field requirements
+## Các trường liên quan
 
-- Asset creation requires a valid Model and deployable Status Label resolved
-  from the live instance. Test fixtures also select a compatible Category and
-  required Company/Location values where the test path demands them.
-- Web Asset forms submit `asset_tags[1]` and `serials[1]`; API creation uses
-  `asset_tag` and `serial`. The helper chooses unique `AUTO-TEST-<RUN_ID>-...`
-  tags and reads the created record back.
-- Test Users receive unique `pw_<RUN_ID>_...` usernames and a generated
-  password. Required Company and permission/group settings are assigned only
-  to run-owned users. The Superuser account is never used as a permission-test
-  substitute or eligible for cleanup.
-- Token permissions are scoped to the owning test user. Tokens are run-owned,
-  read/use-verified, then revoked and confirmed inactive.
+- Asset cần Model và Status Label hợp lệ. Fixture tìm các bản ghi active bằng
+  API; không hard-code ID. Web form gửi `asset_tags[1]`/`serials[1]`, API
+  dùng `asset_tag`/`serial`.
+- Asset Tag automation có prefix `AUTO-TEST-<RUN_ID>-...`; API đọc lại record
+  sau tạo để xác minh identity.
+- User test có username dạng `pw_<RUN_ID>_...`; permission/group chỉ cấu hình
+  cho user do lượt chạy tạo. Không dùng Superuser làm User thường.
+- API token thuộc test user cụ thể; ownership được xác minh, value không ghi
+  vào report và token bị revoke trong cleanup.
 
-## API access and pagination
+## API và phân trang
 
-All inventory reads require a valid Bearer token with read permission for the
-resource. Test setup uses the configured Superuser session only after
-interactive Superuser verification. Test API cases use individual user tokens
-so authorization behavior is tested as that user.
+Global setup đọc qua session Admin đã xác minh; API test dùng token của
+identity kiểm thử. Endpoint danh sách cần quyền `*.view` tương ứng. Khả năng
+đọc toàn bộ records được xác minh qua pagination; client dùng thứ tự ID tăng
+dần để tránh thứ tự mặc định không ổn định.
 
-| Data | Read endpoint (GET) | Write endpoint used by test setup | Pagination |
+| Loại | GET | Tạo/xóa khi test | Phân trang |
 |---|---|---|---|
-| Models | `/api/v1/models` | None; baseline catalog is read-only | Yes; follow response pagination and stable `sort=id&order=asc`. |
-| Status Labels | `/api/v1/statuslabels` | None; baseline catalog is read-only | Yes; follow pagination. |
-| Categories | `/api/v1/categories` | None; baseline catalog is read-only | Yes; follow pagination. |
-| Companies | `/api/v1/companies` | None; baseline catalog is read-only | Yes; follow pagination. |
-| Locations | `/api/v1/locations` | None; baseline catalog is read-only | Yes; follow pagination. |
-| Users | `/api/v1/users` | UI provisioning; cleanup via `/api/v1/users/{id}` | Yes; follow pagination. |
-| Groups | `/api/v1/groups` | UI provisioning; cleanup via `/api/v1/groups/{id}` | Yes; follow pagination. |
-| Assets | `/api/v1/hardware` | `/api/v1/hardware` POST/PUT/DELETE | Yes; follow pagination. |
-| Personal tokens | `/api/v1/account/personal-access-tokens` | Same endpoint POST/DELETE | Endpoint returns the authenticated user's tokens; token values are only available at creation and are never logged. |
+| Models | `/api/v1/models` | Không tạo/sửa dữ liệu nền | Có; đọc hết metadata/next page, sắp ID tăng dần |
+| Status Labels | `/api/v1/statuslabels` | Không tạo/sửa dữ liệu nền | Có |
+| Categories | `/api/v1/categories` | Không tạo/sửa dữ liệu nền | Có |
+| Companies | `/api/v1/companies` | Không tạo/sửa dữ liệu nền | Có |
+| Locations | `/api/v1/locations` | Không tạo/sửa dữ liệu nền | Có |
+| Users | `/api/v1/users` | Provision qua UI; cleanup `/api/v1/users/{id}` | Có |
+| Groups | `/api/v1/groups` | Provision qua UI; cleanup `/api/v1/groups/{id}` | Có |
+| Assets | `/api/v1/hardware` | POST/PATCH/DELETE `/api/v1/hardware` | Có |
+| Personal tokens | `/api/v1/account/personal-access-tokens` | POST/DELETE cùng endpoint | List theo owner; token value chỉ có lúc tạo |
 
-Pagination is driven by the response metadata/next-page URL until exhausted;
-the inventory client requests ascending IDs to avoid unstable default Asset
-ordering. A complete inventory read uses the endpoint's returned records,
-not only its first page. API status alone is not treated as success: helpers
-validate JSON status/error fields and read back mutations.
+HTTP status riêng lẻ không đủ kết luận thành công. Test kiểm tra JSON business
+result và đọc lại record sau mutation khi phù hợp.
 
-## Known environment blockers
+## Hạn chế môi trường hiện ghi nhận
 
-- `AUTHZ-06` needs company-scoped access (FMCS); the feature is disabled on
-  this instance. Enabling it is an administrator/system configuration action
-  and is intentionally not performed by automation.
-- `COOKIE-04` requires HTTPS to verify Secure cookie behavior. The configured
-  instance uses HTTP; no simulated PASS is reported.
-- `ASSET-04` tests the 241 warranty-month boundary. It currently demonstrates
-  a live application validation defect: Snipe-IT accepts 241 despite the
-  declared `digits_between:0,240` rule. It remains FAIL rather than weakening
-  the assertion.
+- `AUTHZ-06` cần FMCS đã bật và các Company fixture đã xác nhận; automation
+  không tự đổi cấu hình hệ thống.
+- `COOKIE-04` cần HTTPS để kiểm tra Secure; target ghi nhận hiện là HTTP.
+- `ASSET-04` kiểm tra input `warranty_months=241`; lượt gần nhất người dùng
+  cung cấp ghi nhận giá trị được chấp nhận trong khi assertion mong từ chối.
+  Đây là sai khác quan sát được; yêu cầu nghiệp vụ và nguyên nhân cần
+  **CẦN XÁC NHẬN**, không tự kết luận defect.

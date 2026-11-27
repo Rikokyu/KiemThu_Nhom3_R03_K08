@@ -2,6 +2,10 @@
 
 > Tài liệu dành cho lab local của đề tài R03 + K08. Không sử dụng tài khoản hoặc dữ liệu lab trên hệ thống Internet hay môi trường production.
 
+Tài liệu này mô tả lab cho kiểm thử thủ công/DAST. Playwright có cấu hình
+credential riêng trong `automation/.env`; không mặc định tài khoản gợi ý bên
+dưới là tài khoản của automation. Không ghi giá trị credential vào repository.
+
 ## Thông tin môi trường
 
 | Thành phần | Giá trị |
