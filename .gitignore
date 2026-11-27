@@ -15,3 +15,17 @@
 .idea/
 Thumbs.db
 .DS_Store
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+automation/node_modules/
+automation/.env
+automation/test-results/
+automation/reports/
+automation/playwright-report/
+automation/.cache/

@@ -1,0 +1,42 @@
+{
+  "name": "kiemthu_nhom3_r03_k08",
+  "version": "1.0.0",
+  "description": "> **Đơn vị:** Trường Đại học Đà Lạt – Khoa Công nghệ Thông tin  \r > **Học phần:** Kiểm thử phần mềm  \r > **Giảng viên:** Nguyễn Thế Lâm  \r > **Nhóm:** 5 thành viên  \r > **Nhóm trưởng:** Nguyễn Trung Hiệp  \r > **Trạng thái:** Kế hoạch thực hiện và phân công công việc; cập nhật kết quả sau khi kiểm chứng trên môi trường local.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "node scripts/run-tests.js",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report reports",
+    "test:auth": "node scripts/run-tests.js --grep \"AUTH-[0-9]{2}\"",
+    "test:authz": "node scripts/run-tests.js tests/authz",
+    "test:asset": "node scripts/run-tests.js tests/asset",
+    "test:api": "node scripts/run-tests.js tests/api",
+    "test:cookie": "node scripts/run-tests.js tests/cookie",
+    "test:full": "node scripts/run-tests.js",
+    "test:list": "playwright test --list",
+    "test:data-lifecycle": "node scripts/verify-test-data-lifecycle.js",
+    "test:data-cleanup": "node scripts/cleanup-managed-data.js",
+    "test:case": "node scripts/run-tests.js --grep"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rikokyu/KiemThu_Nhom3_R03_K08.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rikokyu/KiemThu_Nhom3_R03_K08/issues"
+  },
+  "homepage": "https://github.com/Rikokyu/KiemThu_Nhom3_R03_K08#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.11"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.10"
+  }
+}
