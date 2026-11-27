@@ -1,7 +1,7 @@
 {
   "name": "kiemthu_nhom3_r03_k08",
   "version": "1.0.0",
-  "description": "> **Đơn vị:** Trường Đại học Đà Lạt – Khoa Công nghệ Thông tin  \r > **Học phần:** Kiểm thử phần mềm  \r > **Giảng viên:** Nguyễn Thế Lâm  \r > **Nhóm:** 5 thành viên  \r > **Nhóm trưởng:** Nguyễn Trung Hiệp  \r > **Trạng thái:** Kế hoạch thực hiện và phân công công việc; cập nhật kết quả sau khi kiểm chứng trên môi trường local.",
+  "description": "Hệ thống kiểm thử tự động Snipe-IT bằng Playwright, bao gồm kiểm thử Authentication, Authorization, Asset Management, API và Cookie/Session Security.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -25,7 +25,12 @@
     "type": "git",
     "url": "git+https://github.com/Rikokyu/KiemThu_Nhom3_R03_K08.git"
   },
-  "keywords": [],
+  "keywords": [
+    "playwright",
+    "software-testing",
+    "snipe-it",
+    "automation-testing"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {

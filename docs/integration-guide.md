@@ -22,7 +22,7 @@ Repository hiện tại lưu README, tài liệu, cấu hình và artefact kiể
 | Checklist trước/trong/sau scan | `test-cases/dast-checklist.md` | Nguyễn Trung Hiệp + Ngô Văn Chương |
 | Cấu hình ZAP đã làm sạch                   | `dast/config/`                                    | Nguyễn Lê Anh Tuấn                |
 | Script/harness và cách chạy                | `dast/scripts/`, `docs/dast-runbook.md`           | Nguyễn Lê Anh Tuấn                |
-| Playwright, Test Data Management và báo cáo tự động | `automation/`                               | Ngô Văn Chương (theo xác nhận của nhóm) |
+| Playwright, Test Data Management và báo cáo tự động | `automation/`                               | Ngô Văn Chương  |
 | Kết quả phân tích phát hiện                | `docs/findings.md`                                | Đỗ Duy Biên                       |
 | Report và bằng chứng đã làm sạch           | `reports/`, `evidence/`                           | Người chạy; Đỗ Duy Biên tổng hợp  |
 

@@ -18,6 +18,17 @@ File `.env` đã được Git ignore; không chia sẻ hoặc ghi các giá tr�
 report hay source code. Global setup đăng nhập và xác minh quyền Superuser
 trước khi chuẩn bị dữ liệu. Nếu preflight thất bại, suite dừng.
 
+Để thuận tiện cho việc chạy test tự động, cần đáp ứng các yêu cầu sau:
+Đã chạy dự án snipe-it và docker engine lên.
+Sau khi chạy nên thì nạp dữ liệu mẫu của dự án vào.
+Thì cuối cùng file `automation/.env` mặt định như sau:
+
+```powershell
+BASE_URL=http://localhost:8000
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=password
+```
+
 ## Lệnh chạy
 
 ```powershell
