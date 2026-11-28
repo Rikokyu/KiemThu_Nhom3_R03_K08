@@ -3,6 +3,10 @@
 > Phụ trách: Ngô Văn Chương
 > Trạng thái: Sơ đồ logic theo môi trường Docker Compose và phạm vi kiểm thử của nhóm; không phải sơ đồ mã nguồn chi tiết.
 
+Các mã `TC_*` trong tài liệu này thuộc bộ test thủ công/DAST. Bộ Playwright
+`AUTH-*`/`AUTHZ-*`/`ASSET-*`/`API-*`/`COOKIE-*` là bộ chức năng tự động riêng,
+được mô tả trong [automation report](../automation/docs/TEST_CASE_IMPLEMENTATION_REPORT.md).
+
 ## Sơ đồ component/container
 
 ```mermaid

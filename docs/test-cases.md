@@ -1,7 +1,12 @@
-# Test cases DAST
+# Bộ Test Case thủ công và DAST
 
 > Phụ trách rà soát và tổng hợp: Nguyễn Trung Hiệp
 > Phân công từng nhóm case theo bảng phân công; chỉ cập nhật kết quả sau khi chạy thật và lưu evidence.
+
+Tài liệu này mô tả bộ case dùng cho kiểm thử thủ công và DAST, với mã bắt đầu
+bằng `TC_`. Đây là bộ riêng với Playwright Automation (`AUTH-01`,
+`AUTHZ-01`, `ASSET-01`, `API-01`, `COOKIE-01`); không gộp mã, precondition
+hay kết quả của hai bộ. Xem [báo cáo automation](../automation/docs/TEST_CASE_IMPLEMENTATION_REPORT.md).
 
 ## Danh sách test case
 
@@ -20,7 +25,7 @@
 | ZAP | `TC_ZAP_001` | Đánh giá HTTP security headers | Target local trong scope | Nguyễn Lê Anh Tuấn | — | NOT RUN |
 | ZAP | `TC_ZAP_002` | Thu thập, phân loại và xác minh cảnh báo ZAP | Target/context local đã duyệt | Nguyễn Lê Anh Tuấn | — | NOT RUN |
 
-Chi tiết precondition, input/steps và expected result nằm trong [`../test-cases/dast-test-cases.csv`](../test-cases/dast-test-cases.csv). Endpoint API cụ thể phải được xác định và ghi nhận trước khi chạy; không thay placeholder bằng route suy đoán.
+Chi tiết precondition, input/steps và expected result nằm trong [`../test-cases/dast-test-cases.csv`](../test-cases/dast-test-cases.csv). Endpoint API cụ thể phải được xác định và ghi nhận trước khi chạy; không thay placeholder bằng route suy đoán. CSV hiện vẫn giữ trạng thái `NOT RUN` ở cấp từng case; report ZAP là bằng chứng của một lượt quét, không tự động cập nhật trạng thái case khi chưa có mapping và actual result được nhóm xác nhận.
 Trong CSV, `Owner`/`Collaborator` ghi phân công; `Run By`/`Run Date` ghi nhận lần thực thi thực tế.
 
 ## Đối chiếu trạng thái với bảng theo dõi
@@ -31,7 +36,7 @@ Trong CSV, `Owner`/`Collaborator` ghi phân công; `Run By`/`Run Date` ghi nhậ
 
 ## Mẫu test case
 
-### <ID> — <Tên ngắn>
+### Mẫu trống — thay bằng case đã được phê duyệt
 
 - **Mục tiêu:**
 - **Module/URL trong scope:**

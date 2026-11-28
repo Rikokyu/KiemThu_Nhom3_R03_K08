@@ -1,17 +1,37 @@
-# Local environment and credentials
+
+# Environment and credentials
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 
-# OWASP ZAP local session/state files
+# OWASP ZAP session and local state files
 *.session
+*.session.*
 *.session-wal
 *.session-shm
 
-# Local editor/OS files
+# Local editor and operating system files
 .vscode/
 .idea/
 Thumbs.db
 .DS_Store
+
+# Node.js
+node_modules/
+automation/node_modules/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Automation local files
+automation/.env
+automation/test-results/
+automation/reports/
+automation/playwright-report/
+automation/.cache/

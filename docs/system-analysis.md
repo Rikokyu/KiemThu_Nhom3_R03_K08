@@ -9,6 +9,10 @@ Snipe-IT là ứng dụng quản lý tài sản CNTT. Trong đề tài này, nh�
 
 Môi trường tham chiếu là Snipe-IT `v8.8.0`, commit `2c466fa8a5a68525439bf1bbbc24470d6670c516`, chạy cục bộ bằng Docker Compose; chi tiết tại [`version-lock.md`](version-lock.md), [`setup-docker.md`](setup-docker.md) và [`test-environment.md`](test-environment.md).
 
+Các mã `TC_*` trong tài liệu phân tích thuộc bộ case thủ công/DAST. Bộ
+Playwright có mã `AUTH-01`…`COOKIE-04` riêng; không suy ra kết quả của bộ này
+từ kết quả DAST hoặc ngược lại.
+
 ## Actor và use case
 
 | Actor | Use case trong phạm vi | Bằng chứng/nguồn |

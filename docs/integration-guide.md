@@ -22,15 +22,16 @@ Repository hiện tại lưu README, tài liệu, cấu hình và artefact kiể
 | Checklist trước/trong/sau scan | `test-cases/dast-checklist.md` | Nguyễn Trung Hiệp + Ngô Văn Chương |
 | Cấu hình ZAP đã làm sạch                   | `dast/config/`                                    | Nguyễn Lê Anh Tuấn                |
 | Script/harness và cách chạy                | `dast/scripts/`, `docs/dast-runbook.md`           | Nguyễn Lê Anh Tuấn                |
+| Playwright, Test Data Management và báo cáo tự động | `automation/`                               | Ngô Văn Chương  |
 | Kết quả phân tích phát hiện                | `docs/findings.md`                                | Đỗ Duy Biên                       |
 | Report và bằng chứng đã làm sạch           | `reports/`, `evidence/`                           | Người chạy; Đỗ Duy Biên tổng hợp  |
 
 ## Thứ tự tích hợp
 
 1. **Chốt phiên bản:** điền repository, release/tag, commit SHA và dependency đã kiểm chứng vào `docs/version-lock.md`. Dùng đúng SHA khi clone/checkout; không dùng nhánh di động làm định danh kết quả.
-2. **Ghi setup:** Nguyễn Văn An hoàn thiện đúng một hướng dẫn được nhóm dùng (`setup-local.md` hoặc `setup-docker.md`), gồm prerequisite, cấu hình mẫu, lệnh khởi động/kiểm tra/dừng, seed và reset. Hướng dẫn còn lại ghi rõ không áp dụng nếu nhóm không hỗ trợ cách đó.
+2. **Ghi setup:** môi trường đã ghi nhận dùng Docker Compose. Dùng `setup-docker.md`; `setup-local.md` được đánh dấu không hỗ trợ vì chưa có hướng dẫn local được kiểm chứng. Không chạy seed/reset trên dữ liệu cần giữ; `down -v` chỉ được cân nhắc cho lab dùng một lần, theo cảnh báo trong hướng dẫn.
 3. **Tích hợp test:** liên kết mỗi test case với module/URL trong scope, điều kiện chạy, tài khoản/role (chỉ tên/placeholder), expected result và evidence. Trạng thái ban đầu là `NOT RUN`.
-4. **Tích hợp ZAP:** Nguyễn Lê Anh Tuấn ghi target local, phiên bản ZAP/image, cấu hình context/auth đã làm sạch, lệnh chính xác, report đầu ra và giới hạn scan trong `docs/dast-runbook.md` cùng `dast/`; Ngô Văn Chương phối hợp phân tích chức năng/URL.
+4. **Tích hợp ZAP:** Nguyễn Lê Anh Tuấn ghi target local, phiên bản ZAP/image, cấu hình context/auth đã làm sạch, thao tác chạy, report đầu ra và giới hạn scan trong `docs/dast-runbook.md` cùng `dast/`. Phiên bản ZAP và cấu hình profile/auth hiện chưa được xác minh (`CẦN XÁC NHẬN`); thư mục `dast/config/` và `dast/scripts/` hiện chỉ có README quy ước. Ngô Văn Chương phối hợp phân tích chức năng/URL.
 5. **Tích hợp kết quả:** lưu report đã làm sạch dưới `reports/`, ảnh trong `evidence/screenshots/`, log đã rà soát trong `evidence/logs/`; cập nhật `docs/findings.md` và liên kết evidence bằng đường dẫn tương đối. Không đưa artefact thô chứa cookie, token, mật khẩu hoặc dữ liệu cá nhân vào Git.
 6. **Hoàn thiện README:** README gốc dẫn tới setup, version lock, test case, runbook, findings và report. Phần Quick Start phải dùng đúng lệnh đã kiểm chứng ở các tài liệu nguồn, tránh duy trì nhiều bản lệnh khác nhau.
 7. **Peer-review:** một thành viên không phải tác giả chạy lại theo checklist dưới đây, đối chiếu output/path report, kiểm tra scope và rà soát bí mật trước khi merge.
@@ -43,7 +44,8 @@ Repository hiện tại lưu README, tài liệu, cấu hình và artefact kiể
 - [ ] Khởi động ứng dụng và xác nhận URL/port local đúng với runbook.
 - [ ] Tạo dữ liệu giả lập và tài khoản test theo hướng dẫn; xác nhận cách reset trước active scan.
 - [ ] Hoàn thành checklist trong `test-cases/dast-checklist.md` và cập nhật trạng thái từng case trong CSV/Markdown.
-- [ ] Chạy test/DAST chỉ trên instance local đã được phê duyệt; bắt đầu passive scan, review scope rồi mới active scan.
+- [ ] Chạy bộ phù hợp trên instance local đã được phê duyệt: test thủ công, Playwright (`automation/README.md`) và/hoặc DAST theo `docs/dast-runbook.md`. Không xem chúng là một bộ case.
+- [ ] Với DAST, bắt đầu bằng thu thập/passive scan; chỉ chạy active scan sau khi review scope, có phê duyệt và có cách khôi phục.
 - [ ] Xuất report/evidence vào vị trí được chỉ định; ghi ngày chạy, người chạy, phiên bản, target, trạng thái và giới hạn.
 - [ ] Kiểm tra lại report/log/ảnh, loại bỏ thông tin nhạy cảm và cập nhật liên kết evidence.
 - [ ] Ghi actual result; chỉ đánh dấu `PASS`/`FAIL` sau khi thực thi. Dùng `BLOCKED` hoặc `NOT RUN` đúng nghĩa.
@@ -70,7 +72,7 @@ Mỗi lệnh hướng dẫn phải có đủ:
 - [ ] `git diff --check` không báo lỗi whitespace; diff không có `.env`, credential, token, cookie, database dump hoặc report chưa làm sạch.
 - [ ] PR nêu artefact/lệnh đã kiểm chứng, môi trường chạy và kết quả kiểm tra.
 
-## Trạng thái test case theo bảng phân công
+## Phân công test case theo tài liệu giữa kỳ
 
 | Nhóm | Người phụ trách chính | Phối hợp | Trạng thái trong ảnh |
 |---|---|---|---|
@@ -83,6 +85,26 @@ Mỗi lệnh hướng dẫn phải có đủ:
 | Xác minh/phân loại lỗi | Ngô Văn Chương | Người phụ trách case tương ứng | Chưa ghi |
 
 “Hoàn thành” ở bảng này là trạng thái nhóm công việc. Không tự chuyển trạng thái từng case sang `PASS` hoặc `FAIL`; phải điền actual result và evidence trong CSV sau khi đối chiếu kết quả chạy.
+
+Playwright là bộ độc lập gồm 29 mã `AUTH-*`, `AUTHZ-*`, `ASSET-*`, `API-*`
+và `COOKIE-*`. Theo thông tin nhóm cung cấp, Ngô Văn Chương phụ trách thiết kế,
+triển khai, tích hợp và báo cáo bộ này; các artefact thực tế nằm trong
+`automation/`. Không thay mã `TC_*` của bộ DAST bằng mã Playwright.
+
+### Kết quả automation được cung cấp gần nhất
+
+Lượt gần nhất có RUN_ID `20261127142336-FDB59D`, summary sinh lúc
+`2026-11-27T14:26:40Z`: **34 executions, 31 PASS, 1 FAIL, 2 SKIPPED**,
+thời lượng người chạy ghi nhận khoảng 3 phút 12 giây. 34 executions gồm 29
+mã nghiệp vụ, các subtest của `ASSET-04` và một smoke check. Ở cấp mã case:
+26 PASS, `ASSET-04` FAIL; `AUTHZ-06` và `COOKIE-04` bị chặn bởi precondition.
+Playwright raw result gọi hai lần chạy đó `SKIPPED`; summary generator ánh xạ
+sang `BLOCKED`. Summary/JSON local và cleanup/fingerprint evidence:
+[`automation/docs/FINAL_TEST_REPORT.md`](../automation/docs/FINAL_TEST_REPORT.md).
+
+Các hàng dưới đây là snapshot ảnh bảng tiến độ ban đầu, không phải báo cáo
+trạng thái hiện tại; giữ lại để đối chiếu lịch sử và cần nhóm xác nhận trước
+khi dùng như phân công/tiến độ mới nhất.
 
 ## Snapshot tiến độ công việc
 

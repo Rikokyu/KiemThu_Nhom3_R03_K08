@@ -1,32 +1,20 @@
-# Thiết lập Snipe-IT bằng Docker
+# Cài đặt Snipe-IT bằng Docker Compose
 
-> Phụ trách: Nguyễn Văn An  
-> Nguồn tham chiếu: báo cáo giữa kỳ, mục 3 - Triển khai Snipe-IT bằng Docker  
-> Trạng thái: đã kiểm chứng trên Windows/Docker Desktop với Snipe-IT v8.8.0
+> **Môi trường đã ghi nhận:** Windows 11, Docker Desktop/Linux Containers,
+> WSL 2; Snipe-IT `v8.8.0`, MariaDB 11.4.7, `http://localhost:8000`.
+> Thông tin phiên bản chi tiết tại [version-lock.md](version-lock.md).
 
-## 1. Phiên bản và môi trường
+Repository bài tập không chứa source Snipe-IT hoặc Compose file. Các bước dưới
+đây chạy trong bản clone riêng của upstream đã khóa tag/SHA, không chạy từ
+thư mục repository bài tập.
 
-| Thành phần | Giá trị đã kiểm chứng |
-|---|---|
-| Hệ điều hành | Windows 11, Docker Desktop dùng Linux Containers/WSL 2 |
-| Docker Engine | 29.8.0 |
-| Docker Compose | v5.5.1 |
-| Snipe-IT release | `v8.8.0` |
-| Commit upstream | `2c466fa8a5a68525439bf1bbbc24470d6670c516` |
-| Database | MariaDB 11.4.7 |
-| URL local | `http://localhost:8000` |
+## 1. Điều kiện
 
-Các giá trị chi tiết được ghi tại [`version-lock.md`](./version-lock.md). Tài khoản admin/end-user được ghi tại [`test-environment.md`](./test-environment.md).
+- Docker Desktop đang chạy với Linux Containers và WSL 2.
+- Git đã cài; PowerShell được dùng cho các lệnh bên dưới.
+- Port `8000` chưa được ứng dụng khác sử dụng.
 
-## 2. Điều kiện
-
-- Docker Desktop đang chạy ở chế độ Linux Containers.
-- WSL 2 đã được bật.
-- Đã cài Git.
-- Mở PowerShell.
-- Port `8000` chưa bị ứng dụng khác chiếm.
-
-Kiểm tra:
+Kiểm tra phiên bản công cụ:
 
 ```powershell
 docker --version
@@ -34,25 +22,31 @@ docker compose version
 docker info
 ```
 
-## 3. Clone đúng phiên bản Snipe-IT
+Giá trị Docker/Compose đã ghi nhận trong lần dựng trước là Engine `29.8.0`
+và Compose `v5.5.1`; đây là thông tin môi trường đã ghi, không phải yêu cầu
+cứng để tự nâng cấp máy.
+
+## 2. Lấy đúng bản Snipe-IT
 
 ```powershell
 git clone --branch v8.8.0 --single-branch https://github.com/grokability/snipe-it.git
-cd snipe-it
+Set-Location snipe-it
 git rev-parse HEAD
 ```
 
-Commit phải bắt đầu bằng hoặc khớp với `2c466fa8a5a68525439bf1bbbc24470d6670c516`.
+Đối chiếu SHA với [version-lock.md](version-lock.md). Không dùng `main` hoặc
+tag khác để tái lập kết quả của phiên bản đã khóa.
 
-## 4. Tạo cấu hình `.env`
+## 3. Tạo cấu hình riêng cho lab mới
 
-Trong thư mục nguồn Snipe-IT, chạy:
+Trong thư mục source Snipe-IT:
 
 ```powershell
 if (!(Test-Path ".env")) { Copy-Item ".env.docker" ".env" }
 ```
 
-Cấu hình ít nhất các dòng sau:
+Điền các biến cần thiết trong `.env` local. Không commit file này và không
+dùng mật khẩu minh họa trong môi trường dùng chung/công khai:
 
 ```dotenv
 APP_VERSION=v8.8.0
@@ -66,21 +60,20 @@ DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=snipeit
 DB_USERNAME=snipeit
-DB_PASSWORD=THAY_BANG_MAT_KHAU_MOI
-MYSQL_ROOT_PASSWORD=THAY_BANG_MAT_KHAU_ROOT_MOI
+DB_PASSWORD=<đặt-mật-khẩu-riêng>
+MYSQL_ROOT_PASSWORD=<đặt-mật-khẩu-root-riêng>
 ```
 
-Không dùng mật khẩu mẫu trong môi trường công khai.
-
-Tạo `APP_KEY` mới:
+Tạo `APP_KEY` theo quy trình của release đã checkout, rồi lưu giá trị chỉ
+trong `.env` local:
 
 ```powershell
 docker compose run --rm --no-deps app php artisan key:generate --show
 ```
 
-Dán chuỗi kết quả bắt đầu bằng `base64:` vào `APP_KEY=` trong `.env`.
+Không sao chép hoặc gửi giá trị `APP_KEY`, password hoặc nội dung `.env`.
 
-## 5. Khởi chạy
+## 4. Khởi chạy và kiểm tra
 
 ```powershell
 docker compose pull
@@ -89,10 +82,9 @@ docker compose ps
 docker compose logs -f
 ```
 
-Mở `http://localhost:8000/setup`.
-Sau khi database có thể kết nối, vào bước Pre-Flight/Migrate và hoàn tất trang **Create an Admin User** bằng thông tin tại [`test-environment.md`](./test-environment.md).
-
-Nếu wizard không chuyển sang trang đăng nhập sau migration, chạy migration và kiểm tra lại:
+Mở `http://localhost:8000/setup` và hoàn thành trình cài đặt chỉ cho database
+lab mới. Nếu release/Compose file yêu cầu migration sau khi cấu hình xong, các
+lệnh sau tác động lên database đang chạy; chỉ dùng khi đã xác nhận đúng target:
 
 ```powershell
 docker compose exec app php artisan migrate --force
@@ -100,39 +92,50 @@ docker compose exec app php artisan config:clear
 docker compose exec app php artisan cache:clear
 ```
 
-Nếu đã có tài khoản admin lỗi trùng, không tạo lại bản ghi thủ công bằng wizard. Có thể xóa bản ghi test trong cơ sở dữ liệu hoặc reset volume theo mục bên dưới.
+Không chạy các lệnh trên để khắc phục lỗi nếu chưa biết rõ đang kết nối tới
+database nào. Không import sample data vào instance có dữ liệu cần giữ.
 
-## 6. Dữ liệu mẫu và tài khoản test
+## 5. Tài khoản và dữ liệu cho DAST
 
-Sau khi đăng nhập Admin:
+Tạo tài khoản lab và dữ liệu giả lập theo
+[test-environment.md](test-environment.md). Không dùng tài khoản, dữ liệu cá
+nhân hoặc database của môi trường thật. Trước khi active scan, xác nhận target,
+scope và phương án khôi phục.
 
-1. Vào **People > Create User** để tạo hoặc kiểm tra tài khoản End-User.
-2. Vào **Import** để tải CSV dữ liệu mẫu từ thư mục `sample_csvs` của release Snipe-IT.
-3. Kiểm tra tài khoản End-User không truy cập được `/users`; kết quả mong đợi là HTTP 403 hoặc redirect hợp lệ.
+Automation Playwright có `.env` riêng trong `automation/`; cách cấu hình và
+chạy nằm tại [automation/README.md](../automation/README.md). Đây là dữ liệu
+kiểm thử riêng của Playwright, không yêu cầu import mẫu hay reset database.
 
-Thông tin đăng nhập mục tiêu được ghi tại [`test-environment.md`](./test-environment.md).
+## 6. Dừng/khởi động lại thông thường
 
-## 7. Reset môi trường sạch
+Các lệnh sau không yêu cầu xóa volume:
 
-Chỉ chạy khi cần khởi tạo lại toàn bộ database và dữ liệu test:
+```powershell
+docker compose stop
+docker compose start
+docker compose down
+```
+
+`docker compose down` dừng/xóa container và network của project; mặc định giữ
+volume dữ liệu. Kiểm tra Compose project/volume trước khi thao tác nếu máy có
+nhiều instance.
+
+## 7. Reset một lab dùng một lần — thao tác phá hủy
+
+> **CẢNH BÁO:** `docker compose down -v` xóa volume gắn với Compose project,
+> bao gồm database và các tệp được lưu trong volume. Dữ liệu không thể khôi
+> phục nếu chưa có backup. Không dùng lệnh này cho lỗi thông thường, instance
+> đang dùng chung, hoặc môi trường có dữ liệu cần giữ.
+
+Chỉ thực hiện reset khi chủ sở hữu đã xác nhận instance này là lab bỏ được,
+đã xác định đúng thư mục/Compose project, và dữ liệu có thể bị xóa. Sao lưu
+trước nếu cần giữ lại. Lệnh sau **không được chạy trong lượt chỉnh tài liệu
+này**:
 
 ```powershell
 docker compose down -v
-docker compose pull
-docker compose up -d
 ```
 
-`down -v` xóa volume database và file lưu trữ. Sau đó chạy lại bước migration/wizard và tạo admin/end-user.
-
-## 8. Dừng và khởi động lại
-
-```powershell
-# Dừng nhưng giữ database và dữ liệu
-docker compose stop
-
-# Khởi động lại dữ liệu hiện có
-docker compose start
-
-# Xóa container nhưng giữ volume
-docker compose down
-```
+Sau reset, việc khởi tạo lại sẽ cần cấu hình `.env`, chạy setup/migration và
+tạo dữ liệu lab mới. Không dùng reset để làm sạch dữ liệu của test automation;
+Playwright có cleanup theo manifest và không reset database.

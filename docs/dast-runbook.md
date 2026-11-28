@@ -1,65 +1,104 @@
-# Runbook kiểm thử DAST bằng OWASP ZAP
+# Runbook DAST với OWASP ZAP
 
-> Phụ trách: Nguyễn Lê Anh Tuấn
+> Phụ trách ZAP theo phân công hiện có: Nguyễn Lê Anh Tuấn. Ngô Văn Chương
+> phối hợp phân tích chức năng/URL. Phiên bản ZAP và profile dùng trong lần
+> quét hiện chưa được xác minh (`CẦN XÁC NHẬN`).
 
-## 1. Tổng quan về DAST
+## 1. Phạm vi và phân biệt phương pháp
 
-DAST (Dynamic Application Security Testing) là kỹ thuật kiểm thử bảo mật ứng dụng khi hệ thống đang chạy. Công cụ quan sát các yêu cầu và phản hồi HTTP, mã trạng thái và dữ liệu trả về để nhận diện dấu hiệu cấu hình sai hoặc xử lý thiếu an toàn. Đây là cách tiếp cận hộp đen, dựa trên hành vi quan sát được từ giao diện web và API, không yêu cầu truy cập mã nguồn.
+DAST (Dynamic Application Security Testing — kiểm thử bảo mật động) quan sát
+request/response của ứng dụng đang chạy. Bộ case DAST/thủ công có mã
+`TC_*`, trong đó `TC_ZAP_001` tập trung HTTP security headers và
+`TC_ZAP_002` ghi nhận, phân loại cảnh báo ZAP. Bộ Playwright là automation
+chức năng riêng, dùng các mã `AUTH-*`, `AUTHZ-*`, `ASSET-*`, `API-*` và
+`COOKIE-*`; xem [báo cáo automation](../automation/docs/FINAL_TEST_REPORT.md).
 
-Quy trình gồm xác định các trang, biểu mẫu và API nằm trong phạm vi kiểm thử, thu thập lưu lượng phát sinh khi sử dụng ứng dụng, rồi phân tích phản hồi và ghi nhận cảnh báo. Quét thụ động phân tích lưu lượng đã được ghi nhận. Quét chủ động là một chế độ riêng có thể gửi thêm yêu cầu kiểm thử và ảnh hưởng đến dữ liệu hoặc tải của hệ thống.
+Target đã ghi nhận trong báo cáo DAST:
 
-### Ưu điểm và giới hạn
+```text
+http://localhost:8000
+```
 
-| Ưu điểm | Giới hạn |
+Chỉ kiểm thử instance lab này khi được phép. Không dùng domain/IP bên ngoài
+scope. Passive scan phân tích lưu lượng đã thu thập; active scan gửi thêm
+request và có thể thay đổi dữ liệu hoặc tạo tải.
+
+## 2. Thông tin đã xác minh và còn thiếu
+
+| Thông tin | Giá trị |
 |---|---|
-| Phát hiện dấu hiệu lỗi xuất hiện khi ứng dụng đang chạy, như cấu hình sai, vấn đề xác thực và xử lý lỗi thiếu an toàn. | Cảnh báo có thể là dương tính giả. Công cụ cũng có thể bỏ sót lỗi phụ thuộc vào ngữ cảnh hoặc luồng nghiệp vụ cụ thể. |
-| Phù hợp với nhiều ngôn ngữ và framework. | Phạm vi chủ yếu là ứng dụng web và API. Kết quả thường cần đối chiếu thêm để xác định vị trí lỗi trong mã nguồn. |
-| Báo cáo chỉ ra URL bị ảnh hưởng và bằng chứng quan sát được, hỗ trợ ưu tiên khắc phục. | Các màn hình sau đăng nhập và luồng nhiều bước cần thao tác khám phá phù hợp. Phạm vi lớn làm tăng thời gian kiểm thử. |
-| Có thể tích hợp vào quy trình CI/CD để kiểm tra lặp lại. | Việc thiết lập và cấu hình cần thời gian. Nếu chỉ chạy ở giai đoạn tiền sản xuất, lỗi có thể được phát hiện muộn. |
+| Snipe-IT | `v8.8.0`, commit `2c466fa8a5a68525439bf1bbbc24470d6670c516` |
+| Target | `http://localhost:8000` |
+| ZAP phiên bản | **CẦN XÁC NHẬN** từ `Help/About` của máy đã dùng |
+| ZAP image/profile/context | **CẦN XÁC NHẬN**; chưa có file cấu hình trong repository |
+| Cấu hình xác thực ZAP | **CẦN XÁC NHẬN**; không có cấu hình đã làm sạch được bàn giao |
+| Report đã lưu | [`RUN-01-20261016-zap-report.html`](../reports/RUN-01-20261016-zap-report.html) |
+| Findings và ảnh | [findings.md](findings.md), thư mục [`evidence/`](../evidence/) |
 
-### Lý do áp dụng cho Snipe-IT
+`dast/config/` và `dast/scripts/` hiện chỉ có README quy ước, chưa có cấu hình
+hay script chạy DAST đã xác minh. Vì vậy không suy đoán image tag, context,
+authentication method, policy hoặc lệnh CLI. Ảnh hướng dẫn ZAP hiện có tại
+[`Tài liệu cài đặt ozap.docx`](T%C3%A0i%20li%E1%BB%87u%20c%C3%A0i%20%C4%91%E1%BA%B7t%20ozap.docx)
+chỉ là tài liệu hỗ trợ thao tác, không thay thế phiên bản/profile thực tế.
 
-Snipe-IT quản lý tài sản CNTT, thiết bị, người dùng và lịch sử cấp phát. Nhóm dùng DAST để đánh giá các dấu hiệu rủi ro liên quan đến xác thực, phân quyền, xử lý dữ liệu đầu vào và nguy cơ lộ thông tin qua giao diện web. Kết quả từ ZAP hỗ trợ xác định các vấn đề cần đối chiếu với ca kiểm thử hộp đen, đánh giá mức độ rủi ro và đề xuất khắc phục.
+## 3. Chuẩn bị trước khi chạy
 
-## 2. Chuẩn bị môi trường
+1. Đọc [version-lock.md](version-lock.md), [setup-docker.md](setup-docker.md)
+   và [test-environment.md](test-environment.md). Xác nhận đúng lab local,
+   SHA ứng dụng và quyền kiểm thử.
+2. Xác nhận ZAP version từ giao diện **Help/About**; ghi version/date/operator
+   vào run record. Không ghi password, token, cookie hoặc file session thô.
+3. Mở/khôi phục ZAP theo phiên bản đã xác nhận. Thiết lập target/context chỉ
+   gồm `http://localhost:8000`; ghi rõ include/exclude và xác nhận không có
+   host ngoài scope trong History/Sites.
+4. Nếu cần đăng nhập, dùng tài khoản lab riêng. Cách cấu hình xác thực ZAP
+   hiện chưa được ghi nhận; cần xác nhận với người đã thực hiện trước khi
+   tuyên bố đã quét authenticated pages.
+5. Tạo/kiểm tra dữ liệu giả lập và xác nhận phương án khôi phục trước active
+   scan. Không reset database để chạy lại automation.
 
-- Đối chiếu và ghi phiên bản thực tế của ZAP và Snipe-IT theo [bảng khóa phiên bản](version-lock.md).
-- Xác nhận Snipe-IT đang chạy theo [hướng dẫn Docker](setup-docker.md) hoặc [hướng dẫn cài local](setup-local.md).
-- Dùng tài khoản lab và dữ liệu giả lập theo [tài liệu môi trường kiểm thử](test-environment.md). Chuẩn bị cách đặt lại dữ liệu trước khi thao tác.
-- Giới hạn phiên kiểm thử trong instance Snipe-IT local đã được nhóm cho phép.
+## 4. Thu thập và quét
 
-| Thuộc tính | Giá trị |
-|---|---|
-| URL local | `http://localhost:8000` |
-| Phiên bản ZAP hoặc image tag | Điền sau khi đối chiếu phiên bản thực tế |
-| Chế độ thao tác | Manual Explore và quét thụ động |
-| Context hoặc profile | Ghi tên cấu hình thực tế nếu sử dụng |
-| Cấu hình xác thực | Dùng tài khoản lab. Nếu lưu cấu hình, chỉ ghi đường dẫn đến bản đã loại bỏ bí mật. |
-| Người chạy và thời gian | Điền sau mỗi lần kiểm thử |
+1. Dùng trình duyệt proxied bởi ZAP để Manual Explore các luồng nằm trong
+   scope. Nếu chưa xác nhận đăng nhập/context, chỉ thu thập trang công khai
+   và ghi rõ giới hạn.
+2. Kiểm tra Sites/History để chắc rằng request chỉ thuộc target đã duyệt.
+3. Chạy passive analysis trên traffic đã thu thập. Ghi thời gian, URL/nhóm
+   luồng, status và cảnh báo; không coi alert đơn lẻ là defect đã xác nhận.
+4. Chỉ chạy active scan sau khi người phụ trách xác nhận target, scope, quyền,
+   dữ liệu có thể bị tác động và khả năng khôi phục. Đặt giới hạn theo scope
+   đã duyệt; dừng ngay nếu xuất hiện request ra ngoài phạm vi.
+5. Lần RUN-01 có report và findings được lưu; cấu hình chi tiết để tái lập
+   lần đó chưa có đầy đủ trong repository (`CẦN XÁC NHẬN`).
 
-## 3. Cài đặt OWASP ZAP
+## 5. Xuất report và cập nhật findings
 
-1. Tải bộ cài ZAP Desktop phù hợp với hệ điều hành từ trang chính thức của ZAP.
-2. Chạy trình cài đặt và mở ZAP. Nếu hệ điều hành hiển thị cảnh báo, kiểm tra lại nguồn và nhà phát hành của bộ cài trước khi tiếp tục.
-3. Chọn cách lưu phiên theo nhu cầu. Khi cần xem lại kết quả, chọn thư mục lưu phiên dành cho đợt kiểm thử.
-4. Mở **Quick Start** và chọn **Manual Explore**. ZAP làm proxy giữa trình duyệt kiểm thử và Snipe-IT để ghi nhận các yêu cầu và phản hồi HTTP.
+1. Xuất report từ phiên ZAP sau khi kiểm tra target và nội dung. Report mẫu
+   hiện có tại `reports/RUN-01-20261016-zap-report.html`.
+2. Lưu file mới dưới `reports/` với Run ID/ngày; trước khi chia sẻ, rà soát
+   cookie, token, password, dữ liệu cá nhân và host ngoài scope.
+3. Gắn ảnh/log đã làm sạch trong `evidence/screenshots/` và `evidence/logs/`.
+   Không thay thế hoặc xóa evidence đã có khi chưa được nhóm đồng ý.
+4. Cập nhật actual result và evidence trong CSV/case report chỉ khi xác định
+   rõ case ID. Finding có mã riêng dạng `FIND-nn`, không phải Test Case ID.
+   Các mã `TC_DAST_04`/`TC_DAST_05`/`TC_DAST_06` trong report cũ không có trong
+   CSV hiện tại; mapping với `TC_ZAP_001`/`TC_ZAP_002` đang
+   **CẦN XÁC NHẬN**.
+5. Phân biệt alert, quan sát được tái hiện và lỗ hổng khai thác được. Báo cáo
+   phải nêu mức độ tin cậy, giới hạn và trạng thái xác minh; không kết luận
+   vulnerability chỉ từ tên alert.
 
-Manual Explore cho phép người kiểm thử đăng nhập bằng tài khoản lab và đi theo các luồng nghiệp vụ thực tế. Cách này hữu ích với các màn hình cần đăng nhập, biểu mẫu nhiều bước và chức năng chỉ xuất hiện sau khi người dùng thao tác.
+## 6. Báo cáo lần chạy
 
-## 4. Thực hiện quét thụ động
+Ghi tối thiểu:
 
-1. Trong **Quick Start → Manual Explore**, nhập `http://localhost:8000`.
-2. Chọn trình duyệt có sẵn và bấm **Launch Browser**. Dùng cửa sổ do ZAP mở để lưu lượng đi qua proxy của ZAP.
-3. Trên cửa sổ đó, thực hiện các thao tác thông thường nằm trong phạm vi kiểm thử, như đăng nhập bằng tài khoản lab, chuyển trang, tìm kiếm và sử dụng biểu mẫu với dữ liệu giả lập.
-4. Kiểm tra cây **Sites** để xem các trang và API đã ghi nhận. Chỉ sử dụng lưu lượng của instance local trong kết quả kiểm thử.
-5. Mở tab **Alerts** để xem các cảnh báo phát sinh từ lưu lượng đã ghi nhận. Ghi lại những luồng đã đi qua để biết phạm vi thực tế của lần quét.
+- Run ID, ngày/giờ, người chạy, target và SHA Snipe-IT.
+- ZAP version, profile/context/auth nếu dùng; các thông tin này hiện
+  **CẦN XÁC NHẬN** cho RUN-01.
+- Chế độ passive/active, scope, luồng đã khám phá và tổng quan kết quả.
+- Link report/evidence; trạng thái từng case và findings.
+- Các giới hạn, cảnh báo chưa tái hiện và cách khôi phục dữ liệu.
 
-## 5. Xuất và lưu báo cáo
-
-1. Sau khi ZAP phân tích xong lưu lượng, chọn **Report → Generate Report**.
-2. Tại **Template**, chọn **Risk Confidence HTML Report** nếu mẫu này có sẵn. Mẫu trình bày các cảnh báo theo mức rủi ro và độ tin cậy.
-3. Kiểm tra phạm vi báo cáo chỉ gồm Snipe-IT local. Chọn thư mục lưu trong **Report Directory** rồi bấm **Generate Report**.
-4. Lưu báo cáo và log đã làm sạch dưới `reports/`. Ghi tên tệp, thời gian chạy và người thực hiện. Kiểm tra cookie, token, mật khẩu, dữ liệu cá nhân và host ngoài phạm vi trước khi commit.
-5. Đối chiếu cảnh báo với [ca kiểm thử](test-cases.md) và ghi kết quả vào [danh sách phát hiện](findings.md). Nêu rõ cảnh báo chưa xác minh, khả năng dương tính giả và phần ứng dụng chưa được quan sát.
-
-Nguồn và ảnh minh họa giao diện: [Tài liệu cài đặt ozap.docx](T%C3%A0i%20li%E1%BB%87u%20c%C3%A0i%20%C4%91%E1%BA%B7t%20ozap.docx).
+Không ghi credential hoặc giá trị token/cookie vào run record. Xem thêm
+[checklist DAST](../test-cases/dast-checklist.md) và
+[quy tắc lưu reports](../reports/README.md).

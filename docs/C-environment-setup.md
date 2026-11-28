@@ -1,22 +1,19 @@
-# Ghi lại thông tin môi trường chạy file này
+# Môi trường triển khai — tham chiếu mục C
 
-> File này dùng để lưu thông tin môi trường thực tế sau khi hệ thống đã chạy thành công. Không lưu mật khẩu, token, private key, cookie hoặc thông tin nhạy cảm trong repository.
+Tài liệu này giữ làm liên kết tham chiếu cho phần môi trường trong báo cáo;
+không phải hướng dẫn cài đặt độc lập. Thông tin đã được đối chiếu trong
+[version-lock.md](version-lock.md) và [test-environment.md](test-environment.md).
 
-| Thông tin            | Giá trị                                   |
-| -------------------- | ----------------------------------------- |
-| Phiên bản Snipe-IT   | Snipe-IT v8.8.0 build 25378 (g8d10063af9) |
-| Địa chỉ local        | URL đang chạy, `http://localhost:8000`    |
-| Phương pháp cài đặt  | Docker                                    |
-| Hệ điều hành         | Windows                                   |
-| Cơ sở dữ liệu        | mariadb                                   |
-| Tài khoản thử nghiệm | Vai trò, không ghi mật khẩu               |
-| Ngày thực hiện       | Ngày chạy kiểm thử                        |
+| Thành phần | Thông tin đã ghi nhận |
+|---|---|
+| Ứng dụng | Snipe-IT `v8.8.0` |
+| Commit upstream | `2c466fa8a5a68525439bf1bbbc24470d6670c516` |
+| Nền tảng | Windows 11, Docker Desktop/Linux Containers, WSL 2 |
+| Cơ sở dữ liệu | MariaDB 11.4.7 |
+| URL lab | `http://localhost:8000` |
+| Tài khoản kiểm thử | Theo vai trò; credential chỉ lưu local, không ghi vào repository |
+| Phiên bản OWASP ZAP | **CẦN XÁC NHẬN** |
 
-> Không cần giữ mật khẩu hoặc token vào file này; chỉ ghi tên vai trò/định danh tài khoản dùng để test.
-
-## Ghi chú lưu ý
-
-- Chỉ điền sau khi môi trường đã chạy thành công và đã kiểm tra bằng chứng.
-- Nếu repo dùng Docker, ghi rõ file compose hoặc lệnh thực tế đã chạy.
-- Nếu repo dùng local setup, ghi rõ runtime, dependency và target URL đã xác nhận.
-- Luôn giữ các file trong `docs/` sạch bí mật trước khi commit/push.
+Repository bài tập không chứa source Snipe-IT hoặc Compose file. Các bước
+khởi chạy đã ghi nhận nằm tại [setup-docker.md](setup-docker.md). Cách cài
+trực tiếp không qua Docker chưa được xác minh; xem [setup-local.md](setup-local.md).
